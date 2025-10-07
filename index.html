@@ -3,24 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio</title>
+    <title>Ahsan Mohammed - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Personal Portfolio</h1>
-    </header>
-    <main>
-        <section>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Ahsan Mohammed</h1>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Hi, I'm <span class="highlight">Ahsan Mohammed</span></h2>
+                <p class="hero-subtitle">Software Engineering Student at SLIIT | Full-Stack Developer</p>
+                <p class="hero-description">Passionate about building scalable web applications with MERN stack and Spring Boot. From Sri Lanka, turning ideas into code.</p>
+                <a href="#portfolio" class="cta-button">View My Work</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=Profile+Photo" alt="Ahsan Mohammed">
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
             <h2>About Me</h2>
-            <p>This is where you can write about yourself.</p>
-        </section>
-        <section>
-            <h2>Projects</h2>
-            <p>Details of your projects will go here.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Your Name</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a final-year software engineering student at SLIIT in Sri Lanka, specializing in full-stack web development. My journey started with Java basics, and I've grown to love creating end-to-end solutions using MERN stack and Spring Boot.</p>
+                    <p>Currently focusing on AI-integrated apps for hospitality and e-commerce. Fun fact: I enjoy coding sessions with kottu roti!</p>
+                    <div class="about-details">
+                        <div><strong>Education:</strong> BSc Software Engineering, SLIIT (Expected 2026)</div>
+                        <div><strong>Location:</strong> Sri Lanka</div>
+                        <div><strong>Interests:</strong> Open-source, Tech blogging, Local meetups</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>My Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/FF6B6B/FFFFFF?text=Hotel+Management" alt="Hotel Management System">
+                    <div class="portfolio-overlay">
+                        <h3>Hotel Management System</h3>
+                        <p>MERN stack app for bookings and admin dashboards.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/hotel-management">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/4ECDC4/FFFFFF?text=TrustySpot" alt="TrustySpot">
+                    <div class="portfolio-overlay">
+                        <h3>TrustySpot</h3>
+                        <p>Spring Boot e-commerce platform.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/trustyspot">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/45B7D1/FFFFFF?text=AI+Menu+Extractor" alt="AI Menu Extractor">
+                    <div class="portfolio-overlay">
+                        <h3>AI Menu Extractor</h3>
+                        <p>MERN-based digital menu system with AI.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/restaurant-menu-mern">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/96CEB4/FFFFFF?text=Grocery+Shop" alt="Grocery Shop">
+                    <div class="portfolio-overlay">
+                        <h3>Grocery Shop Website</h3>
+                        <p>Product management and cart system.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/grocery-shop">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>JavaScript</li>
+                        <li>Java</li>
+                        <li>Python</li>
+                        <li>Kotlin</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Frameworks</h3>
+                    <ul>
+                        <li>React</li>
+                        <li>Node.js</li>
+                        <li>Express</li>
+                        <li>Spring Boot</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases</h3>
+                    <ul>
+                        <li>MongoDB</li>
+                        <li>MySQL</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li>Git</li>
+                        <li>Vite</li>
+                        <li>Ansible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="contact-links">
+                <a href="https://linkedin.com/in/ahsanmohammed"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com/ahsanmohammed"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:ahsanmohammed828@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Ahsan Mohammed. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
