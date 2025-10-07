@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahsan Mohammed - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -15,6 +15,8 @@
             <ul class="nav-links">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#linkedin-connect">LinkedIn</a></li>
+                <li><a href="#tech-tools">Tech Tools</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -31,7 +33,7 @@
                 <a href="#portfolio" class="cta-button">View My Work</a>
             </div>
             <div class="hero-image">
-                <img src="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=Profile+Photo" alt="Ahsan Mohammed">
+                <img src="https://via.placeholder.com/300x300/4F46E5/FFFFFF?text=Profile+Photo" alt="Ahsan Mohammed profile photo">
             </div>
         </div>
     </section>
@@ -53,41 +55,71 @@
         </div>
     </section>
 
-    <section id="portfolio" class="portfolio">
+    <section id="linkedin-connect" class="linkedin-connect">
         <div class="container">
-            <h2>My Portfolio</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="https://via.placeholder.com/400x250/FF6B6B/FFFFFF?text=Hotel+Management" alt="Hotel Management System">
-                    <div class="portfolio-overlay">
-                        <h3>Hotel Management System</h3>
-                        <p>MERN stack app for bookings and admin dashboards.</p>
-                        <a href="https://github.com/AHSANMOHAMMED/hotel-management">View Project</a>
+            <h2>Connect on LinkedIn</h2>
+            <div class="linkedin-card">
+                <a href="https://www.linkedin.com/in/ahsanmohammed" target="_blank" class="linkedin-link">
+                    <div class="linkedin-profile">
+                        <img src="https://via.placeholder.com/300x300/0077B5/FFFFFF?text=Ahsan+Mohammed" alt="Ahsan Mohammed's LinkedIn profile photo" class="linkedin-photo">
+                        <div class="linkedin-info">
+                            <h3>Ahsan Mohammed</h3>
+                            <p class="linkedin-bio">Final-year Software Engineer at SLIIT | MERN & Spring Boot Enthusiast</p>
+                        </div>
                     </div>
+                    <div class="linkedin-endorsements">
+                        <img src="https://via.placeholder.com/100x100/4F46E5/FFFFFF?text=Top+10%25+LinkedIn" alt="LinkedIn Learning badge" title="Top 10% on LinkedIn Learning">
+                        <img src="https://via.placeholder.com/100x100/10B981/FFFFFF?text=Project+Thumb" alt="Project endorsement thumbnail" title="Endorsement for MERN projects">
+                        <img src="https://via.placeholder.com/100x100/F59E0B/FFFFFF?text=Spring+Boot+Cert" alt="Spring Boot certification" title="Certified in Spring Boot">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-tools" class="tech-tools">
+        <div class="container">
+            <h2>Tech Toolkit</h2>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/61DAFB/000000?text=React" alt="React logo" title="React: Built dynamic UIs for Hotel Management app">
+                    <p>React</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://via.placeholder.com/400x250/4ECDC4/FFFFFF?text=TrustySpot" alt="TrustySpot">
-                    <div class="portfolio-overlay">
-                        <h3>TrustySpot</h3>
-                        <p>Spring Boot e-commerce platform.</p>
-                        <a href="https://github.com/AHSANMOHAMMED/trustyspot">View Project</a>
-                    </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/339933/FFFFFF?text=Node.js" alt="Node.js logo" title="Node.js: Backend for MERN stack projects">
+                    <p>Node.js</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://via.placeholder.com/400x250/45B7D1/FFFFFF?text=AI+Menu+Extractor" alt="AI Menu Extractor">
-                    <div class="portfolio-overlay">
-                        <h3>AI Menu Extractor</h3>
-                        <p>MERN-based digital menu system with AI.</p>
-                        <a href="https://github.com/AHSANMOHAMMED/restaurant-menu-mern">View Project</a>
-                    </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/000000/FFFFFF?text=Express" alt="Express logo" title="Express: API development for web apps">
+                    <p>Express</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="https://via.placeholder.com/400x250/96CEB4/FFFFFF?text=Grocery+Shop" alt="Grocery Shop">
-                    <div class="portfolio-overlay">
-                        <h3>Grocery Shop Website</h3>
-                        <p>Product management and cart system.</p>
-                        <a href="https://github.com/AHSANMOHAMMED/grocery-shop">View Project</a>
-                    </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/6DB33F/FFFFFF?text=MongoDB" alt="MongoDB logo" title="MongoDB: Database for scalable apps">
+                    <p>MongoDB</p>
+                </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/007396/FFFFFF?text=Java" alt="Java logo" title="Java: Core for Spring Boot projects">
+                    <p>Java</p>
+                </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/6DB33F/FFFFFF?text=Spring+Boot" alt="Spring Boot logo" title="Spring Boot: Framework for e-commerce apps">
+                    <p>Spring Boot</p>
+                </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/F7DF1E/000000?text=JavaScript" alt="JavaScript logo" title="JavaScript: Scripting for full-stack development">
+                    <p>JavaScript</p>
+                </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/4479A1/FFFFFF?text=MySQL" alt="MySQL logo" title="MySQL: Relational database for projects">
+                    <p>MySQL</p>
+                </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/F05032/FFFFFF?text=Git" alt="Git logo" title="Git: Version control for collaboration">
+                    <p>Git</p>
+                </div>
+                <div class="tool-item">
+                    <img src="https://via.placeholder.com/64x64/646CFF/FFFFFF?text=Vite" alt="Vite logo" title="Vite: Build tool for fast development">
+                    <p>Vite</p>
                 </div>
             </div>
         </div>
@@ -134,6 +166,46 @@
         </div>
     </section>
 
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>My Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/FF6B6B/FFFFFF?text=Hotel+Management" alt="Hotel Management System screenshot">
+                    <div class="portfolio-overlay">
+                        <h3>Hotel Management System</h3>
+                        <p>MERN stack app for bookings and admin dashboards.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/hotel-management">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/4ECDC4/FFFFFF?text=TrustySpot" alt="TrustySpot screenshot">
+                    <div class="portfolio-overlay">
+                        <h3>TrustySpot</h3>
+                        <p>Spring Boot e-commerce platform.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/trustyspot">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/45B7D1/FFFFFF?text=AI+Menu+Extractor" alt="AI Menu Extractor screenshot">
+                    <div class="portfolio-overlay">
+                        <h3>AI Menu Extractor</h3>
+                        <p>MERN-based digital menu system with AI.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/restaurant-menu-mern">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/96CEB4/FFFFFF?text=Grocery+Shop" alt="Grocery Shop screenshot">
+                    <div class="portfolio-overlay">
+                        <h3>Grocery Shop Website</h3>
+                        <p>Product management and cart system.</p>
+                        <a href="https://github.com/AHSANMOHAMMED/grocery-shop">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
         <div class="container">
             <h2>Contact Me</h2>
@@ -158,5 +230,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- Upload actual images to /images/ folder and update src paths before deploying. -->
 </body>
 </html>
