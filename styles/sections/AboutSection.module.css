@@ -109,35 +109,84 @@
   flex-shrink: 0;
 }
 
-/* 3D Skills Universe */
-.universeWrap {
-  margin-bottom: 2rem;
+/* ── Skills Grid ────────────────────────────── */
+.skillsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.skillCategory {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.skillCategory:hover {
+  border-color: var(--cat-color, var(--accent));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.catHeader {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.55rem;
 }
 
-.tagCloudContainer {
-  font-family: inherit;
+.catIcon {
+  color: var(--cat-color, var(--accent));
+  flex-shrink: 0;
+}
+
+.catLabel {
+  font-size: 0.7rem;
   font-weight: 700;
-  color: var(--accent);
-  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cat-color, var(--accent));
+  flex: 1;
 }
 
-.tagCloudContainer :global(.tagcloud) {
-  display: inline-block;
+.catCount {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
 }
 
-.tagCloudContainer :global(.tagcloud--item) {
-  padding: 2px 4px;
-  background-color: transparent;
-  color: rgba(255, 255, 255, 0.6);
-  will-change: transform, opacity, filter;
-  transition: color 0.2s ease;
+.skillTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
 }
 
-.tagCloudContainer :global(.tagcloud--item:hover) {
-  color: var(--accent);
+.skillTag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.18rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.skillCategory:hover .skillTag {
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.skillTag:hover {
+  color: var(--cat-color, var(--accent)) !important;
+  border-color: var(--cat-color, var(--accent)) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
 }
 
 .bioWrap {
@@ -206,7 +255,8 @@
   .socialLink   { width: 2rem; height: 2rem; font-size: 1rem; }
   .content      { padding: 1rem 1.25rem 0.75rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .bio          { font-size: clamp(0.72rem, 3vw, 0.95rem); }
-  .universeWrap  { margin-bottom: 0.6rem; justify-content: center; }
+  .skillsGrid    { grid-template-columns: 1fr; margin-bottom: 0.6rem; gap: 0.5rem; }
+  .skillCategory { padding: 0.6rem 0.7rem; }
   .whoLabel     { font-size: 0.8rem; margin-bottom: 0.3rem; }
   .signature    { font-size: 3rem; bottom: -1rem; right: -0.5rem; }
 }

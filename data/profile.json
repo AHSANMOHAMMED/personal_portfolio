@@ -451,5 +451,77 @@
       "label": "WhatsApp",
       "href": "https://wa.me/94725068682"
     }
+  ],
+  "skillCategories": [
+    {
+      "id": "frontend",
+      "label": "Frontend",
+      "icon": "FiMonitor",
+      "color": "#61DAFB",
+      "skills": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "GraphQL",
+        "REST APIs"
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "Backend",
+      "icon": "FiServer",
+      "color": "#68D391",
+      "skills": [
+        "Node.js",
+        "Express",
+        "Python",
+        "Java",
+        "PostgreSQL",
+        "MongoDB",
+        "MySQL",
+        "Redis",
+        "Firebase",
+        "Elasticsearch",
+        "PostGIS",
+        "WebSockets"
+      ]
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile",
+      "icon": "FiSmartphone",
+      "color": "#F6AD55",
+      "skills": [
+        "Flutter",
+        "Dart",
+        "Kotlin",
+        "React Native"
+      ]
+    },
+    {
+      "id": "infra",
+      "label": "Infrastructure",
+      "icon": "FiCloud",
+      "color": "#B794F4",
+      "skills": [
+        "Docker",
+        "Docker Compose",
+        "Linux",
+        "Nginx",
+        "GitHub Actions",
+        "Oracle Cloud",
+        "AWS",
+        "GCP",
+        "Kafka",
+        "MinIO",
+        "JWT",
+        "RBAC",
+        "CI/CD",
+        "Git"
+      ]
+    }
   ]
 }

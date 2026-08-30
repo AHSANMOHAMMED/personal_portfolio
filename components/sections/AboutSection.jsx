@@ -3,15 +3,17 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
-import TagCloud from 'TagCloud'
+import { FiMonitor, FiServer, FiSmartphone, FiCloud } from 'react-icons/fi'
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
 
 const BIO      = profile.bio
-const WHO_ITEMS = profile.skills
 
-const ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, WhatsApp: FaWhatsapp }
+const ICON_MAP = {
+  GitHub: FaGithub, LinkedIn: FaLinkedinIn, WhatsApp: FaWhatsapp,
+  FiMonitor, FiServer, FiSmartphone, FiCloud,
+}
 
 const SOCIALS = profile.socials.map(s => ({ Icon: ICON_MAP[s.label], href: s.href, label: s.label }))
 
@@ -21,7 +23,6 @@ export default function AboutSection() {
   const contentRef  = useRef(null)
   const socialsRef  = useRef(null)
   const intervalRef = useRef(null)
-  const tagCloudRef = useRef(null)
 
   const [typed, setTyped] = useState(0)
   const [done,  setDone]  = useState(false)
@@ -54,6 +55,9 @@ export default function AboutSection() {
       gsap.to(contentRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.15 })
       const socialIcons = socialsRef.current?.querySelectorAll('a') ?? []
       gsap.to(socialIcons, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.5 })
+      // Stagger skill category cards
+      const catCards = contentRef.current?.querySelectorAll('.' + styles.skillCategory) ?? []
+      gsap.fromTo(catCards, { opacity: 0, y: 15, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power2.out', stagger: 0.1, delay: 0.3 })
 
       let i = 0
       intervalRef.current = setInterval(() => {
@@ -78,26 +82,6 @@ export default function AboutSection() {
     return () => {
       clearInterval(intervalRef.current)
       scroller.removeEventListener('scroll', onScroll)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!tagCloudRef.current) return
-    const container = tagCloudRef.current
-    container.innerHTML = '' // clear on re-mount
-
-    const options = {
-      radius: window.innerWidth < 768 ? 120 : 160,
-      maxSpeed: 'normal',
-      initSpeed: 'normal',
-      direction: 135,
-      keep: true
-    }
-
-    TagCloud(container, WHO_ITEMS, options)
-
-    return () => {
-      container.innerHTML = ''
     }
   }, [])
 
@@ -143,10 +127,26 @@ export default function AboutSection() {
       {/* ── Right: content ───────────────────────────── */}
       <div ref={contentRef} className={styles.content}>
 
-        {/* 3D Skills Universe */}
-        <p className={styles.whoLabel}>Tech Universe</p>
-        <div className={styles.universeWrap}>
-          <div ref={tagCloudRef} className={styles.tagCloudContainer}></div>
+        {/* Categorized Skills Grid */}
+        <p className={styles.whoLabel}>Tech Stack</p>
+        <div className={styles.skillsGrid}>
+          {profile.skillCategories.map((cat, catIdx) => {
+            const IconComp = ICON_MAP[cat.icon]
+            return (
+              <div key={cat.id} className={styles.skillCategory} style={{ '--cat-color': cat.color }}>
+                <div className={styles.catHeader}>
+                  {IconComp && <IconComp size={14} className={styles.catIcon} />}
+                  <span className={styles.catLabel}>{cat.label}</span>
+                  <span className={styles.catCount}>{cat.skills.length}</span>
+                </div>
+                <div className={styles.skillTags}>
+                  {cat.skills.map(skill => (
+                    <span key={skill} className={styles.skillTag}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
 
         {/* Bio text - typewriter: all chars always in DOM, only color changes */}
