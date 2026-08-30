@@ -54,35 +54,54 @@ export default function HeroSection() {
     const section = sectionRef.current
     if (!section) return
 
-    const fadeY = [
-      greetRef.current, roleRef.current,
-      firstName.current, lastName.current,
-      pillsRef.current, ctaBtnRef.current, statsRef.current,
-    ].filter(Boolean)
+    // Set initial states
+    gsap.set(greetRef.current, { opacity: 0, y: -20 })
+    gsap.set(roleRef.current, { opacity: 0, y: 15 })
+    gsap.set(firstName.current, { opacity: 0, x: -60, skewX: -3 })
+    gsap.set(lastName.current, { opacity: 0, x: -60, skewX: -3 })
+    if (photoRef.current) gsap.set(photoRef.current, { opacity: 0, clipPath: 'inset(0 100% 0 0)' })
+    if (socialRef.current) gsap.set(socialRef.current, { opacity: 0, x: -15 })
+    gsap.set(ctaBtnRef.current, { opacity: 0, y: 15, scale: 0.95 })
+    gsap.set(taglineCardRef.current, { opacity: 0, y: 20, scale: 0.96 })
+    gsap.set(availCardRef.current, { opacity: 0, y: 20, scale: 0.96 })
+    gsap.set(statsRef.current, { opacity: 0, y: 15 })
 
-    const fadeX = [taglineCardRef.current, availCardRef.current].filter(Boolean)
-
-    gsap.set(fadeY, { opacity: 0, y: 30 })
-    gsap.set(fadeX, { opacity: 0, x: 20 })
-    if (photoRef.current)  gsap.set(photoRef.current,  { opacity: 0, x: 80 })
-    if (socialRef.current) gsap.set(socialRef.current, { opacity: 0, x: -20 })
+    // Stagger individual pills
+    const pillEls = pillsRef.current?.querySelectorAll('.' + styles.pill)
+    if (pillEls?.length) gsap.set(pillEls, { opacity: 0, y: 12, scale: 0.9 })
 
     const tl = gsap.timeline({ paused: true })
-    tl.to(greetRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' })
-      .to(roleRef.current,        { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to(firstName.current,      { opacity: 1, y: 0, duration: 0.6,  ease: 'power2.out' }, '-=0.2')
-      .to(lastName.current,       { opacity: 1, y: 0, duration: 0.6,  ease: 'power2.out' }, '-=0.4')
-      .to(photoRef.current,       { opacity: 1, x: 0, duration: 0.7,  ease: 'power2.out' }, '-=0.5')
-      .to(pillsRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to(ctaBtnRef.current,      { opacity: 1, y: 0, duration: 0.4,  ease: 'power2.out' }, '-=0.2')
-      .to(statsRef.current,       { opacity: 1, y: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.2')
-      .to(taglineCardRef.current, { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.5')
-      .to(availCardRef.current,   { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.3')
-      .to(socialRef.current,      { opacity: 1, x: 0, duration: 0.5,  ease: 'power2.out' }, '-=0.4')
+
+    // Greeting and role
+    tl.to(greetRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0)
+      .to(roleRef.current, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 0.15)
+
+    // Name — dramatic slide with skew
+    .to(firstName.current, { opacity: 1, x: 0, skewX: 0, duration: 0.7, ease: 'expo.out' }, 0.2)
+      .to(lastName.current, { opacity: 1, x: 0, skewX: 0, duration: 0.7, ease: 'expo.out' }, 0.35)
+
+    // Photo — cinematic clip-path reveal from right
+    .to(photoRef.current, { opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: 1.0, ease: 'power3.inOut' }, 0.2)
+
+    // Social sidebar
+    .to(socialRef.current, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }, 0.5)
+
+    // Pills — staggered pop in
+    .to(pillEls || [], { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.5)', stagger: 0.08 }, 0.6)
+
+    // CTA button — scale pop
+    .to(ctaBtnRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.4)' }, 0.9)
+
+    // Stats — slide up
+    .to(statsRef.current, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, 1.0)
+
+    // Tagline + availability cards — slide up with scale
+    .to(taglineCardRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power3.out' }, 0.7)
+      .to(availCardRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power3.out' }, 0.85)
 
     const observer = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { tl.play(); observer.disconnect() } },
-      { threshold: 0.3 },
+      { threshold: 0.2 },
     )
     observer.observe(section)
     return () => { observer.disconnect(); tl.kill() }

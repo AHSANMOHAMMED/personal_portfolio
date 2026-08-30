@@ -6,6 +6,7 @@
   z-index: 1;
   background: #050505;
   overflow: hidden;
+  perspective: 800px;
 }
 
 /* ── Video layers ───────────────────────────── */
@@ -20,13 +21,20 @@
   opacity: 0.5;
 }
 
+.mainVideoWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+}
+
 .mainVideo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
 }
 
 /* ── Cinematic gradient overlay ─────────────── */
@@ -36,13 +44,13 @@
   z-index: 2;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.72) 0%,
-    rgba(0, 0, 0, 0.28) 50%,
-    rgba(0, 0, 0, 0.62) 100%
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.65) 100%
   );
 }
 
-/* ── Landing text ───────────────────────────── */
+/* ── Landing text container ─────────────────── */
 .heroContent {
   position: absolute;
   inset: 0;
@@ -54,28 +62,56 @@
   pointer-events: none;
 }
 
+/* ── Eyebrow (clip-path reveal) ─────────────── */
 .eyebrow {
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  will-change: clip-path, opacity;
 }
 
-.name {
+/* ── Name block ─────────────────────────────── */
+.nameBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.nameLine {
+  display: inline-block;
   font-family: var(--font-baloo), sans-serif;
   font-size: clamp(3.5rem, 7.5vw, 8rem);
   font-weight: 800;
   color: #fff;
-  line-height: 0.88;
+  line-height: 0.92;
   letter-spacing: -0.02em;
 }
 
+.char {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: bottom center;
+}
+
+/* ── Divider line between first/last name ───── */
+.nameDivider {
+  display: block;
+  width: clamp(40px, 8vw, 80px);
+  height: 3px;
+  background: var(--accent);
+  margin: 0.3rem 0;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+/* ── Role text ──────────────────────────────── */
 .role {
-  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-top: 1.25rem;
@@ -97,10 +133,6 @@
 
 .playOverlay:hover {
   background: rgba(0, 0, 0, 0.45);
-}
-
-.playOverlay:hover circle {
-  stroke: rgba(255, 255, 255, 0.85);
 }
 
 /* ── Sound hint badge ───────────────────────── */
@@ -142,39 +174,6 @@
 @keyframes hintPulse {
   0%   { transform: scale(1); opacity: 0.9; }
   100% { transform: scale(2.8); opacity: 0; }
-}
-
-/* ── Controls bar ───────────────────────────── */
-.controls {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.ctrlBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: rgba(255, 255, 255, 0.8);
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
-}
-
-.ctrlBtn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #fff;
 }
 
 /* ── Scroll cue ─────────────────────────────── */
@@ -222,10 +221,10 @@
   100% { transform: scaleY(1); opacity: 0; }
 }
 
+/* ── Mobile ─────────────────────────────────── */
 @media (max-width: 767px) {
   .heroContent { padding: 0 1.5rem; }
-  .name        { font-size: clamp(2.8rem, 11vw, 5rem); }
-  .controls    { bottom: 1.5rem; right: 1rem; }
+  .nameLine    { font-size: clamp(2.8rem, 11vw, 5rem); }
   .scrollCue   { bottom: 1.5rem; }
   .soundHint   { bottom: 4.5rem; right: 1rem; }
 }

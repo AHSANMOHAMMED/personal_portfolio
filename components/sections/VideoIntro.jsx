@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
@@ -17,44 +17,115 @@ function scrollNext() {
 
 export default function VideoIntro() {
   const videoRef    = useRef(null)
-  const greetRef    = useRef(null)
-  const nameRef     = useRef(null)
+  const mainVideoWrapRef = useRef(null)
+  const eyebrowRef  = useRef(null)
+  const firstNameRef = useRef(null)
+  const lastNameRef = useRef(null)
   const roleRef     = useRef(null)
+  const dividerRef  = useRef(null)
   const scrollRef   = useRef(null)
   const hintRef     = useRef(null)
 
-  // muted state drives icon only - DOM muted property is controlled exclusively via ref
-  const [muted,    setMuted]    = useState(true)
-  const [playing,  setPlaying]  = useState(true)
+  const [muted, setMuted] = useState(true)
+  const [playing, setPlaying] = useState(true)
   const [showHint, setShowHint] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+
+  // Split name into characters for staggered reveal
+  const firstNameChars = useMemo(() => profile.name.first.split(''), [])
+  const lastNameChars  = useMemo(() => profile.name.last.split(''), [])
 
   useEffect(() => {
     setIsMobile(window.matchMedia('(max-width: 767px)').matches)
   }, [])
 
-  // Entrance animation
+  // ── Cinematic entrance timeline ──
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.4 })
-    tl.fromTo(greetRef.current,  { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-      .fromTo(nameRef.current,   { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' }, '-=0.2')
-      .fromTo(roleRef.current,   { opacity: 0, y:  20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-      .fromTo(scrollRef.current, { opacity: 0 },         { opacity: 1, duration: 0.5 }, '-=0.1')
+    const tl = gsap.timeline({ delay: 0.5 })
+
+    // 1. Video zooms in from slightly scaled down + fades
+    if (mainVideoWrapRef.current) {
+      tl.fromTo(mainVideoWrapRef.current,
+        { scale: 1.15, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' },
+        0
+      )
+    }
+
+    // 2. Eyebrow typewriter reveal via clip-path
+    if (eyebrowRef.current) {
+      tl.fromTo(eyebrowRef.current,
+        { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+        { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.8, ease: 'power2.out' },
+        0.8
+      )
+    }
+
+    // 3. First name — staggered character reveal
+    if (firstNameRef.current) {
+      const spans = firstNameRef.current.querySelectorAll(`.${styles.char}`)
+      if (spans.length) {
+        tl.fromTo(spans,
+          { opacity: 0, y: 40, rotateX: -40 },
+          { opacity: 1, y: 0, rotateX: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 },
+          1.0
+        )
+      }
+    }
+
+    // 4. Divider line sweeps across
+    if (dividerRef.current) {
+      tl.fromTo(dividerRef.current,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.5, ease: 'power2.out' },
+        1.3
+      )
+    }
+
+    // 5. Last name — staggered character reveal (slightly delayed)
+    if (lastNameRef.current) {
+      const spans = lastNameRef.current.querySelectorAll(`.${styles.char}`)
+      if (spans.length) {
+        tl.fromTo(spans,
+          { opacity: 0, y: 40, rotateX: -40 },
+          { opacity: 1, y: 0, rotateX: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 },
+          1.4
+        )
+      }
+    }
+
+    // 6. Role slides up
+    if (roleRef.current) {
+      tl.fromTo(roleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+        1.8
+      )
+    }
+
+    // 7. Scroll cue fades in
+    if (scrollRef.current) {
+      tl.fromTo(scrollRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5 },
+        2.2
+      )
+    }
+
     return () => tl.kill()
   }, [])
 
-  // Video fade-in - no auto-unmute; user must click the button
+  // Video fade-in
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
     if (typeof v.play !== 'function') return
-    // Guarantee muted on mount regardless of browser attribute handling
     v.muted = true
     const t = gsap.fromTo(v, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
     return () => t.kill()
   }, [])
 
-  // Unmute when screen loader is dismissed (fires inside user gesture - Safari safe)
+  // Unmute on loader dismiss
   useEffect(() => {
     function onLoaderDismissed() {
       const v = videoRef.current
@@ -68,7 +139,7 @@ export default function VideoIntro() {
     return () => window.removeEventListener('loader-dismissed', onLoaderDismissed)
   }, [])
 
-  // Play video after shatter animation finishes
+  // Play video after animation done
   useEffect(() => {
     function onAnimationDone() {
       const v = videoRef.current
@@ -80,7 +151,6 @@ export default function VideoIntro() {
     return () => window.removeEventListener('loader-animation-done', onAnimationDone)
   }, [])
 
-  // Auto-hide hint after 6 s
   useEffect(() => {
     if (!showHint) return
     const id = setTimeout(() => dismissHint(), 6000)
@@ -89,10 +159,7 @@ export default function VideoIntro() {
 
   function dismissHint() {
     if (!hintRef.current) return
-    gsap.to(hintRef.current, {
-      opacity: 0, y: -8, duration: 0.35,
-      onComplete: () => setShowHint(false),
-    })
+    gsap.to(hintRef.current, { opacity: 0, y: -8, duration: 0.35, onComplete: () => setShowHint(false) })
   }
 
   function togglePlay() {
@@ -108,9 +175,6 @@ export default function VideoIntro() {
     const v = videoRef.current
     if (!v) return
     if (typeof v.play !== 'function') return
-    // Set DOM property synchronously inside click gesture - Safari requires this.
-    // React never updates `v.muted` on re-renders (known React limitation for video),
-    // so the static `muted` attr in JSX does not fight with this.
     v.muted = !v.muted
     setMuted(v.muted)
   }
@@ -131,17 +195,19 @@ export default function VideoIntro() {
         className={styles.bgVideo}
       />
 
-      {/* 2 - Main video: static `muted` attr so React never touches the DOM property on re-renders */}
-      <video
-        ref={videoRef}
-        data-testid="intro-video"
-        src="/personal_portfolio/assets/hero_bg_video.mp4"
-        muted playsInline
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={handleEnded}
-        className={styles.mainVideo}
-      />
+      {/* 2 - Main video with cinematic zoom wrapper */}
+      <div ref={mainVideoWrapRef} className={styles.mainVideoWrap}>
+        <video
+          ref={videoRef}
+          data-testid="intro-video"
+          src="/personal_portfolio/assets/hero_bg_video.mp4"
+          muted playsInline
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onEnded={handleEnded}
+          className={styles.mainVideo}
+        />
+      </div>
 
       {/* 3 - Cinematic gradient overlay */}
       <div className={styles.overlay} />
@@ -153,12 +219,24 @@ export default function VideoIntro() {
         </ErrorBoundary>
       )}
 
-      {/* 5 - Landing text */}
+      {/* 5 - Landing text with cinematic reveal */}
       <div className={styles.heroContent}>
-        <p ref={greetRef} className={styles.eyebrow}>{content.site.tagline}</p>
-        <h1 ref={nameRef} className={styles.name}>
-          {profile.name.first}<br />{profile.name.last}
+        <p ref={eyebrowRef} className={styles.eyebrow}>{content.site.tagline}</p>
+
+        <h1 className={styles.nameBlock}>
+          <span ref={firstNameRef} className={styles.nameLine}>
+            {firstNameChars.map((ch, i) => (
+              <span key={i} className={styles.char}>{ch === ' ' ? '\u00A0' : ch}</span>
+            ))}
+          </span>
+          <span ref={dividerRef} className={styles.nameDivider} />
+          <span ref={lastNameRef} className={styles.nameLine}>
+            {lastNameChars.map((ch, i) => (
+              <span key={i} className={styles.char}>{ch === ' ' ? '\u00A0' : ch}</span>
+            ))}
+          </span>
         </h1>
+
         <p ref={roleRef} className={styles.role}>{profile.roles.detailed}</p>
       </div>
 
@@ -172,7 +250,7 @@ export default function VideoIntro() {
         </button>
       )}
 
-      {/* 7 - Sound hint badge (auto-fades after 6 s) */}
+      {/* 7 - Sound hint badge */}
       {showHint && (
         <div ref={hintRef} className={styles.soundHint} onClick={toggleMute} style={{ pointerEvents: 'all', cursor: 'pointer' }}>
           <span className={styles.soundPulse} />
@@ -180,41 +258,7 @@ export default function VideoIntro() {
         </div>
       )}
 
-      {/* 8 - Controls (bottom-right) */}
-      {false && <div className={styles.controls}>
-        <button className={styles.ctrlBtn} onClick={togglePlay} aria-label={playing ? 'Pause' : 'Play'}>
-          {playing
-            ? /* Pause icon */
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                <rect x="2" y="1" width="4" height="12" rx="1" />
-                <rect x="8" y="1" width="4" height="12" rx="1" />
-              </svg>
-            : /* Play icon */
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                <polygon points="2,1 13,7 2,13" />
-              </svg>
-          }
-        </button>
-
-        <button className={styles.ctrlBtn} onClick={toggleMute} aria-label={muted ? 'Unmute' : 'Mute'}>
-          {muted
-            ? /* Muted icon */
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-                <path d="M2 5.5h2.5L8 3v10l-3.5-2.5H2V5.5z" fill="currentColor" stroke="none" />
-                <line x1="10" y1="5" x2="14" y2="11" />
-                <line x1="14" y1="5" x2="10" y2="11" />
-              </svg>
-            : /* Sound icon */
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-                <path d="M2 5.5h2.5L8 3v10l-3.5-2.5H2V5.5z" fill="currentColor" stroke="none" />
-                <path d="M10.5 5.5C11.8 6.5 12.5 7.2 12.5 8s-.7 1.5-2 2.5" />
-                <path d="M12 3.5C14 5 15 6.4 15 8s-1 3-3 4.5" />
-              </svg>
-          }
-        </button>
-      </div>}
-
-      {/* 9 - Scroll cue */}
+      {/* 8 - Scroll cue */}
       <button
         ref={scrollRef}
         className={styles.scrollCue}
