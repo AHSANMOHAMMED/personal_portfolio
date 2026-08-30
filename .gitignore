@@ -50,7 +50,7 @@ next-env.d.ts
 docs/superpowers
 
 # dev artifacts (reference videos, images, API dumps)
-*.mp4
+/*.mp4
 behance_reference*.jpg
 repos.json
 repos_summary.json

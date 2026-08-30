@@ -9,28 +9,34 @@ export default function ProjectModal({ isOpen, onClose, project }) {
 
   useEffect(() => {
     if (isOpen && project) {
-      document.body.style.overflow = 'hidden' // prevent body scrolling (though GSAP page handles scroll)
+      document.body.style.overflow = 'hidden'
+      document.body.dataset.modalOpen = 'true'
       gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 })
       gsap.fromTo(modalRef.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out', delay: 0.1 })
     } else {
       document.body.style.overflow = ''
+      delete document.body.dataset.modalOpen
     }
     
     return () => {
         document.body.style.overflow = ''
+        delete document.body.dataset.modalOpen
     }
   }, [isOpen, project])
 
   const handleClose = () => {
     gsap.to(modalRef.current, { y: 20, opacity: 0, duration: 0.2 })
-    gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, onComplete: onClose })
+    gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, onComplete: () => {
+      delete document.body.dataset.modalOpen
+      onClose()
+    }})
   }
 
   if (!isOpen || !project) return null
 
   return (
     <div className={styles.overlay} ref={overlayRef} onClick={handleClose}>
-      <div className={styles.modal} ref={modalRef} onClick={e => e.stopPropagation()}>
+      <div className={styles.modal} ref={modalRef} onClick={e => e.stopPropagation()} onWheel={e => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={handleClose}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

@@ -84,14 +84,20 @@ export default function Home() {
     }
 
     function onWheel(e) {
+      // Don't intercept scroll when a modal or overlay is open
+      if (document.body.dataset.modalOpen === 'true') return
       e.preventDefault()
       if (busyRef.current) return
       goTo(idxRef.current + (e.deltaY > 0 ? 1 : -1))
     }
 
     let touchY = 0
-    function onTouchStart(e) { touchY = e.touches[0].clientY }
+    function onTouchStart(e) {
+      if (document.body.dataset.modalOpen === 'true') return
+      touchY = e.touches[0].clientY
+    }
     function onTouchEnd(e) {
+      if (document.body.dataset.modalOpen === 'true') return
       const dy = touchY - e.changedTouches[0].clientY
       if (Math.abs(dy) < 40 || busyRef.current) return
       goTo(idxRef.current + (dy > 0 ? 1 : -1))
