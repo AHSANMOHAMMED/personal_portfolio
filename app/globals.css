@@ -39,8 +39,8 @@
   --hero-role-size: clamp(0.75rem, 1.2vw, 0.875rem);
 
   /* ─── shadcn var bridge (maps to brand tokens) ── */
-  --background:   var(--surface-white);
-  --foreground:   var(--text-primary);
+  --background:   var(--surface-black);
+  --foreground:   var(--text-on-dark);
   --primary:      var(--text-primary);
   --primary-foreground: var(--surface-white);
   --ring:         var(--accent);
@@ -61,8 +61,8 @@ html, body {
 }
 
 body {
-  background: var(--background);
-  color:      var(--foreground);
+  background: #0a0a0a;
+  color:      rgba(255, 255, 255, 0.85);
   font-family: var(--font-geist-sans), Arial, sans-serif;
 }
 

@@ -3,7 +3,7 @@
   top: 0;
   height: 100vh;
   z-index: 3;
-  background: #fff;
+  background: #0a0a0a;
   display: grid;
   grid-template-columns: 30% 70%;
   overflow: hidden;
@@ -34,7 +34,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: 6px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .photoImg {
@@ -74,8 +74,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: #f0f0f0;
-  color: #333;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 1.2rem;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
@@ -131,7 +131,7 @@
 .tagCloudContainer :global(.tagcloud--item) {
   padding: 2px 4px;
   background-color: transparent;
-  color: #333;
+  color: rgba(255, 255, 255, 0.6);
   will-change: transform, opacity, filter;
   transition: color 0.2s ease;
 }
@@ -148,18 +148,18 @@
   font-size: clamp(1rem, 1.6vw, 1.6rem);
   font-weight: 800;
   line-height: 1.42;
-  color: #111;
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
   width: 100%;
 }
 
-.typed    { color: #111; }
-.untyped  { color: #c8c8c8; }
+.typed    { color: rgba(255, 255, 255, 0.85); }
+.untyped  { color: rgba(255, 255, 255, 0.2); }
 
 /* Cursor lives as ::after on the last typed char - never a sibling node,
    so it cannot shift adjacent text or change line-wrap decisions. */
 .lastTyped {
-  color: #111;
+  color: rgba(255, 255, 255, 0.85);
 }
 .lastTyped::after {
   content: '';
