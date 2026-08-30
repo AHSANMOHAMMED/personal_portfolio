@@ -1,0 +1,455 @@
+{
+  "name": {
+    "first": "Ahsan",
+    "last": "Mohammed",
+    "full": "Ahsan Mohammed"
+  },
+  "email": "ahsanmohammed828@gmail.com",
+  "tagline": "Full-Stack Software Engineer | Mobile App Developer | Cloud & DevOps Enthusiast",
+  "description": "Full-stack Software Engineering undergraduate at SLIIT, Sri Lanka, focused on building complete, real-world software products. Specializing in React, Next.js, Node.js, Flutter, TypeScript, PostgreSQL, Docker, and cloud deployment.",
+  "roles": {
+    "short": "Software Engineer",
+    "detailed": "React • Next.js • Flutter • Node.js • PostgreSQL • Docker"
+  },
+  "location": {
+    "based": "Kalpitiya, Sri Lanka",
+    "availability": "Sri Lanka / Remote"
+  },
+  "available": true,
+  "bio": "I'm a Software Engineering undergraduate at SLIIT, Sri Lanka, focused on building complete, real-world software products. My expertise spans full-stack web development, mobile app engineering, cloud infrastructure, and DevOps automation.\n\nI specialize in building scalable SaaS platforms, multi-tenant ERP/POS systems, and cross-platform mobile applications using React, Next.js, Node.js, Flutter, TypeScript, PostgreSQL, and Docker.\n\nAlongside my technical path, I am a Hafiz and qualified Moulavi. I have memorized the entire Quran and studied its full meaning (Tafsir) in depth at Dharul Uloom Kashiful Hudha Arabic College. I'm fluent in Arabic and Urdu. My religious studies have strengthened my focus, discipline, and ethical decision-making, which I carry into my work and daily life.\n\nI believe combining my engineering skills with my religious and language knowledge allows me to offer solutions that are not only smart—but also respectful and meaningful.",
+  "stats": [
+    {
+      "value": "15+",
+      "label": "Repositories"
+    },
+    {
+      "value": "4",
+      "label": "Production Platforms"
+    },
+    {
+      "value": "6+",
+      "label": "Core Technologies"
+    }
+  ],
+  "skills": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "JavaScript",
+    "Node.js",
+    "Express",
+    "Flutter",
+    "Dart",
+    "Kotlin",
+    "React Native",
+    "Python",
+    "Java",
+    "HTML5",
+    "CSS3",
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "Redis",
+    "Firebase",
+    "Docker",
+    "Docker Compose",
+    "Linux",
+    "Nginx",
+    "GitHub Actions",
+    "Oracle Cloud",
+    "AWS",
+    "GCP",
+    "Kafka",
+    "Elasticsearch",
+    "WebSockets",
+    "MinIO",
+    "PostGIS",
+    "GraphQL",
+    "REST APIs",
+    "JWT",
+    "RBAC",
+    "Git",
+    "CI/CD"
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role": "Full Stack Software Engineering Intern",
+      "company": "Industry Placement",
+      "companyShort": "Internship",
+      "type": "Professional",
+      "location": "Sri Lanka",
+      "period": "2025",
+      "periodEnd": "2025",
+      "bullets": [
+        "Developed and deployed full-stack web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js).",
+        "Implemented RESTful APIs, authentication systems, and database optimization for production environments.",
+        "Collaborated with cross-functional teams using Git workflows and agile methodologies.",
+        "Gained hands-on experience with Docker containerization and cloud deployment pipelines."
+      ],
+      "desc": "Completed a full-stack internship building production-ready web applications, APIs, and deployment pipelines.",
+      "tech": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Docker",
+        "REST APIs"
+      ]
+    },
+    {
+      "id": 2,
+      "role": "Computer Software Engineering (BSc)",
+      "company": "SLIIT",
+      "companyShort": "SLIIT",
+      "type": "Education",
+      "location": "Colombo, Sri Lanka",
+      "period": "Nov 2023",
+      "periodEnd": "Oct 2027",
+      "bullets": [
+        "Specializing in system design, platform architecture, and full-stack application development.",
+        "Studying distributed systems, cloud infrastructure, and modern DevOps practices.",
+        "Building real-world projects including SaaS platforms, ERP systems, and mobile applications."
+      ],
+      "desc": "Bachelor's degree focusing on software engineering principles, cloud-native development, and platform engineering.",
+      "tech": [
+        "MERN",
+        "TypeScript",
+        "PostgreSQL",
+        "Docker",
+        "Cloud"
+      ]
+    },
+    {
+      "id": 3,
+      "role": "Islamic Studies & Religious Scholarship",
+      "company": "Dharul Uloom Kashiful Hudha Arabic College",
+      "companyShort": "Dharul Uloom",
+      "type": "Education",
+      "location": "Sri Lanka",
+      "period": "Completed",
+      "periodEnd": "",
+      "bullets": [
+        "Memorized the entire Quran (Hafiz) and studied its full meaning (Tafsir) in depth.",
+        "Gained fluency and mastery in Arabic and Urdu languages.",
+        "Qualified Moulavi, integrating ethical decision-making into daily life and work."
+      ],
+      "desc": "Completed comprehensive Islamic education including memorization of the Quran, Quranic interpretation, and language mastery.",
+      "tech": [
+        "Arabic",
+        "Urdu",
+        "Communication"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Doorli",
+      "subtitle": "Multi-Role Commerce Platform",
+      "type": "Full-Stack Ecosystem",
+      "link": "https://github.com/AHSANMOHAMMED/Doorli",
+      "image": "/personal_portfolio/images/doorli.jpg",
+      "color": "#F7931E",
+      "tech": [
+        "PostgreSQL",
+        "Docker",
+        "Mobile",
+        "CI/CD"
+      ],
+      "desc": "A multi-role local commerce and operations ecosystem designed specifically to elevate the Sri Lankan marketplace, connecting customers, vendors, drivers, and platform operators seamlessly.",
+      "problem": [
+        "Local commerce in Sri Lanka lacks a unified ecosystem that integrates marketplace shopping, food/grocery delivery, courier operations, and mobility.",
+        "Small businesses struggle with managing separate apps for delivery, sales, and inventory, leading to fragmented and inefficient experiences.",
+        "Customers have to juggle multiple apps to fulfill their daily commerce and delivery needs."
+      ],
+      "solution": [
+        "Built a comprehensive full-stack ecosystem with multi-role authorization (Admin, Vendor, Driver, User).",
+        "Created a unified marketplace featuring order management, active delivery tracking, and localized digital wallets.",
+        "Integrated ERP capabilities allowing vendors to manage inventory and sales seamlessly within the same platform."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/doorli.jpg",
+        "/personal_portfolio/images/doorli_feature_1.jpg",
+        "/personal_portfolio/images/doorli_feature_2.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/Doorli"
+    },
+    {
+      "id": 2,
+      "title": "Retail Smart ERP",
+      "subtitle": "Multi-Tenant SaaS POS",
+      "type": "SaaS Platform",
+      "link": "https://github.com/AHSANMOHAMMED/retail-smart-erp",
+      "image": "/personal_portfolio/images/erp.jpg",
+      "color": "#1A73E8",
+      "tech": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "WebSockets"
+      ],
+      "desc": "A multi-tenant SaaS ERP/POS platform supporting multiple business types and operational workflows, designed for the scale and needs of fast-growing Sri Lankan businesses.",
+      "problem": [
+        "Small to medium retail and hospitality businesses in Sri Lanka struggle with fragmented POS, inventory, accounting, and HR systems.",
+        "Lack of real-time communication between different business modules causes operational delays and data silos.",
+        "Most existing POS systems are too rigid and don't scale well for multi-tenant, multi-location businesses."
+      ],
+      "solution": [
+        "Developed a modern multi-tenant SaaS platform allowing centralized management of multiple store locations.",
+        "Implemented real-time synchronization using WebSockets to keep inventory, sales, and accounting updated instantly.",
+        "Integrated barcode POS features, comprehensive inventory management, and localized HR/payroll workflows."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/erp.jpg",
+        "/personal_portfolio/images/erp_dashboard.jpg",
+        "/personal_portfolio/images/erp_pos.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/retail-smart-erp"
+    },
+    {
+      "id": 3,
+      "title": "Farmora App",
+      "subtitle": "Agricultural Marketplace",
+      "type": "Mobile App",
+      "link": "https://github.com/AHSANMOHAMMED/Farmora-App",
+      "image": "/personal_portfolio/images/farmora.jpg",
+      "color": "#4CAF50",
+      "tech": [
+        "Flutter",
+        "Dart",
+        "Riverpod",
+        "Firebase"
+      ],
+      "desc": "A Flutter-based agricultural marketplace connecting Sri Lankan farmers directly with buyers and transport providers to maximize yield profitability.",
+      "problem": [
+        "Sri Lankan farmers face significant challenges connecting directly with buyers, heavily relying on middlemen who reduce their margins.",
+        "Securing reliable transport from rural agricultural hubs (like Dambulla and Nuwara Eliya) to Colombo is logistically difficult and expensive.",
+        "Lack of real-time pricing and market visibility leads to post-harvest losses and unfair compensation for farmers."
+      ],
+      "solution": [
+        "Created a mobile application with dedicated, secure workflows for farmers, buyers, and transport providers.",
+        "Implemented live order management and product discovery localized in LKR to provide fair market access.",
+        "Integrated real-time transport tracking across the island, ensuring fresh produce reaches buyers efficiently."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/farmora.jpg",
+        "/personal_portfolio/images/farmora_farmer.jpg",
+        "/personal_portfolio/images/farmora_transport.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/Farmora-App"
+    },
+    {
+      "id": 4,
+      "title": "Doorli Enterprise OS",
+      "subtitle": "Enterprise Operations Platform",
+      "type": "Enterprise Software",
+      "link": "https://github.com/AHSANMOHAMMED/Doorli-Enterprise-OS",
+      "image": "/personal_portfolio/images/doorli_enterprise_1.jpg",
+      "color": "#E65100",
+      "tech": [
+        "Python",
+        "Vue",
+        "Docker",
+        "Jinja"
+      ],
+      "desc": "Enterprise-focused operational software designed to work alongside the Doorli ecosystem for large-scale corporate deployments.",
+      "problem": [
+        "Large-scale integrations for the Doorli ecosystem require robust security, backup architectures, and massive scalability.",
+        "Enterprise clients need specialized operational workflows that standard commerce platforms don't provide.",
+        "Handling high transaction volumes securely is a major challenge for local platforms expanding to corporate levels."
+      ],
+      "solution": [
+        "Architected an enterprise platform focusing on secure webhooks, deployment automation, and infrastructure hardening.",
+        "Built custom integration pipelines to connect corporate legacy systems seamlessly with the modern Doorli ecosystem.",
+        "Ensured high availability and integration reliability tailored specifically for demanding enterprise clients."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/doorli_enterprise_1.jpg",
+        "/personal_portfolio/images/doorli.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/Doorli-Enterprise-OS"
+    },
+    {
+      "id": 5,
+      "title": "MediConnect Lanka",
+      "subtitle": "Cloud-Native Healthcare Platform",
+      "type": "Cloud-Native App",
+      "link": "https://github.com/AHSANMOHAMMED/Health_Care_Platform",
+      "image": "/personal_portfolio/images/mediconnect.jpg",
+      "color": "#009688",
+      "tech": [
+        "Java",
+        "Docker",
+        "Microservices"
+      ],
+      "desc": "A highly scalable, cloud-native healthcare platform designed to modernize digital healthcare workflows and telemedicine across Sri Lanka.",
+      "problem": [
+        "Healthcare systems in Sri Lanka lack a unified, scalable platform for digital medical records and management.",
+        "Patients in remote areas struggle to access quality healthcare without traveling long distances.",
+        "Hospitals face administrative bottlenecks in coordinating doctors, appointments, and secure patient data."
+      ],
+      "solution": [
+        "Architected a cloud-native, microservices-based healthcare platform coordinating Auth, Patient, Doctor, Appointment, and Payment services.",
+        "Implemented secure, accessible telemedicine workflows allowing remote patients to consult specialists virtually.",
+        "Built administrative dashboards to streamline hospital operations and patient onboarding efficiently."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/mediconnect.jpg",
+        "/personal_portfolio/images/mediconnect_doctor.jpg",
+        "/personal_portfolio/images/mediconnect_patient.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/Health_Care_Platform"
+    },
+    {
+      "id": 6,
+      "title": "AetherForge IDE",
+      "subtitle": "Developer Tooling",
+      "type": "Tooling",
+      "link": "https://github.com/AHSANMOHAMMED/aetherforge_IDE",
+      "image": "/personal_portfolio/images/aetherforge_ide.jpg",
+      "color": "#9C27B0",
+      "tech": [
+        "TypeScript",
+        "Electron",
+        "React"
+      ],
+      "desc": "Developer tooling and IDE experimentation focused on exploring modern software-development workflows and engineering productivity.",
+      "problem": [
+        "Modern developers often find existing IDEs to be resource-heavy, bloated, or slow for specialized tasks.",
+        "Customizing workflows in traditional IDEs can be complex and unintuitive.",
+        "There is a need for lightweight, highly productive tools that integrate tightly with modern web engineering practices."
+      ],
+      "solution": [
+        "Developed a custom IDE utilizing Electron and React to deliver a lightweight, highly responsive developer experience.",
+        "Implemented a sleek dark-mode aesthetic and streamlined UI to minimize distractions and enhance focus.",
+        "Explored and integrated modular tooling concepts to modernize local software-development workflows."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/aetherforge_ide.jpg",
+        "/personal_portfolio/images/aetherforge_code.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/aetherforge_IDE"
+    },
+    {
+      "id": 7,
+      "title": "Arabic College Portal",
+      "subtitle": "Educational Platform",
+      "type": "Web App",
+      "link": "https://github.com/AHSANMOHAMMED/Dharul-uloom-khasiful-hudha-arabic-collage-website-",
+      "image": "/personal_portfolio/images/arabic_college.jpg",
+      "color": "#D4AF37",
+      "tech": [
+        "React",
+        "Supabase",
+        "Tailwind"
+      ],
+      "desc": "A responsive, multilingual educational institution portal built to serve the academic and administrative needs of Dharul Uloom Kashiful Hudha Arabic College.",
+      "problem": [
+        "The educational institution lacked a modern online presence to communicate with the broader community.",
+        "There was no comprehensive digital portal for students and faculty to access academic resources and administrative updates.",
+        "The community requires bilingual support (English and Arabic) which many standard platforms do not handle gracefully."
+      ],
+      "solution": [
+        "Created a beautiful, highly accessible multilingual (English/Arabic) web platform using React and Tailwind CSS.",
+        "Powered the backend with Supabase for secure authentication, database management, and content updates.",
+        "Designed specific portals for students and faculty to foster community engagement and streamline administration."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/arabic_college.jpg",
+        "/personal_portfolio/images/arabic_college_portal.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/Dharul-uloom-khasiful-hudha-arabic-collage-website-"
+    },
+    {
+      "id": 8,
+      "title": "Aura Academic",
+      "subtitle": "Peer Learning Platform",
+      "type": "Web App",
+      "link": "https://github.com/AHSANMOHAMMED/peer-learning-and-tutoring-platform-AF-project",
+      "image": "/personal_portfolio/images/peer_learning.jpg",
+      "color": "#FF5722",
+      "tech": [
+        "React",
+        "Node.js",
+        "MongoDB"
+      ],
+      "desc": "A vibrant peer-to-peer learning platform designed for school students with live collaboration, addressing the educational needs of the local curriculum.",
+      "problem": [
+        "Students in Sri Lanka lack a dedicated, professional ecosystem to find specialized mentors for the GCE Advanced Level curriculum.",
+        "Virtual collaboration tools are often generic and not optimized for academic tutoring or peer-to-peer learning.",
+        "Finding verified, capable tutors within local communities is difficult and relies heavily on word-of-mouth."
+      ],
+      "solution": [
+        "Developed a comprehensive MERN stack platform featuring intelligent academic matching to connect students with the right mentors.",
+        "Implemented virtual classrooms equipped with shared whiteboards and real-time video chat for effective remote tutoring.",
+        "Integrated hybrid security and verification systems to ensure a safe, empowering learning environment for local students."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/peer_learning.jpg",
+        "/personal_portfolio/images/peer_learning_class.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/peer-learning-and-tutoring-platform-AF-project"
+    },
+    {
+      "id": 9,
+      "title": "Nexus Core",
+      "subtitle": "Enterprise Framework",
+      "type": "Framework / Core",
+      "link": "https://github.com/AHSANMOHAMMED/Nexus_Core",
+      "image": "/personal_portfolio/images/nexus_core.jpg",
+      "color": "#E91E63",
+      "tech": [
+        "Java",
+        "Spring Boot",
+        "Microservices"
+      ],
+      "desc": "A robust core framework built to accelerate the development of microservices-based enterprise applications with standardized architectural patterns.",
+      "problem": [
+        "Developing microservices from scratch often involves repetitive boilerplate code for security, logging, and database connections.",
+        "Inconsistent architectural patterns across different services lead to maintenance nightmares and scalability issues.",
+        "Teams need a standardized foundation to build reliable, enterprise-grade backends quickly."
+      ],
+      "solution": [
+        "Engineered 'Nexus Core' as a foundational Spring Boot framework providing pre-configured modules for Auth, Logging, and Data Access.",
+        "Enforced standardized architectural patterns to ensure all microservices follow best practices for scalability and security.",
+        "Significantly reduced development time for new services by providing a robust, reusable core infrastructure."
+      ],
+      "demoImages": [
+        "/personal_portfolio/images/nexus_core.jpg"
+      ],
+      "demo": "https://github.com/AHSANMOHAMMED/Nexus_Core"
+    }
+  ],
+  "publications": [
+    {
+      "id": 1,
+      "title": "50% Efficiency Boost in Hotel Systems",
+      "platform": "Hospitality Tech",
+      "year": "2024",
+      "link": "https://github.com/AHSANMOHAMMED/hotel-management",
+      "desc": "Integrated AI-assisted booking and admin workflows into a MERN stack application, automating repetitive tasks and cutting operational time by half."
+    },
+    {
+      "id": 2,
+      "title": "AI Features Serving 100+ Users",
+      "platform": "Production",
+      "year": "2024",
+      "link": "https://github.com/AHSANMOHAMMED",
+      "desc": "Deployed production-grade AI features across multiple scalable platforms, ensuring high availability and seamless user experience for 100+ daily active users."
+    }
+  ],
+  "socials": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/AHSANMOHAMMED"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/ahsan-m-s-m-13048b324/"
+    },
+    {
+      "label": "WhatsApp",
+      "href": "https://wa.me/94725068682"
+    }
+  ]
+}

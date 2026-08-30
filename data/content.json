@@ -1,0 +1,22 @@
+{
+  "site": {
+    "tagline": "Ahsan Mohammed Portfolio 2026"
+  },
+  "hero": {
+    "taglineHighlight": "Development",
+    "freelanceNote": "Recently completed a Full Stack Internship.",
+    "availableLabel": "Available",
+    "pills": ["React / Next.js", "Flutter / Mobile", "Node.js / PostgreSQL", "Docker / Cloud"],
+    "specialistStat": { "value": "SE 2026", "label": "Student" }
+  },
+  "interstitial": {
+    "basedInLabel": "Based in",
+    "availabilityLabel": "Available For Work",
+    "statLabels": ["Public\nRepositories", "Production\nPlatforms", "Core\nTechnologies"]
+  },
+  "footer": {
+    "eyebrow": "Open to internships and software engineering roles",
+    "ctaLines": ["Building scalable", "platforms &"],
+    "ctaAccent": "mobile apps."
+  }
+}
