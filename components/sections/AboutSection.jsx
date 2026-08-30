@@ -3,17 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
-import { FiMonitor, FiServer, FiSmartphone, FiCloud } from 'react-icons/fi'
+import TechOrbit from '@/components/ui/TechOrbit'
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
 
 const BIO      = profile.bio
 
-const ICON_MAP = {
-  GitHub: FaGithub, LinkedIn: FaLinkedinIn, WhatsApp: FaWhatsapp,
-  FiMonitor, FiServer, FiSmartphone, FiCloud,
-}
+const ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, WhatsApp: FaWhatsapp }
 
 const SOCIALS = profile.socials.map(s => ({ Icon: ICON_MAP[s.label], href: s.href, label: s.label }))
 
@@ -55,9 +52,6 @@ export default function AboutSection() {
       gsap.to(contentRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.15 })
       const socialIcons = socialsRef.current?.querySelectorAll('a') ?? []
       gsap.to(socialIcons, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.5 })
-      // Stagger skill category cards
-      const catCards = contentRef.current?.querySelectorAll('.' + styles.skillCategory) ?? []
-      gsap.fromTo(catCards, { opacity: 0, y: 15, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power2.out', stagger: 0.1, delay: 0.3 })
 
       let i = 0
       intervalRef.current = setInterval(() => {
@@ -127,26 +121,10 @@ export default function AboutSection() {
       {/* ── Right: content ───────────────────────────── */}
       <div ref={contentRef} className={styles.content}>
 
-        {/* Categorized Skills Grid */}
+        {/* Solar System Tech Orbit */}
         <p className={styles.whoLabel}>Tech Stack</p>
-        <div className={styles.skillsGrid}>
-          {profile.skillCategories.map((cat, catIdx) => {
-            const IconComp = ICON_MAP[cat.icon]
-            return (
-              <div key={cat.id} className={styles.skillCategory} style={{ '--cat-color': cat.color }}>
-                <div className={styles.catHeader}>
-                  {IconComp && <IconComp size={14} className={styles.catIcon} />}
-                  <span className={styles.catLabel}>{cat.label}</span>
-                  <span className={styles.catCount}>{cat.skills.length}</span>
-                </div>
-                <div className={styles.skillTags}>
-                  {cat.skills.map(skill => (
-                    <span key={skill} className={styles.skillTag}>{skill}</span>
-                  ))}
-                </div>
-              </div>
-            )
-          })}
+        <div className={styles.orbitWrap}>
+          <TechOrbit />
         </div>
 
         {/* Bio text - typewriter: all chars always in DOM, only color changes */}

@@ -1,0 +1,317 @@
+/* ══════════════════════════════════════════════════════════
+   TechOrbit — Solar System Concentric Tech Stack
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Container ─────────────────────────────── */
+.container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* ── Ambient glow ──────────────────────────── */
+.ambientGlow {
+  position: absolute;
+  inset: -15%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(247, 147, 30, 0.06) 0%,
+    rgba(247, 147, 30, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: ambientPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes ambientPulse {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ── Orbit system (3D tilt target) ─────────── */
+.orbitSystem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* ── Orbit ring paths (visual borders) ─────── */
+.ringPath {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ringPath0 {
+  border: 1px dashed rgba(247, 147, 30, 0.12);
+  box-shadow: 0 0 20px rgba(247, 147, 30, 0.03);
+}
+
+.ringPath1 {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.01);
+}
+
+.ringPath2 {
+  border: 1px dashed rgba(247, 147, 30, 0.08);
+  box-shadow: 0 0 30px rgba(247, 147, 30, 0.02);
+}
+
+.ringPath3 {
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.008);
+}
+
+/* ── Rotating ring containers ──────────────── */
+.ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: orbitRotate linear infinite;
+  will-change: transform;
+}
+
+@keyframes orbitRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── Icon wrapper (positioned on ring edge) ── */
+.iconWrap {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  cursor: pointer;
+  animation: iconCounterRotate linear infinite;
+  will-change: transform;
+}
+
+@keyframes iconCounterRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* ── Icon badge (glassmorphism card) ───────── */
+.iconBadge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: iconFloat 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.iconBadge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: radial-gradient(circle at 30% 30%, var(--tech-color, #f7931e), transparent 70%);
+  opacity: 0.12;
+  transition: opacity 0.3s;
+}
+
+.iconWrap:hover .iconBadge::before {
+  opacity: 0.25;
+}
+
+.iconWrapActive .iconBadge {
+  transform: scale(1.25);
+  border-color: var(--tech-color, #f7931e);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px color-mix(in srgb, var(--tech-color, #f7931e) 30%, transparent);
+}
+
+.iconLetter {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--tech-color, #f7931e);
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--tech-color, #f7931e) 40%, transparent);
+}
+
+/* ── Float animation (staggered per icon) ──── */
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+.iconWrap:nth-child(2n) .iconBadge  { animation-delay: -0.8s; }
+.iconWrap:nth-child(3n) .iconBadge  { animation-delay: -1.6s; }
+.iconWrap:nth-child(4n) .iconBadge  { animation-delay: -2.4s; }
+
+/* ── Tooltip ───────────────────────────────── */
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  animation: tooltipIn 0.2s ease-out;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(10, 10, 10, 0.92);
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.tooltipName {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.tooltipProf {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--tech-color, var(--accent));
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Center badge ──────────────────────────── */
+.centerBadge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(247, 147, 30, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  z-index: 10;
+  box-shadow:
+    0 0 30px rgba(247, 147, 30, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: centerPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes centerPulse {
+  0%   { box-shadow: 0 0 25px rgba(247, 147, 30, 0.12), 0 8px 30px rgba(0,0,0,0.4); }
+  100% { box-shadow: 0 0 40px rgba(247, 147, 30, 0.22), 0 8px 30px rgba(0,0,0,0.4); }
+}
+
+.centerInitials {
+  font-family: var(--font-baloo), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.centerLabel {
+  font-size: 0.42rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Responsive
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 320px;
+  }
+
+  .iconBadge {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .iconLetter {
+    font-size: 0.65rem;
+  }
+
+  .centerBadge {
+    width: 56px;
+    height: 56px;
+  }
+
+  .centerInitials {
+    font-size: 1rem;
+  }
+
+  .centerLabel {
+    font-size: 0.35rem;
+  }
+
+  .tooltip {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    max-width: 400px;
+  }
+
+  .iconBadge {
+    width: 38px;
+    height: 38px;
+  }
+}
