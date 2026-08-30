@@ -9,12 +9,13 @@ import AboutSection          from '@/components/sections/AboutSection'
 import ProjectsSection       from '@/components/sections/ProjectsSection'
 import WorkExperienceSection from '@/components/sections/WorkExperienceSection'
 import PublicationsFooterSection from '@/components/sections/PublicationsFooterSection'
+import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import ScreenLoader from '@/components/sections/ScreenLoader'
 import profile               from '@/data/profile.json'
 
 // Snap: 0=video 1=hero 2=about 3..4=projects 5=work-exp 6=publications 7=footer (mobile: 6=publications 7=footer)
 const PROJECT_SLIDES = profile.projects.length
-const TOTAL          = 7 + PROJECT_SLIDES  // 9
+const TOTAL          = 8 + PROJECT_SLIDES  // 17
 
 export default function Home() {
   const mainRef        = useRef(null)
@@ -156,6 +157,7 @@ export default function Home() {
           <AboutSection />
           <ProjectsSection />
           <WorkExperienceSection />
+          <TestimonialsSection />
           <PublicationsFooterSection />
         </div>
       </main>

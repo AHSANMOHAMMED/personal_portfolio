@@ -13,14 +13,15 @@ import styles from '@/styles/ui/Navbar.module.css'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
 // idx matches scroll position in page.js
-// 0=video,1=hero,2=about,3-11=projects(9 slides),12=work-exp,13-15=publications
+// 0=video,1=hero,2=about,3-11=projects(9),12=work-exp,13=testimonials,14-16=publications
 const NAV_ITEMS = [
   { label: 'Home',         idx: 0 },
   { label: 'About',        idx: 2 },
   { label: 'Work',         idx: 3 },
   { label: 'Experience',   idx: 12 },
-  { label: 'Impact',       idx: 13 },
-  { label: 'Contact',      idx: 15 },
+  { label: 'Voices',       idx: 13 },
+  { label: 'Impact',       idx: 14 },
+  { label: 'Contact',      idx: 16 },
 ]
 
 function getIST() {

@@ -523,5 +523,39 @@
         "Git"
       ]
     }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Dr.INSERT_NAME",
+      "role": "Senior Lecturer — Software Engineering",
+      "company": "SLIIT",
+      "text": "Ahsan consistently demonstrates exceptional problem-solving abilities and a deep understanding of full-stack architecture. His ability to independently build production-grade SaaS platforms while maintaining academic excellence is truly impressive.",
+      "relation": "Academic Supervisor"
+    },
+    {
+      "id": 2,
+      "name": "INSERT_NAME",
+      "role": "Engineering Lead",
+      "company": "Industry Placement",
+      "text": "During his internship, Ahsan delivered production-ready applications with clean, scalable code. His work on API design and database optimization exceeded expectations for an intern. He's a self-starter who quickly becomes a valued team member.",
+      "relation": "Internship Supervisor"
+    },
+    {
+      "id": 3,
+      "name": "INSERT_NAME",
+      "role": "Project Supervisor",
+      "company": "SLIIT",
+      "text": "Ahsan's final year project showcased advanced system design thinking — from microservices architecture to real-time synchronization. He approached every challenge with curiosity and delivered solutions that were both technically sound and user-focused.",
+      "relation": "Project Supervisor"
+    },
+    {
+      "id": 4,
+      "name": "INSERT_NAME",
+      "role": "Peer & Collaborator",
+      "company": "SLIIT",
+      "text": "Working with Ahsan on group projects was always productive. He brings strong technical skills, clear communication, and a genuine willingness to help teammates. His Docker and deployment knowledge elevated our entire team's workflow.",
+      "relation": "Classmate & Teammate"
+    }
   ]
 }
