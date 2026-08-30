@@ -8,7 +8,7 @@ import { gsap } from '@/lib/gsap'
 import {
   FaGithub, FaLinkedinIn, FaMedium, FaInstagram, FaYoutube, FaEnvelope, FaWhatsapp
 } from 'react-icons/fa'
-import { FiArrowUpRight, FiChevronDown } from 'react-icons/fi'
+import { FiArrowUpRight, FiChevronDown, FiDownload } from 'react-icons/fi'
 import profile from '@/data/profile.json'
 import content from '@/data/content.json'
 import styles from '@/styles/sections/PublicationsFooterSection.module.css'
@@ -458,6 +458,9 @@ export default function PublicationsFooterSection() {
               <a href={`mailto:${profile.email}`} className={styles.mobileTalkBtn}>
                 Let&apos;s talk <FiArrowUpRight />
               </a>
+              <a href={profile.resume} download className={styles.mobileResumeBtn}>
+                Resume <FiDownload size={12} />
+              </a>
             </div>
             <div className={styles.mobileSocialRow}>
               {HERO_SOCIAL_LABELS.map((label, i) => {
@@ -534,9 +537,14 @@ export default function PublicationsFooterSection() {
                   ))}
                   <span className={styles.ctaAccent}>{content.footer.ctaAccent}</span>
                 </p>
-                <a href={`mailto:${profile.email}`} className={styles.talkBtn}>
-                  Let&apos;s talk
-                </a>
+                <div className={styles.ctaButtons}>
+                  <a href={`mailto:${profile.email}`} className={styles.talkBtn}>
+                    Let&apos;s talk
+                  </a>
+                  <a href={profile.resume} download className={styles.resumeBtnFooter}>
+                    Resume <FiDownload size={12} />
+                  </a>
+                </div>
               </div>
             </div>
 

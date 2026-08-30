@@ -4,7 +4,7 @@ import { useEffect, useRef, Fragment } from 'react'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
-import { FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { gsap } from '@/lib/gsap'
 import ErrorBoundary from '@/components/ui/ErrorBoundary'
 
@@ -195,9 +195,14 @@ export default function HeroSection() {
         </div>
 
         {/* View Projects CTA */}
-        <button ref={ctaBtnRef} type="button" className={styles.viewBtn} onClick={handleViewProjects}>
-           View Work <FiArrowUpRight />
-        </button>
+        <div ref={ctaBtnRef} className={styles.ctaRow}>
+          <button type="button" className={styles.viewBtn} onClick={handleViewProjects}>
+            View Work <FiArrowUpRight />
+          </button>
+          <a href={profile.resume} download className={styles.resumeBtn}>
+            Resume <FiDownload />
+          </a>
+        </div>
 
         {/* Stats Row */}
         <div ref={statsRef} className={styles.stats}>
