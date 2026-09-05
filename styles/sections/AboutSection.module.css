@@ -1,11 +1,4 @@
 .section {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  z-index: 3;
-  background: #0a0a0a;
-  display: grid;
-  grid-template-columns: 30% 70%;
   position: relative;
   min-height: 100vh;
   width: 100%;
@@ -18,7 +11,6 @@
   z-index: 2;
 }
 
-/* ── Left column ───────────────────────────── */
 .container {
   width: 100%;
   max-width: 1300px;
@@ -27,24 +19,15 @@
   gap: 4rem;
 }
 
-.photoCol {
 .editorialBanner {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 8rem 1.5rem 2.5rem 2.5rem;
-  overflow: visible;
   gap: 0.5rem;
   border-left: 3px solid var(--accent, #f7931e);
   padding-left: 1.5rem;
 }
 
-/* Wrapper holds frame + overlapping signature */
-.photoWrap {
-  position: relative;
-  width: 100%;
-  flex: 1;
-  max-height: 72vh;
 .kicker {
   font-size: 0.75rem;
   font-weight: 700;
@@ -53,8 +36,6 @@
   text-transform: uppercase;
 }
 
-/* Photo frame */
-.photoFrame {
 .statementText {
   font-size: clamp(2.2rem, 5vw, 4.5rem);
   font-weight: 900;
@@ -70,41 +51,43 @@
   -webkit-text-fill-color: transparent;
 }
 
-.bioGrid {
+.photoCol {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
   gap: 3rem;
   align-items: start;
 }
 
-.portraitCol {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.imageFrame {
+.photoWrap {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.photoFrame {
+  position: relative;
+  width: 100%;
   height: 380px;
   border-radius: 1rem;
   overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.1));
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.1));
 }
 
 .photoImg {
-.portraitImg {
   object-fit: cover;
   object-position: top center;
   filter: grayscale(20%) contrast(105%);
   transition: transform 0.4s ease, filter 0.4s ease;
+  width: 100%;
+  height: 100%;
 }
 
-/* Signature - overlaps bottom-right corner of photo */
+.photoFrame:hover .photoImg {
+  transform: scale(1.03);
+  filter: grayscale(0%) contrast(100%);
+}
+
 .signature {
   position: absolute;
   bottom: 0rem;
@@ -119,18 +102,10 @@
   transform-origin: right bottom;
   pointer-events: none;
   z-index: 4;
-.imageFrame:hover .portraitImg {
-  transform: scale(1.03);
-  filter: grayscale(0%) contrast(100%);
 }
 
-/* Social icons */
 .socials {
-.badgeRow {
   display: flex;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  align-items: center;
   flex-direction: column;
   gap: 0.2rem;
   padding: 0.8rem 1rem;
@@ -151,60 +126,32 @@
   font-size: 1.2rem;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-.scholarBadge {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent, #f7931e);
 }
 
 .socialLink:hover {
   background: var(--accent);
   color: #fff;
   transform: translateY(-3px) scale(1.12);
-.scholarSub {
-  font-size: 0.7rem;
-  color: var(--text-muted, #8e8e93);
 }
 
-/* ── Right column ──────────────────────────── */
-
 .content {
-.textCol {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 4rem 4rem 3rem;
-  overflow: hidden;
-  min-height: 0;
+  padding: 0;
   gap: 1.5rem;
 }
 
-/* Who I Am label */
 .whoLabel {
-  font-size: 1.1rem;
-.whoHeader {
   font-size: 1.5rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 0.6rem 0;
-  flex-shrink: 0;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: #ffffff;
+  margin: 0;
 }
 
-/* ── Tech Orbit Wrapper ─────────────────────── */
 .orbitWrap {
-  margin-bottom: 1rem;
-.bioParagraph {
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--text-muted, #8e8e93);
-  white-space: pre-line;
-}
-
-.techOrbitBox {
   margin-top: 1rem;
   padding: 1.25rem;
   border-radius: 1rem;
@@ -217,30 +164,12 @@
   gap: 0.5rem;
 }
 
-.bioWrap {
-  overflow: hidden;
-.orbitLabel {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--accent-cyan, #00f0ff);
-}
-
-.bio {
-  font-size: clamp(1rem, 1.6vw, 1.6rem);
-  font-weight: 800;
-  line-height: 1.42;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0;
-  width: 100%;
 .dimensionsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
-.typed    { color: rgba(255, 255, 255, 0.85); }
-.untyped  { color: rgba(255, 255, 255, 0.2); }
 .dimCard {
   background: rgba(18, 18, 24, 0.6);
   border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.08));
@@ -252,24 +181,10 @@
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-/* Cursor lives as ::after on the last typed char - never a sibling node,
-   so it cannot shift adjacent text or change line-wrap decisions. */
-.lastTyped {
-  color: rgba(255, 255, 255, 0.85);
 .dimCard:hover {
   transform: translateY(-4px);
   border-color: var(--accent, #f7931e);
 }
-.lastTyped::after {
-  content: '';
-  display: inline-block;
-  width: 2px;
-  height: 0.85em;
-  background: var(--accent);
-  margin-left: 2px;
-  margin-right: -4px;   /* absorb its own width */
-  vertical-align: text-bottom;
-  animation: blink 0.75s step-end infinite;
 
 .dimNum {
   font-size: 1.2rem;
@@ -278,8 +193,6 @@
   letter-spacing: 0.1em;
 }
 
-.cursor {
-  display: none; /* kept to avoid breaking any lingering references */
 .dimTitle {
   font-size: 0.95rem;
   font-weight: 800;
@@ -287,52 +200,61 @@
   letter-spacing: 0.05em;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
 .dimDesc {
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--text-muted, #8e8e93);
 }
 
-@media (max-width: 767px) {
-  .content {
-    justify-content: start;
-  }
-
-  .section {
-@media (max-width: 991px) {
-  .bioGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 45dvh 1fr;
-    height: 100dvh;
-    min-height: -webkit-fill-available;
-    overflow: hidden;
-  }
-  .photoCol {
-    padding: 3rem 1rem 0.5rem;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 0.75rem;
-    overflow: visible;
-  .imageFrame {
-    height: 300px;
-  }
-  .photoWrap    { flex: 1; max-height: 100%; align-self: stretch; height: 100%; }
-  .socials      { flex-direction: column; margin-top: 0; gap: 0.4rem; }
-  .socialLink   { width: 2rem; height: 2rem; font-size: 1rem; }
-  .content      { padding: 1rem 1.25rem 0.75rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .bio          { font-size: clamp(0.72rem, 3vw, 0.95rem); }
-  .orbitWrap     { margin-bottom: 0.5rem; }
-  .whoLabel     { font-size: 0.8rem; margin-bottom: 0.3rem; }
-  .signature    { font-size: 3rem; bottom: -1rem; right: -0.5rem; }
+.bioWrap {
+  overflow: hidden;
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .section    { grid-template-columns: 35% 65%; }
-  .photoCol   { padding: 5rem 1rem 2rem 1.5rem; }
-  .content    { padding: 3rem 2rem 2rem; }
-  .bio        { font-size: clamp(0.85rem, 1.4vw, 1.2rem); }
-  .signature  { font-size: 4rem; }
+.bio {
+  font-size: clamp(1rem, 1.6vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.42;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  width: 100%;
+}
+
+.typed { color: rgba(255, 255, 255, 0.85); }
+.untyped { color: rgba(255, 255, 255, 0.2); }
+
+.lastTyped {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.lastTyped::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  background: var(--accent);
+  margin-left: 2px;
+  margin-right: -4px;
+  vertical-align: text-bottom;
+  animation: blink 0.75s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 991px) {
+  .section {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+  .photoCol {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .photoFrame {
+    height: 300px;
+  }
 }

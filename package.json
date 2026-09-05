@@ -35,5 +35,8 @@
     "shadcn": "^4.7.0",
     "tailwindcss": "^4",
     "typescript": "^5.9.3"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
