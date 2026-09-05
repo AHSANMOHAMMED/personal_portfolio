@@ -9,7 +9,7 @@ export default function Cursor() {
   const rafRef    = useRef(null);
 
   useEffect(() => {
-    if (window.matchMedia('(hover: none)').matches) {
+    if (window.matchMedia('(hover: none), (prefers-reduced-motion: reduce)').matches) {
       if (cursorRef.current) cursorRef.current.style.display = 'none';
       return;
     }

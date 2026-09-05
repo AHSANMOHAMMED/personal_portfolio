@@ -11,6 +11,7 @@ export default function ProjectModal({ isOpen, onClose, project }) {
   const [imgIdx, setImgIdx] = useState(0)
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
+  const previousFocusRef = useRef(null)
 
   const allImages = project
     ? [...new Set([project.image, ...(project.demoImages || [])])]
@@ -18,14 +19,17 @@ export default function ProjectModal({ isOpen, onClose, project }) {
 
   useEffect(() => {
     if (isOpen && project) {
-      setImgIdx(0)
+      previousFocusRef.current = document.activeElement
+      queueMicrotask(() => setImgIdx(0))
       document.body.style.overflow = 'hidden'
       document.body.dataset.modalOpen = 'true'
       gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 })
       gsap.fromTo(modalRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out', delay: 0.1 })
+      requestAnimationFrame(() => modalRef.current?.focus())
     } else {
       document.body.style.overflow = ''
       delete document.body.dataset.modalOpen
+      previousFocusRef.current?.focus?.()
     }
     return () => {
       document.body.style.overflow = ''
@@ -71,6 +75,19 @@ export default function ProjectModal({ isOpen, onClose, project }) {
       if (e.key === 'Escape') handleClose()
       if (e.key === 'ArrowLeft') prevImg()
       if (e.key === 'ArrowRight') nextImg()
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')
+        if (!focusable.length) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -83,6 +100,10 @@ export default function ProjectModal({ isOpen, onClose, project }) {
       <div
         className={styles.modal}
         ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-dialog-title"
+        tabIndex={-1}
         onClick={e => e.stopPropagation()}
         onWheel={e => e.stopPropagation()}
       >
@@ -146,7 +167,7 @@ export default function ProjectModal({ isOpen, onClose, project }) {
             <span className={styles.typeTag} style={{ color: project.color || 'var(--accent)', borderColor: `${project.color || '#f7931e'}40`, backgroundColor: `${project.color || '#f7931e'}1A` }}>
               {project.type}
             </span>
-            <h2 className={styles.title}>{project.title}</h2>
+            <h2 id="project-dialog-title" className={styles.title}>{project.title}</h2>
             <p className={styles.subtitle}>{project.subtitle}</p>
           </div>
 

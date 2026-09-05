@@ -29,18 +29,35 @@ export default function VideoIntro() {
   const [muted, setMuted] = useState(true)
   const [playing, setPlaying] = useState(true)
   const [showHint, setShowHint] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+  ))
+  const [isReducedMotion, setIsReducedMotion] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ))
 
   // Split name into characters for staggered reveal
   const firstNameChars = useMemo(() => profile.name.first.split(''), [])
   const lastNameChars  = useMemo(() => profile.name.last.split(''), [])
 
   useEffect(() => {
-    setIsMobile(window.matchMedia('(max-width: 767px)').matches)
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateMobileState = () => setIsMobile(mediaQuery.matches)
+    updateMobileState()
+    mediaQuery.addEventListener('change', updateMobileState)
+    return () => mediaQuery.removeEventListener('change', updateMobileState)
+  }, [])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updateMotionState = () => setIsReducedMotion(mediaQuery.matches)
+    mediaQuery.addEventListener('change', updateMotionState)
+    return () => mediaQuery.removeEventListener('change', updateMotionState)
   }, [])
 
   // ── Cinematic entrance timeline ──
   useEffect(() => {
+    if (isReducedMotion) return undefined
     const tl = gsap.timeline({ delay: 0.5 })
 
     // 1. Video zooms in from slightly scaled down + fades
@@ -113,7 +130,7 @@ export default function VideoIntro() {
     }
 
     return () => tl.kill()
-  }, [])
+  }, [isReducedMotion])
 
   // Video fade-in
   useEffect(() => {
@@ -121,9 +138,13 @@ export default function VideoIntro() {
     if (!v) return
     if (typeof v.play !== 'function') return
     v.muted = true
+    if (isReducedMotion) {
+      v.pause()
+      return undefined
+    }
     const t = gsap.fromTo(v, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
     return () => t.kill()
-  }, [])
+  }, [isReducedMotion])
 
   // Unmute on loader dismiss
   useEffect(() => {
@@ -187,33 +208,29 @@ export default function VideoIntro() {
   return (
     <section className={styles.section}>
 
-      {/* 1 - Blurred ambient background */}
-      <video
-        src="/personal_portfolio/assets/hero_bg_video.mp4"
-        autoPlay muted playsInline
-        aria-hidden="true"
-        className={styles.bgVideo}
-      />
-
-      {/* 2 - Main video with cinematic zoom wrapper */}
+      {/* Main video with cinematic zoom wrapper */}
       <div ref={mainVideoWrapRef} className={styles.mainVideoWrap}>
         <video
+          src="/personal_portfolio/assets/hero_bg_video.mp4"
+          poster="/personal_portfolio/assets/hero1.png"
+          preload="metadata"
+          autoPlay={!isReducedMotion}
+          muted playsInline
           ref={videoRef}
           data-testid="intro-video"
-          src="/personal_portfolio/assets/hero_bg_video.mp4"
-          muted playsInline
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onEnded={handleEnded}
           className={styles.mainVideo}
         />
+        <div className={styles.videoShade} aria-hidden="true" />
       </div>
 
       {/* 3 - Cinematic gradient overlay */}
       <div className={styles.overlay} />
 
       {/* 4 - Three.js cinematic bokeh layer (desktop only) */}
-      {!isMobile && (
+      {!isMobile && !isReducedMotion && (
         <ErrorBoundary>
           <CinematicLayer />
         </ErrorBoundary>

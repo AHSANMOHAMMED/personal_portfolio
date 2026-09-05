@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
-import { FaQuoteLeft } from 'react-icons/fa'
+import { FiArrowUpRight } from 'react-icons/fi'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/TestimonialsSection.module.css'
 
-const TESTIMONIALS = profile.testimonials
+const PRINCIPLES = profile.collaborationPrinciples
 
 export default function TestimonialsSection() {
   const sectionRef = useRef(null)
@@ -61,31 +61,22 @@ export default function TestimonialsSection() {
       <div className={styles.content}>
         {/* Header */}
         <div className={styles.header}>
-          <p ref={labelRef} className={styles.label}>Recommendations</p>
-          <h2 ref={headingRef} className={styles.heading}>What People Say</h2>
+          <p ref={labelRef} className={styles.label}>How I Work</p>
+          <h2 ref={headingRef} className={styles.heading}>Good work is a team practice.</h2>
         </div>
 
         {/* Cards grid */}
         <div className={styles.grid}>
-          {TESTIMONIALS.map((t, i) => (
+          {PRINCIPLES.map((principle, i) => (
             <div
-              key={t.id}
+              key={principle.id}
               ref={el => { cardRefs.current[i] = el }}
               className={styles.card}
             >
-              <FaQuoteLeft size={14} className={styles.quoteIcon} />
-              <p className={styles.text}>{t.text}</p>
-              <div className={styles.author}>
-                <div className={styles.avatar}>
-                  <span className={styles.avatarLetter}>{t.name.charAt(0)}</span>
-                </div>
-                <div className={styles.authorInfo}>
-                  <p className={styles.authorName}>{t.name}</p>
-                  <p className={styles.authorRole}>{t.role}</p>
-                  <p className={styles.authorCompany}>{t.company}</p>
-                </div>
-                <span className={styles.relation}>{t.relation}</span>
-              </div>
+              <span className={styles.cardIndex}>0{i + 1}</span>
+              <h3 className={styles.principleTitle}>{principle.title}</h3>
+              <p className={styles.text}>{principle.text}</p>
+              <FiArrowUpRight className={styles.principleIcon} aria-hidden="true" />
             </div>
           ))}
         </div>

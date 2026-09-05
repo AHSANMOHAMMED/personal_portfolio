@@ -143,7 +143,7 @@ export default function PublicationsFooterSection() {
       videoEl.muted     = true
       videoEl.playsInline = true
       videoEl.loop      = true
-      videoEl.preload   = 'auto'
+      videoEl.preload   = 'metadata'
 
       const vidTex = new THREE.VideoTexture(videoEl)
       vidTex.minFilter = THREE.LinearFilter

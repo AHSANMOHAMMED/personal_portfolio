@@ -120,6 +120,8 @@ export default function HeroSection() {
         loop
         muted
         playsInline
+        preload="metadata"
+        poster="/personal_portfolio/assets/hero1.png"
         className={styles.bgVideo}
       >
         <source src="/personal_portfolio/assets/hero_bg_video.mp4" type="video/mp4" />

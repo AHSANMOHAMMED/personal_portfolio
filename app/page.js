@@ -11,11 +11,9 @@ import WorkExperienceSection from '@/components/sections/WorkExperienceSection'
 import PublicationsFooterSection from '@/components/sections/PublicationsFooterSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import ScreenLoader from '@/components/sections/ScreenLoader'
-import profile               from '@/data/profile.json'
+import { TOTAL_STEPS } from '@/lib/navigation'
 
-// Snap: 0=video 1=hero 2=about 3..4=projects 5=work-exp 6=publications 7=footer (mobile: 6=publications 7=footer)
-const PROJECT_SLIDES = profile.projects.length
-const TOTAL          = 8 + PROJECT_SLIDES  // 17
+const TOTAL = TOTAL_STEPS
 
 export default function Home() {
   const mainRef        = useRef(null)
@@ -28,6 +26,12 @@ export default function Home() {
   useEffect(() => {
     const el = mainRef.current
     if (!el) return
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const isReducedMotion = motionQuery.matches
+    const isSmallScreen = window.matchMedia('(max-width: 767px)').matches
+    const useCinematicNavigation = !isReducedMotion && !isSmallScreen
+    if (!useCinematicNavigation) el.style.overflowY = 'auto'
 
     // Fade to black → instant scrollTop jump → fade in
     // Used whenever we loop footer → first section
@@ -87,6 +91,7 @@ export default function Home() {
     function onWheel(e) {
       // Don't intercept scroll when a modal or overlay is open
       if (document.body.dataset.modalOpen === 'true') return
+      if (!useCinematicNavigation) return
       e.preventDefault()
       if (busyRef.current) return
       goTo(idxRef.current + (e.deltaY > 0 ? 1 : -1))
@@ -99,6 +104,7 @@ export default function Home() {
     }
     function onTouchEnd(e) {
       if (document.body.dataset.modalOpen === 'true') return
+      if (!useCinematicNavigation) return
       const dy = touchY - e.changedTouches[0].clientY
       if (Math.abs(dy) < 40 || busyRef.current) return
       goTo(idxRef.current + (dy > 0 ? 1 : -1))
@@ -106,6 +112,29 @@ export default function Home() {
 
     function onScroll() {
       idxRef.current = Math.round(el.scrollTop / window.innerHeight)
+    }
+
+    function onKeyDown(e) {
+      if (document.body.dataset.modalOpen === 'true') return
+      const target = e.target
+      if (target instanceof HTMLElement && target.closest('button, a, input, textarea, select, [role="dialog"]')) return
+
+      const keyTargets = {
+        ArrowDown: 1,
+        PageDown: 1,
+        ArrowUp: -1,
+        PageUp: -1,
+        Home: -TOTAL,
+        End: TOTAL,
+      }
+      if (!(e.key in keyTargets)) return
+      e.preventDefault()
+      if (!useCinematicNavigation) {
+        const nextIdx = Math.max(0, Math.min(TOTAL - 1, idxRef.current + keyTargets[e.key]))
+        el.scrollTop = nextIdx * window.innerHeight
+        return
+      }
+      goTo(idxRef.current + keyTargets[e.key])
     }
 
     // Footer video ends → same fade-cut loop back to top
@@ -118,6 +147,7 @@ export default function Home() {
     el.addEventListener('scroll', onScroll, { passive: true  })
     el.addEventListener('touchstart', onTouchStart, { passive: true })
     el.addEventListener('touchend',   onTouchEnd,   { passive: true })
+    window.addEventListener('keydown', onKeyDown)
     window.addEventListener('footer-loop-back', onFooterLoop)
 
     return () => {
@@ -125,8 +155,10 @@ export default function Home() {
       el.removeEventListener('scroll', onScroll)
       el.removeEventListener('touchstart', onTouchStart)
       el.removeEventListener('touchend',   onTouchEnd)
+      window.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('footer-loop-back', onFooterLoop)
       tweenRef.current?.kill()
+      el.style.overflowY = ''
     }
   }, [])
 
@@ -150,7 +182,8 @@ export default function Home() {
       />
 
       <Navbar />
-      <main ref={mainRef} style={{ height: '100dvh', overflowY: 'hidden', overscrollBehavior: 'none' }}>
+      <a className="skip-link" href="#portfolio-content">Skip to portfolio content</a>
+      <main id="portfolio-content" ref={mainRef} tabIndex={-1} style={{ height: '100dvh', overscrollBehavior: 'none' }}>
         <div>
           <VideoIntro />
           <HeroSection />

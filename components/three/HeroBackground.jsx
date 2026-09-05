@@ -35,6 +35,9 @@ export default function HeroBackground() {
     const mount = mountRef.current
     if (!mount) return
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) return
+
     let W = mount.clientWidth
     let H = mount.clientHeight
 
@@ -130,8 +133,17 @@ export default function HeroBackground() {
 
     // ── RAF ───────────────────────────────────────────────
     let raf
+    let isVisible = true
+    let pageVisible = !document.hidden
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting
+    }, { threshold: 0.05 })
+    visibilityObserver.observe(mount)
+    const onVisibilityChange = () => { pageVisible = !document.hidden }
+    document.addEventListener('visibilitychange', onVisibilityChange)
     function tick() {
       raf = requestAnimationFrame(tick)
+      if (!isVisible || !pageVisible) return
       timer.update(performance.now())
       const dt      = Math.min(timer.getDelta(), 0.05)   // cap for tab-switch spikes
       const elapsed = timer.getElapsed()
@@ -174,6 +186,8 @@ export default function HeroBackground() {
     return () => {
       cancelAnimationFrame(raf)
       ro.disconnect()
+      visibilityObserver.disconnect()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
       section?.removeEventListener('mousemove', onMove)
       g1.dispose(); g2.dispose()
       m1.dispose(); m2.dispose()

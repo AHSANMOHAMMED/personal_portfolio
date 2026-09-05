@@ -7,22 +7,10 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu'
-import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import styles from '@/styles/ui/Navbar.module.css'
 import { FaBars, FaTimes } from 'react-icons/fa'
-
-// idx matches scroll position in page.js
-// 0=video,1=hero,2=about,3-11=projects(9),12=work-exp,13=testimonials,14-16=publications
-const NAV_ITEMS = [
-  { label: 'Home',         idx: 0 },
-  { label: 'About',        idx: 2 },
-  { label: 'Work',         idx: 3 },
-  { label: 'Experience',   idx: 12 },
-  { label: 'Voices',       idx: 13 },
-  { label: 'Impact',       idx: 14 },
-  { label: 'Contact',      idx: 16 },
-]
+import { NAV_ITEMS } from '@/lib/navigation'
 
 function getIST() {
   return new Date().toLocaleTimeString('en-IN', {
@@ -39,14 +27,28 @@ export default function Navbar() {
   const [onIntro, setOnIntro] = useState(true)
   const [onDark,  setOnDark]  = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
   const headerRef   = useRef(null)
   const lastY       = useRef(0)
   const hidden      = useRef(false)
   const stopTimer   = useRef(null)
 
+  function navigateTo(index) {
+    const scroller = document.querySelector('main')
+    if (!scroller) return
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const smallScreen = window.matchMedia('(max-width: 767px)').matches
+    scroller.scrollTo({
+      top: index * window.innerHeight,
+      behavior: reducedMotion || smallScreen ? 'auto' : 'smooth',
+    })
+    setMenuOpen(false)
+  }
+
   // Live clock - set immediately on mount, then every second
   useEffect(() => {
-    setTime(getIST())
+    const updateTime = () => setTime(getIST())
+    updateTime()
     const id = setInterval(() => setTime(getIST()), 1000)
     return () => clearInterval(id)
   }, [])
@@ -67,6 +69,7 @@ export default function Navbar() {
       const delta    = currentY - lastY.current
 
       const sectionIdx = Math.round(currentY / vh)
+      setActiveIndex(sectionIdx)
       setOnIntro(currentY < vh * 0.8)
       setOnDark(sectionIdx >= 3)
 
@@ -98,18 +101,12 @@ export default function Navbar() {
 
         <NavigationMenu className={styles.navMenu}>
           <NavigationMenuList className="flex gap-6">
-            {NAV_ITEMS.map(({ label, idx }) => (
+            {NAV_ITEMS.map(({ label, index }) => (
               <NavigationMenuItem key={label}>
                 <NavigationMenuLink
                   className={styles.navLink}
-                  onClick={() => {
-                    const scroller = document.querySelector('main')
-                    if (scroller) gsap.to(scroller, {
-                      scrollTop: idx * window.innerHeight,
-                      duration: 1.0,
-                      ease: 'power3.inOut',
-                    })
-                  }}
+                  onClick={() => navigateTo(index)}
+                  aria-current={activeIndex === index ? 'page' : undefined}
                   style={{ cursor: 'pointer' }}
                 >
                   {label}
@@ -137,19 +134,12 @@ export default function Navbar() {
 
       {menuOpen && (
         <div className={styles.mobileMenu}>
-          {NAV_ITEMS.map(({ label, idx }) => (
+          {NAV_ITEMS.map(({ label, index }) => (
             <button
               key={label}
               className={styles.mobileNavLink}
-              onClick={() => {
-                const scroller = document.querySelector('main')
-                if (scroller) gsap.to(scroller, {
-                  scrollTop: idx * window.innerHeight,
-                  duration: 1.0,
-                  ease: 'power3.inOut',
-                })
-                setMenuOpen(false)
-              }}
+              onClick={() => navigateTo(index)}
+              aria-current={activeIndex === index ? 'page' : undefined}
             >
               {label}
             </button>

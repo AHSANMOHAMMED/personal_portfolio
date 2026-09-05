@@ -14,6 +14,14 @@ export default function ScreenLoader({ onDismiss }) {
   const [typed, setTyped] = useState('')
   const fullName = profile.name.full.toUpperCase()
 
+  useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const hasEntered = window.sessionStorage.getItem('portfolio-entered') === 'true'
+    if (!reducedMotion && !hasEntered) return
+    window.dispatchEvent(new CustomEvent('loader-dismissed'))
+    onDismiss()
+  }, [onDismiss])
+
   // Typing effect for the name
   useEffect(() => {
     let i = 0
@@ -40,6 +48,7 @@ export default function ScreenLoader({ onDismiss }) {
   }, [typed, fullName])
 
   function handleStart() {
+    window.sessionStorage.setItem('portfolio-entered', 'true')
     window.dispatchEvent(new CustomEvent('loader-dismissed'))
 
     const overlay = overlayRef.current

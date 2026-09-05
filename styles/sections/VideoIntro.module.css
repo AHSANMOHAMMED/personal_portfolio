@@ -10,17 +10,6 @@
 }
 
 /* ── Video layers ───────────────────────────── */
-.bgVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(28px);
-  transform: scale(1.12);
-  opacity: 0.5;
-}
-
 .mainVideoWrap {
   position: absolute;
   inset: 0;
@@ -35,6 +24,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.videoShade {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.16);
 }
 
 /* ── Cinematic gradient overlay ─────────────── */

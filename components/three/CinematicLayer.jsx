@@ -28,6 +28,9 @@ export default function CinematicLayer() {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) return
+
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false })
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -90,9 +93,18 @@ export default function CinematicLayer() {
     timer.update(performance.now())
     let elapsed = 0
     let animId
+    let isVisible = true
+    let pageVisible = !document.hidden
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting
+    }, { threshold: 0.05 })
+    visibilityObserver.observe(canvas)
+    const onVisibilityChange = () => { pageVisible = !document.hidden }
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     const animate = (timestamp) => {
       animId = requestAnimationFrame(animate)
+      if (!isVisible || !pageVisible) return
       timer.update(timestamp)
       elapsed += timer.getDelta()
 
@@ -115,6 +127,8 @@ export default function CinematicLayer() {
       cancelAnimationFrame(animId)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('resize', onResize)
+      visibilityObserver.disconnect()
+      document.removeEventListener('visibilitychange', onVisibilityChange)
       tex.dispose()
       orbs.forEach(s => s.material.dispose())
       renderer.dispose()

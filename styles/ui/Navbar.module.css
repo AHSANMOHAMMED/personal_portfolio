@@ -32,6 +32,10 @@
   opacity: 0.6;
 }
 
+.navLink[aria-current='page'] {
+  color: var(--accent);
+}
+
 .emailBtn {
   position: relative;
   overflow: hidden;
@@ -139,6 +143,10 @@
 }
 
 .mobileNavLink:hover {
+  color: var(--accent);
+}
+
+.mobileNavLink[aria-current='page'] {
   color: var(--accent);
 }
 
