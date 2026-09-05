@@ -39,6 +39,15 @@ function CoreMesh() {
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
       positions[i * 3 + 2] = r * Math.cos(phi)
+      const p1 = Math.sin(i * 9999.0) * 0.5 + 0.5
+      const p2 = Math.cos(i * 3333.0) * 0.5 + 0.5
+      const p3 = Math.sin(i * 1234.0) * 0.5 + 0.5
+      const radius = (p1 * 0.8 + 1.2) * 2.2
+      const theta = p2 * Math.PI * 2
+      const phi = Math.acos(p3 * 2 - 1)
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta)
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta)
+      positions[i * 3 + 2] = radius * Math.cos(phi)
     }
     return positions
   }, [particleCount])

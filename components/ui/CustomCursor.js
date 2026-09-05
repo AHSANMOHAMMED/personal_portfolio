@@ -6,6 +6,7 @@ import styles from './CustomCursor.module.css'
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 })
   const [cursorState, setCursorState] = useState('default') // default, hover, project, drag, rotate3d
+  const [cursorState, setCursorState] = useState('default')
   const [label, setLabel] = useState('')
   const [isVisible, setIsVisible] = useState(false)
   const [isTouch, setIsTouch] = useState(false)
@@ -22,11 +23,13 @@ export default function CustomCursor() {
         setIsTouch(true)
         return
       }
+      if (window.matchMedia('(pointer: coarse)').matches) return
       setPosition({ x: e.clientX, y: e.clientY })
       if (!isVisible) setIsVisible(true)
     }
 
     const onMouseOver = (e) => {
+      if (window.matchMedia('(pointer: coarse)').matches) return
       const target = e.target.closest('[data-cursor]')
       if (target) {
         const state = target.getAttribute('data-cursor')
@@ -56,6 +59,7 @@ export default function CustomCursor() {
   }, [isVisible])
 
   if (isTouch || !isVisible) return null
+  if (!isVisible) return null
 
   return (
     <div
