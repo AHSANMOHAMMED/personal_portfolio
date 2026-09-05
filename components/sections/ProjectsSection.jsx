@@ -168,6 +168,8 @@ export default function ProjectsSection() {
                     <button
                       className={styles.detailsBtn}
                       onClick={() => setSelectedProject(proj)}
+                      data-cursor="project"
+                      data-cursor-label="CASE STUDY"
                     >
                       <span>View Details</span>
                     </button>
@@ -177,6 +179,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.liveBtn}
+                        data-cursor="hover"
                       >
                         <span>Live Demo</span>
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>

@@ -1,0 +1,117 @@
+.section {
+  position: relative;
+  min-height: 80vh;
+  width: 100%;
+  background: var(--bg-dark, #050507);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  z-index: 2;
+}
+
+.container {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent-cyan, #00f0ff);
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted, #8e8e93);
+  max-width: 600px;
+}
+
+.tabRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.1));
+  color: var(--text-muted, #8e8e93);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabBtn:hover, .activeTab {
+  background: rgba(247, 147, 30, 0.12);
+  border-color: var(--accent, #f7931e);
+  color: #ffffff;
+}
+
+.countBadge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accent, #f7931e);
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.skillChip {
+  background: rgba(18, 18, 24, 0.6);
+  border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.08));
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.skillChip:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-cyan, #00f0ff);
+}
+
+.skillDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent, #f7931e);
+}
+
+.skillName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+

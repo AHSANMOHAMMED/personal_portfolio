@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import TechOrbit from '@/components/ui/TechOrbit'
@@ -9,6 +10,14 @@ import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
 
 const BIO      = profile.bio
+const DIMENSIONS = [
+  { num: '01', title: 'PRODUCT THINKING', desc: 'Translating complex real-world requirements into scalable, intuitive software products.' },
+  { num: '02', title: 'FULL-STACK DEVELOPMENT', desc: 'End-to-end architecture with modern React, Next.js, Node.js, TypeScript, and Flutter.' },
+  { num: '03', title: 'SYSTEM DESIGN', desc: 'Designing resilient microservices, optimized REST APIs, and event-driven backends.' },
+  { num: '04', title: 'AI INTEGRATION', desc: 'Embedding production LLMs, AI agents, and intelligent automated workflows into applications.' },
+  { num: '05', title: 'DATABASES & CACHING', desc: 'Relational & NoSQL data design using PostgreSQL, MongoDB, Redis, and PostGIS.' },
+  { num: '06', title: 'DEPLOYMENT & DEVOPS', desc: 'Containerizing services with Docker, CI/CD pipelines, Nginx, and cloud hosting.' },
+]
 
 const ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, WhatsApp: FaWhatsapp }
 
@@ -20,6 +29,14 @@ export default function AboutSection() {
   const contentRef  = useRef(null)
   const socialsRef  = useRef(null)
   const intervalRef = useRef(null)
+  const sectionRef   = useRef(null)
+  const introRef     = useRef(null)
+  const bioRef       = useRef(null)
+  const dimsRef      = useRef(null)
+  const sectionRef = useRef(null)
+  const introRef   = useRef(null)
+  const bioRef     = useRef(null)
+  const dimsRef    = useRef(null)
 
   const [typed, setTyped] = useState(0)
   const [done,  setDone]  = useState(false)
@@ -30,8 +47,17 @@ export default function AboutSection() {
 
     const scroller = document.querySelector('main')
     if (!scroller) return
+    gsap.set(introRef.current, { opacity: 0, y: 50 })
+    gsap.set(bioRef.current, { opacity: 0, y: 30 })
+    
+    const dimCards = dimsRef.current?.querySelectorAll('.' + styles.dimCard) || []
+    gsap.set(dimCards, { opacity: 0, y: 25 })
 
     let isActive = false
+    const tl = gsap.timeline({ paused: true })
+    tl.to(introRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+      .to(bioRef.current, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+      .to(dimCards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }, '-=0.3')
 
     function resetAnim() {
       clearInterval(intervalRef.current)
@@ -45,6 +71,12 @@ export default function AboutSection() {
       setTyped(0)
       setDone(false)
     }
+    const observer = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        tl.play()
+        observer.disconnect()
+      }
+    }, { threshold: 0.15 })
 
     function playAnim() {
       resetAnim()
@@ -77,10 +109,23 @@ export default function AboutSection() {
       clearInterval(intervalRef.current)
       scroller.removeEventListener('scroll', onScroll)
     }
+    observer.observe(section)
+    return () => { observer.disconnect(); tl.kill() }
   }, [])
 
   return (
     <section ref={sectionRef} className={styles.section}>
+    <section ref={sectionRef} className={styles.section} id="about">
+      <div className={styles.container}>
+        
+        {/* Scroll Statement Banner */}
+        <div ref={introRef} className={styles.editorialBanner}>
+          <p className={styles.kicker}>PHILOSOPHY & ARCHITECTURE</p>
+          <h2 className={styles.statementText}>
+            {"I DON'T JUST WRITE CODE."}<br />
+            <span className={styles.highlightText}>{"I BUILD SYSTEMS."}</span>
+          </h2>
+        </div>
 
       {/* ── Left: photo + signature + socials ───────── */}
       <div ref={photoRef} className={styles.photoCol}>
@@ -94,6 +139,23 @@ export default function AboutSection() {
               sizes="(min-width: 768px) 30vw, 100vw"
               className={styles.photoImg}
             />
+        {/* Bio Grid */}
+        <div ref={bioRef} className={styles.bioGrid}>
+          <div className={styles.portraitCol}>
+            <div className={styles.imageFrame} data-cursor="hover">
+              <Image
+                src="/personal_portfolio/images/sketch_portrait_1778401315319.png"
+                alt={profile.name.full}
+                fill
+                quality={100}
+                sizes="(min-width: 768px) 35vw, 100vw"
+                className={styles.portraitImg}
+              />
+            </div>
+            <div className={styles.badgeRow}>
+              <span className={styles.scholarBadge}>Hafiz & Moulavi Graduate</span>
+              <span className={styles.scholarSub}>Discipline • Precision • Ethics</span>
+            </div>
           </div>
           <p className={styles.signature}>{profile.name.first}</p>
         </div>
@@ -115,6 +177,15 @@ export default function AboutSection() {
               </a>
             )
           })}
+          <div className={styles.textCol}>
+            <h3 className={styles.whoHeader}>WHO I AM</h3>
+            <p className={styles.bioParagraph}>{profile.bio}</p>
+            
+            <div className={styles.techOrbitBox}>
+              <p className={styles.orbitLabel}>CORE ENGINE TECH STACK</p>
+              <TechOrbit />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -125,6 +196,15 @@ export default function AboutSection() {
         <p className={styles.whoLabel}>Tech Stack</p>
         <div className={styles.orbitWrap}>
           <TechOrbit />
+        {/* 6 Engineering Dimensions Grid */}
+        <div ref={dimsRef} className={styles.dimensionsGrid}>
+          {DIMENSIONS.map((dim) => (
+            <div key={dim.num} className={styles.dimCard} data-cursor="hover">
+              <span className={styles.dimNum}>{dim.num}</span>
+              <h4 className={styles.dimTitle}>{dim.title}</h4>
+              <p className={styles.dimDesc}>{dim.desc}</p>
+            </div>
+          ))}
         </div>
 
         {/* Bio text - typewriter: all chars always in DOM, only color changes */}

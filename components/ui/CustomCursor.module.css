@@ -1,0 +1,94 @@
+.cursorContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+
+.dot {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent, #f7931e);
+  border-radius: 50%;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.ring {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(247, 147, 30, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              left 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              background 0.25s ease;
+}
+
+.label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #050507;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Cursor States */
+.hover .ring {
+  top: -28px;
+  left: -28px;
+  width: 56px;
+  height: 56px;
+  border-color: var(--accent, #f7931e);
+  background: rgba(247, 147, 30, 0.08);
+}
+
+.project .ring {
+  top: -40px;
+  left: -40px;
+  width: 80px;
+  height: 80px;
+  background: var(--accent, #f7931e);
+  border-color: var(--accent, #f7931e);
+}
+
+.project .dot {
+  opacity: 0;
+}
+
+.project .label {
+  opacity: 1;
+}
+
+.rotate3d .ring {
+  top: -30px;
+  left: -30px;
+  width: 60px;
+  height: 60px;
+  border-style: dashed;
+  border-color: var(--accent-cyan, #00f0ff);
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+

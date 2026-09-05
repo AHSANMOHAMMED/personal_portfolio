@@ -1,0 +1,166 @@
+.section {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-dark, #050507);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  z-index: 2;
+}
+
+.container {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent-cyan, #00f0ff);
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted, #8e8e93);
+  max-width: 600px;
+}
+
+.topologyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  position: relative;
+}
+
+.nodeCard {
+  position: relative;
+  background: rgba(18, 18, 24, 0.6);
+  border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.08));
+  border-radius: 0.85rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nodeCard:hover, .activeNode {
+  background: rgba(247, 147, 30, 0.08);
+  border-color: var(--accent, #f7931e);
+  transform: translateY(-3px);
+}
+
+.nodeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nodeStep {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent, #f7931e);
+}
+
+.nodeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan, #00f0ff);
+}
+
+.nodeTitle {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+}
+
+.nodeSub {
+  font-size: 0.7rem;
+  color: var(--text-muted, #8e8e93);
+}
+
+.inspectorWindow {
+  background: #09090d;
+  border: 1px solid var(--border-dim, rgba(255, 255, 255, 0.12));
+  border-radius: 0.85rem;
+  overflow: hidden;
+}
+
+.inspectorHeader {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-dim, rgba(255, 255, 255, 0.08));
+}
+
+.termDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.termTitle {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  color: var(--text-muted, #8e8e93);
+  margin-left: 0.5rem;
+}
+
+.inspectorBody {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.specTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent, #f7931e);
+}
+
+.specDesc {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.specMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.metricItem {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--accent-cyan, #00f0ff);
+}
+

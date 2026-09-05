@@ -538,10 +538,10 @@ export default function PublicationsFooterSection() {
                   <span className={styles.ctaAccent}>{content.footer.ctaAccent}</span>
                 </p>
                 <div className={styles.ctaButtons}>
-                  <a href={`mailto:${profile.email}`} className={styles.talkBtn}>
+                  <a href={`mailto:${profile.email}`} className={styles.talkBtn} data-cursor="hover" data-cursor-label="TALK">
                     Let&apos;s talk
                   </a>
-                  <a href={profile.resume} download className={styles.resumeBtnFooter}>
+                  <a href={profile.resume} download className={styles.resumeBtnFooter} data-cursor="hover">
                     Resume <FiDownload size={12} />
                   </a>
                 </div>

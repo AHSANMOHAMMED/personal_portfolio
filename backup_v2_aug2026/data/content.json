@@ -1,0 +1,20 @@
+{
+  "site": {
+    "tagline": "Ahsan Mohammed Portfolio 2026"
+  },
+  "hero": {
+    "taglineHighlight": "Development",
+    "freelanceNote": "Recently completed a Full Stack Internship.",
+    "pills": ["MERN Stack", "Spring Boot", "Android Dev", "AI Integration"],
+    "specialistStat": { "value": "SE 2026", "label": "Student" }
+  },
+  "interstitial": {
+    "basedInLabel": "Based in",
+    "statLabels": ["Public\nRepositories", "Daily\nActive Users", "Languages\n(EN, SI, TA)"]
+  },
+  "footer": {
+    "eyebrow": "Available for internships and remote work",
+    "ctaLines": ["Building scalable", "AI-integrated"],
+    "ctaAccent": "systems."
+  }
+}

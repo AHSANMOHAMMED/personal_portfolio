@@ -11,6 +11,10 @@ import WorkExperienceSection from '@/components/sections/WorkExperienceSection'
 import PublicationsFooterSection from '@/components/sections/PublicationsFooterSection'
 import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import ScreenLoader from '@/components/sections/ScreenLoader'
+import CustomCursor from '@/components/ui/CustomCursor'
+import SystemArchitectureSection from '@/components/sections/SystemArchitectureSection'
+import SkillsMatrixSection from '@/components/sections/SkillsMatrixSection'
+import GitHubSection from '@/components/sections/GitHubSection'
 import { TOTAL_STEPS } from '@/lib/navigation'
 
 const TOTAL = TOTAL_STEPS
@@ -33,8 +37,6 @@ export default function Home() {
     const useCinematicNavigation = !isReducedMotion && !isSmallScreen
     if (!useCinematicNavigation) el.style.overflowY = 'auto'
 
-    // Fade to black → instant scrollTop jump → fade in
-    // Used whenever we loop footer → first section
     function fadeLoop(targetScrollTop, targetIdx) {
       busyRef.current = true
       tweenRef.current?.kill()
@@ -59,19 +61,16 @@ export default function Home() {
     }
 
     function goTo(idx) {
-      // Wrap-around
       if (idx >= TOTAL) idx = 0
       if (idx < 0)      idx = TOTAL - 1
 
       if (idx === idxRef.current || busyRef.current) return
 
-      // Footer → top: fade-cut instead of scrolling back through all sections
       if (idxRef.current === TOTAL - 1 && idx === 0) {
         fadeLoop(0, 0)
         return
       }
 
-      // Top → footer: fade-cut instead of scrolling forward through all sections
       if (idxRef.current === 0 && idx === TOTAL - 1) {
         fadeLoop((TOTAL - 1) * window.innerHeight, TOTAL - 1)
         return
@@ -89,7 +88,6 @@ export default function Home() {
     }
 
     function onWheel(e) {
-      // Don't intercept scroll when a modal or overlay is open
       if (document.body.dataset.modalOpen === 'true') return
       if (!useCinematicNavigation) return
       e.preventDefault()
@@ -137,7 +135,6 @@ export default function Home() {
       goTo(idxRef.current + keyTargets[e.key])
     }
 
-    // Footer video ends → same fade-cut loop back to top
     function onFooterLoop() {
       if (busyRef.current) return
       fadeLoop(0, 0)
@@ -164,11 +161,11 @@ export default function Home() {
 
   return (
     <>
+      <CustomCursor />
       {showLoader && (
         <ScreenLoader onDismiss={() => setShowLoader(false)} />
       )}
 
-      {/* Full-screen fade overlay for seamless footer → top loop */}
       <div
         ref={loopOverlayRef}
         style={{
@@ -189,8 +186,11 @@ export default function Home() {
           <HeroSection />
           <AboutSection />
           <ProjectsSection />
+          <SystemArchitectureSection />
+          <SkillsMatrixSection />
           <WorkExperienceSection />
           <TestimonialsSection />
+          <GitHubSection />
           <PublicationsFooterSection />
         </div>
       </main>
