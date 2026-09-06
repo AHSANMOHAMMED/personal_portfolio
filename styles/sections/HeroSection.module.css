@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  min-height: 100vh;
+  height: 100vh; overflow: hidden;
   width: 100%;
   background: var(--bg-dark, #050507);
   display: flex;

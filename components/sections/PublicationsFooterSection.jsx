@@ -331,7 +331,7 @@ export default function PublicationsFooterSection() {
         {/* ── Mobile background image (footer phase - mobile only) ── */}
         <div className={styles.mobileFooterBg}>
           <Image
-            src="/personal_portfolio/images/my_portrait_1778399171468.png"
+            src="/images/my_portrait_1778399171468.png"
             alt=""
             fill
             quality={100}
@@ -347,7 +347,7 @@ export default function PublicationsFooterSection() {
         {/* ── Floating image: starts left, moves to center ── */}
         <div ref={imageWrapRef} className={styles.imageWrap}>
           <Image
-            src="/personal_portfolio/images/my_portrait_1778399171468.png"
+            src="/images/my_portrait_1778399171468.png"
             alt=""
             fill
             quality={100}

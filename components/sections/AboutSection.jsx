@@ -119,7 +119,7 @@ export default function AboutSection() {
           <div className={styles.photoWrap}>
             <div className={styles.photoFrame} data-about-photo>
               <Image
-                src="/personal_portfolio/images/sketch_portrait_1778401315319.png"
+                src="/images/sketch_portrait_1778401315319.png"
                 alt={profile.name.full}
                 fill
                 quality={100}

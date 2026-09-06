@@ -148,7 +148,7 @@
       "subtitle": "Multi-Role Commerce Platform",
       "type": "Full-Stack Ecosystem",
       "link": "https://github.com/AHSANMOHAMMED/Doorli",
-      "image": "/personal_portfolio/images/doorli.jpg",
+      "image": "/images/doorli.jpg",
       "color": "#F7931E",
       "tech": [
         "PostgreSQL",
@@ -168,9 +168,9 @@
         "Integrated ERP capabilities allowing vendors to manage inventory and sales seamlessly within the same platform."
       ],
       "demoImages": [
-        "/personal_portfolio/images/doorli.jpg",
-        "/personal_portfolio/images/doorli_feature_1.jpg",
-        "/personal_portfolio/images/doorli_feature_2.jpg"
+        "/images/doorli.jpg",
+        "/images/doorli_feature_1.jpg",
+        "/images/doorli_feature_2.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/Doorli"
     },
@@ -180,7 +180,7 @@
       "subtitle": "Multi-Tenant SaaS POS",
       "type": "SaaS Platform",
       "link": "https://github.com/AHSANMOHAMMED/retail-smart-erp",
-      "image": "/personal_portfolio/images/erp.jpg",
+      "image": "/images/erp.jpg",
       "color": "#1A73E8",
       "tech": [
         "Next.js",
@@ -200,9 +200,9 @@
         "Integrated barcode POS features, comprehensive inventory management, and localized HR/payroll workflows."
       ],
       "demoImages": [
-        "/personal_portfolio/images/erp.jpg",
-        "/personal_portfolio/images/erp_dashboard.jpg",
-        "/personal_portfolio/images/erp_pos.jpg"
+        "/images/erp.jpg",
+        "/images/erp_dashboard.jpg",
+        "/images/erp_pos.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/retail-smart-erp"
     },
@@ -212,7 +212,7 @@
       "subtitle": "Agricultural Marketplace",
       "type": "Mobile App",
       "link": "https://github.com/AHSANMOHAMMED/Farmora-App",
-      "image": "/personal_portfolio/images/farmora.jpg",
+      "image": "/images/farmora.jpg",
       "color": "#4CAF50",
       "tech": [
         "Flutter",
@@ -232,9 +232,9 @@
         "Integrated real-time transport tracking across the island, ensuring fresh produce reaches buyers efficiently."
       ],
       "demoImages": [
-        "/personal_portfolio/images/farmora.jpg",
-        "/personal_portfolio/images/farmora_farmer.jpg",
-        "/personal_portfolio/images/farmora_transport.jpg"
+        "/images/farmora.jpg",
+        "/images/farmora_farmer.jpg",
+        "/images/farmora_transport.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/Farmora-App"
     },
@@ -244,7 +244,7 @@
       "subtitle": "Enterprise Operations Platform",
       "type": "Enterprise Software",
       "link": "https://github.com/AHSANMOHAMMED/Doorli-Enterprise-OS",
-      "image": "/personal_portfolio/images/doorli_enterprise_1.jpg",
+      "image": "/images/doorli_enterprise_1.jpg",
       "color": "#E65100",
       "tech": [
         "Python",
@@ -264,8 +264,8 @@
         "Ensured high availability and integration reliability tailored specifically for demanding enterprise clients."
       ],
       "demoImages": [
-        "/personal_portfolio/images/doorli_enterprise_1.jpg",
-        "/personal_portfolio/images/doorli.jpg"
+        "/images/doorli_enterprise_1.jpg",
+        "/images/doorli.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/Doorli-Enterprise-OS"
     },
@@ -275,7 +275,7 @@
       "subtitle": "Cloud-Native Healthcare Platform",
       "type": "Cloud-Native App",
       "link": "https://github.com/AHSANMOHAMMED/Health_Care_Platform",
-      "image": "/personal_portfolio/images/mediconnect.jpg",
+      "image": "/images/mediconnect.jpg",
       "color": "#009688",
       "tech": [
         "Java",
@@ -294,9 +294,9 @@
         "Built administrative dashboards to streamline hospital operations and patient onboarding efficiently."
       ],
       "demoImages": [
-        "/personal_portfolio/images/mediconnect.jpg",
-        "/personal_portfolio/images/mediconnect_doctor.jpg",
-        "/personal_portfolio/images/mediconnect_patient.jpg"
+        "/images/mediconnect.jpg",
+        "/images/mediconnect_doctor.jpg",
+        "/images/mediconnect_patient.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/Health_Care_Platform"
     },
@@ -306,7 +306,7 @@
       "subtitle": "Developer Tooling",
       "type": "Tooling",
       "link": "https://github.com/AHSANMOHAMMED/aetherforge_IDE",
-      "image": "/personal_portfolio/images/aetherforge_ide.jpg",
+      "image": "/images/aetherforge_ide.jpg",
       "color": "#9C27B0",
       "tech": [
         "TypeScript",
@@ -325,8 +325,8 @@
         "Explored and integrated modular tooling concepts to modernize local software-development workflows."
       ],
       "demoImages": [
-        "/personal_portfolio/images/aetherforge_ide.jpg",
-        "/personal_portfolio/images/aetherforge_code.jpg"
+        "/images/aetherforge_ide.jpg",
+        "/images/aetherforge_code.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/aetherforge_IDE"
     },
@@ -336,7 +336,7 @@
       "subtitle": "Educational Platform",
       "type": "Web App",
       "link": "https://github.com/AHSANMOHAMMED/Dharul-uloom-khasiful-hudha-arabic-collage-website-",
-      "image": "/personal_portfolio/images/arabic_college.jpg",
+      "image": "/images/arabic_college.jpg",
       "color": "#D4AF37",
       "tech": [
         "React",
@@ -355,8 +355,8 @@
         "Designed specific portals for students and faculty to foster community engagement and streamline administration."
       ],
       "demoImages": [
-        "/personal_portfolio/images/arabic_college.jpg",
-        "/personal_portfolio/images/arabic_college_portal.jpg"
+        "/images/arabic_college.jpg",
+        "/images/arabic_college_portal.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/Dharul-uloom-khasiful-hudha-arabic-collage-website-"
     },
@@ -366,7 +366,7 @@
       "subtitle": "Peer Learning Platform",
       "type": "Web App",
       "link": "https://github.com/AHSANMOHAMMED/peer-learning-and-tutoring-platform-AF-project",
-      "image": "/personal_portfolio/images/peer_learning.jpg",
+      "image": "/images/peer_learning.jpg",
       "color": "#FF5722",
       "tech": [
         "React",
@@ -385,8 +385,8 @@
         "Integrated hybrid security and verification systems to ensure a safe, empowering learning environment for local students."
       ],
       "demoImages": [
-        "/personal_portfolio/images/peer_learning.jpg",
-        "/personal_portfolio/images/peer_learning_class.jpg"
+        "/images/peer_learning.jpg",
+        "/images/peer_learning_class.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/peer-learning-and-tutoring-platform-AF-project"
     },
@@ -396,7 +396,7 @@
       "subtitle": "Enterprise Framework",
       "type": "Framework / Core",
       "link": "https://github.com/AHSANMOHAMMED/Nexus_Core",
-      "image": "/personal_portfolio/images/nexus_core.jpg",
+      "image": "/images/nexus_core.jpg",
       "color": "#E91E63",
       "tech": [
         "Java",
@@ -415,7 +415,7 @@
         "Significantly reduced development time for new services by providing a robust, reusable core infrastructure."
       ],
       "demoImages": [
-        "/personal_portfolio/images/nexus_core.jpg"
+        "/images/nexus_core.jpg"
       ],
       "demo": "https://github.com/AHSANMOHAMMED/Nexus_Core"
     }
