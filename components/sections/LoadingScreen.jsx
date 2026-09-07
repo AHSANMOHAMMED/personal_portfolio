@@ -24,7 +24,11 @@ export default function LoadingScreen({ onComplete }) {
         current += Math.floor(Math.random() * 5) + 1
       } else if (current < 91) {
         current += Math.floor(Math.random() * 2) + 1
-      } else if (current >= 100) {
+      } else if (current >= 91 && current < 100) {
+        current += 1
+      }
+
+      if (current >= 100) {
         current = 100
         clearInterval(interval)
         setTimeout(() => {
