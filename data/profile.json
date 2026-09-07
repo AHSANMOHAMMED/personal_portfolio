@@ -48,7 +48,7 @@
       "title": "Doorli",
       "category": "Full-Stack Ecosystem",
       "technologies": "PostgreSQL, Docker, Mobile, CI/CD",
-      "image": "/images/doorli.jpg",
+      "image": "images/doorli.jpg",
       "description": "A multi-role local commerce and operations ecosystem designed specifically to elevate the Sri Lankan marketplace.",
       "link": "https://github.com/AHSANMOHAMMED/Doorli"
     },
@@ -57,7 +57,7 @@
       "title": "Retail Smart ERP",
       "category": "SaaS Platform",
       "technologies": "Next.js, TypeScript, PostgreSQL, WebSockets",
-      "image": "/images/erp.jpg",
+      "image": "images/erp.jpg",
       "description": "A multi-tenant SaaS ERP/POS platform supporting multiple business types and operational workflows.",
       "link": "https://github.com/AHSANMOHAMMED/retail-smart-erp"
     },
@@ -66,7 +66,7 @@
       "title": "Farmora App",
       "category": "Mobile App",
       "technologies": "Flutter, Dart, Riverpod, Firebase",
-      "image": "/images/farmora.jpg",
+      "image": "images/farmora.jpg",
       "description": "A Flutter-based agricultural marketplace connecting Sri Lankan farmers directly with buyers.",
       "link": "https://github.com/AHSANMOHAMMED/Farmora-App"
     },
@@ -75,7 +75,7 @@
       "title": "Doorli Enterprise OS",
       "category": "Enterprise Software",
       "technologies": "Python, Vue, Docker, Jinja",
-      "image": "/images/doorli_enterprise_1.jpg",
+      "image": "images/doorli_enterprise_1.jpg",
       "description": "Enterprise-focused operational software designed to work alongside the Doorli ecosystem.",
       "link": "https://github.com/AHSANMOHAMMED/Doorli-Enterprise-OS"
     },
@@ -84,7 +84,7 @@
       "title": "MediConnect Lanka",
       "category": "Cloud-Native App",
       "technologies": "Java, Docker, Microservices",
-      "image": "/images/mediconnect.jpg",
+      "image": "images/mediconnect.jpg",
       "description": "A highly scalable, cloud-native healthcare platform designed to modernize digital healthcare workflows.",
       "link": "https://github.com/AHSANMOHAMMED/Health_Care_Platform"
     },
@@ -93,7 +93,7 @@
       "title": "AetherForge IDE",
       "category": "Developer Tooling",
       "technologies": "TypeScript, Electron, React",
-      "image": "/images/aetherforge_ide.jpg",
+      "image": "images/aetherforge_ide.jpg",
       "description": "Developer tooling and IDE experimentation focused on modern software-development workflows.",
       "link": "https://github.com/AHSANMOHAMMED/aetherforge_IDE"
     },
@@ -102,7 +102,7 @@
       "title": "Arabic College Portal",
       "category": "Web App",
       "technologies": "React, Supabase, Tailwind",
-      "image": "/images/arabic_college.jpg",
+      "image": "images/arabic_college.jpg",
       "description": "A responsive, multilingual educational institution portal for Dharul Uloom Kashiful Hudha Arabic College.",
       "link": "https://github.com/AHSANMOHAMMED/Dharul-uloom-khasiful-hudha-arabic-collage-website-"
     },
@@ -111,7 +111,7 @@
       "title": "Aura Academic",
       "category": "Web App",
       "technologies": "React, Node.js, MongoDB",
-      "image": "/images/peer_learning.jpg",
+      "image": "images/peer_learning.jpg",
       "description": "A vibrant peer-to-peer learning platform designed for school students with live collaboration.",
       "link": "https://github.com/AHSANMOHAMMED/peer-learning-and-tutoring-platform-AF-project"
     }

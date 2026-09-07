@@ -71,7 +71,7 @@ export default function TechStackSection() {
           playsInline
           className={styles.techstackVideo}
         >
-          <source src="/video/video.webm" type="video/webm" />
+          <source src="video/video.webm" type="video/webm" />
         </video>
         <div className={styles.techstackOverlay} />
       </div>

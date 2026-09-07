@@ -185,7 +185,7 @@ export default function LandingSection() {
         {/* Mobile photo */}
         <div className={styles.mobilePhoto}>
           <img
-            src="/images/my_portrait_1778399171468.png"
+            src="images/my_portrait_1778399171468.png"
             alt={profile.developer?.fullName || 'Ahsan Mohammed'}
             loading="eager"
             fetchPriority="high"

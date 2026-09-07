@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono, Baloo_2, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/ui/CustomCursor";
-import { SITE_URL } from '@/lib/siteConfig';
+import { SITE_URL, BASE_PATH } from '@/lib/siteConfig';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -114,6 +114,9 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${playfair.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="manifest" href={`${BASE_PATH}/favicons/manifest.webmanifest`} />
+      </head>
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}>
         <script
           type="application/ld+json"
