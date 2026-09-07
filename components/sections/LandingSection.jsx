@@ -8,6 +8,7 @@ import { gsap } from '@/lib/gsap'
 import { splitText } from '@/lib/splitText'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/LandingSection.module.css'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 
 function CharacterModel() {
   const meshRef = useRef()
@@ -194,15 +195,17 @@ export default function LandingSection() {
 
         {/* 3D Character */}
         <div ref={canvasRef} className={styles.characterContainer}>
-          <Suspense fallback={null}>
-            <Canvas
-              camera={{ position: [0, 1, 5], fov: 50 }}
-              gl={{ antialias: true, alpha: true }}
-              style={{ background: 'transparent' }}
-            >
-              <Scene />
-            </Canvas>
-          </Suspense>
+          <ErrorBoundary fallback={null}>
+            <Suspense fallback={null}>
+              <Canvas
+                camera={{ position: [0, 1, 5], fov: 50 }}
+                gl={{ antialias: true, alpha: true }}
+                style={{ background: 'transparent' }}
+              >
+                <Scene />
+              </Canvas>
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </div>
     </div>
