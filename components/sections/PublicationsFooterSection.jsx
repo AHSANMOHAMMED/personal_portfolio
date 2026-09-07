@@ -111,6 +111,9 @@ export default function PublicationsFooterSection() {
   const rightRef        = useRef(null)
   const bigNameRef      = useRef(null)
   const bottomBarRef    = useRef(null)
+  const contactHeadlineRef = useRef(null)
+  const contactEmailRef   = useRef(null)
+  const footerEnteredRef  = useRef(false)
 
   useEffect(() => {
     const wrapper       = wrapperRef.current
@@ -302,6 +305,26 @@ export default function PublicationsFooterSection() {
       const footerRange = isMobile ? 0.20 : 0.25
       const footerFade = Math.max(0, Math.min(1, (p - footerStart) / footerRange))
       gsap.set(footerContentRef.current, { opacity: footerFade, pointerEvents: footerFade > 0.05 ? 'auto' : 'none' })
+
+      // ── Once-guard footer entrance animation ─────────────────
+      if (footerFade > 0.05 && !footerEnteredRef.current) {
+        footerEnteredRef.current = true
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (!reduced) {
+          const targets = [
+            leftRef.current,
+            rightRef.current,
+            contactHeadlineRef.current,
+            contactEmailRef.current,
+            bigNameRef.current,
+            bottomBarRef.current,
+          ].filter(Boolean)
+          gsap.fromTo(targets,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12 }
+          )
+        }
+      }
     }
 
     resetPubAnim()
@@ -544,6 +567,36 @@ export default function PublicationsFooterSection() {
                   <a href={profile.resume} download className={styles.resumeBtnFooter} data-cursor="hover">
                     Resume <FiDownload size={12} />
                   </a>
+                </div>
+              </div>
+
+              <div className={styles.contactBlock}>
+                <p ref={contactHeadlineRef} className={styles.contactHeadline}>
+                  {profile.contactHeadline || (content.footer?.ctaLines || []).join(' ')}
+                </p>
+                <a
+                  ref={contactEmailRef}
+                  href={`mailto:${profile.email}`}
+                  className={styles.contactEmail}
+                >
+                  {profile.email}
+                </a>
+                <div className={styles.contactSocials}>
+                  {profile.socials.map((s) => {
+                    const icon = SOCIAL_ICONS[s.label]
+                    return (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={s.label}
+                        className={styles.contactSocialLink}
+                      >
+                        {icon || <span>{s.label}</span>}
+                      </a>
+                    )
+                  })}
                 </div>
               </div>
             </div>

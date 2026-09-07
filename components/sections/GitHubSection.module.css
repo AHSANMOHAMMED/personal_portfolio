@@ -28,7 +28,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: var(--accent-cyan, #00f0ff);
+  color: var(--accent-cyan, #8a6cc7);
   text-transform: uppercase;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .ghIcon {
-  color: var(--accent, #f7931e);
+  color: var(--accent, #c2a4ff);
 }
 
 .username {
@@ -92,7 +92,7 @@
 .statVal {
   font-size: 1.3rem;
   font-weight: 900;
-  color: var(--accent, #f7931e);
+  color: var(--accent, #c2a4ff);
 }
 
 .statLbl {
@@ -113,7 +113,7 @@
 }
 
 .ghBtn:hover {
-  background: var(--accent, #f7931e);
+  background: var(--accent, #c2a4ff);
   color: #050507;
 }
 
@@ -137,7 +137,7 @@
 
 .repoCard:hover {
   transform: translateY(-3px);
-  border-color: var(--accent, #f7931e);
+  border-color: var(--accent, #c2a4ff);
 }
 
 .repoTop {
@@ -154,7 +154,7 @@
 
 .repoLang {
   font-size: 0.7rem;
-  color: var(--accent-cyan, #00f0ff);
+  color: var(--accent-cyan, #8a6cc7);
   font-weight: 600;
 }
 

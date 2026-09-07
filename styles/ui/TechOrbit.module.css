@@ -22,8 +22,8 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(247, 147, 30, 0.06) 0%,
-    rgba(247, 147, 30, 0.02) 40%,
+    rgba(194, 164, 255, 0.06) 0%,
+    rgba(194, 164, 255, 0.02) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -55,8 +55,8 @@
 }
 
 .ringPath0 {
-  border: 1px dashed rgba(247, 147, 30, 0.12);
-  box-shadow: 0 0 20px rgba(247, 147, 30, 0.03);
+  border: 1px dashed rgba(194, 164, 255, 0.12);
+  box-shadow: 0 0 20px rgba(194, 164, 255, 0.03);
 }
 
 .ringPath1 {
@@ -65,8 +65,8 @@
 }
 
 .ringPath2 {
-  border: 1px dashed rgba(247, 147, 30, 0.08);
-  box-shadow: 0 0 30px rgba(247, 147, 30, 0.02);
+  border: 1px dashed rgba(194, 164, 255, 0.08);
+  box-shadow: 0 0 30px rgba(194, 164, 255, 0.02);
 }
 
 .ringPath3 {
@@ -131,7 +131,7 @@
   position: absolute;
   inset: 0;
   border-radius: 12px;
-  background: radial-gradient(circle at 30% 30%, var(--tech-color, #f7931e), transparent 70%);
+  background: radial-gradient(circle at 30% 30%, var(--tech-color, #c2a4ff), transparent 70%);
   opacity: 0.12;
   transition: opacity 0.3s;
 }
@@ -142,20 +142,20 @@
 
 .iconWrapActive .iconBadge {
   transform: scale(1.25);
-  border-color: var(--tech-color, #f7931e);
+  border-color: var(--tech-color, #c2a4ff);
   box-shadow:
     0 8px 30px rgba(0, 0, 0, 0.4),
-    0 0 20px color-mix(in srgb, var(--tech-color, #f7931e) 30%, transparent);
+    0 0 20px color-mix(in srgb, var(--tech-color, #c2a4ff) 30%, transparent);
 }
 
 .iconLetter {
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 0.85rem;
   font-weight: 800;
-  color: var(--tech-color, #f7931e);
+  color: var(--tech-color, #c2a4ff);
   position: relative;
   z-index: 1;
-  text-shadow: 0 0 10px color-mix(in srgb, var(--tech-color, #f7931e) 40%, transparent);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--tech-color, #c2a4ff) 40%, transparent);
 }
 
 /* ── Float animation (staggered per icon) ──── */
@@ -233,7 +233,7 @@
   background: rgba(15, 15, 15, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 2px solid rgba(247, 147, 30, 0.35);
+  border: 2px solid rgba(194, 164, 255, 0.35);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -241,15 +241,15 @@
   gap: 0.1rem;
   z-index: 10;
   box-shadow:
-    0 0 30px rgba(247, 147, 30, 0.15),
+    0 0 30px rgba(194, 164, 255, 0.15),
     0 8px 30px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
   animation: centerPulse 4s ease-in-out infinite alternate;
 }
 
 @keyframes centerPulse {
-  0%   { box-shadow: 0 0 25px rgba(247, 147, 30, 0.12), 0 8px 30px rgba(0,0,0,0.4); }
-  100% { box-shadow: 0 0 40px rgba(247, 147, 30, 0.22), 0 8px 30px rgba(0,0,0,0.4); }
+  0%   { box-shadow: 0 0 25px rgba(194, 164, 255, 0.12), 0 8px 30px rgba(0,0,0,0.4); }
+  100% { box-shadow: 0 0 40px rgba(194, 164, 255, 0.22), 0 8px 30px rgba(0,0,0,0.4); }
 }
 
 .centerInitials {

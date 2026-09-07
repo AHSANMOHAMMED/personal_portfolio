@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Baloo_2 } from "next/font/google";
+import { Geist, Geist_Mono, Baloo_2, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/ui/Cursor";
 import { SITE_URL } from '@/lib/siteConfig';
@@ -18,6 +18,13 @@ const baloo = Baloo_2({
   variable: "--font-baloo",
   subsets: ["latin"],
   weight: ["400", "600", "800"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+  weight: ['400', '700', '900'],
 });
 
 const description =
@@ -106,7 +113,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${playfair.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}>
         <script

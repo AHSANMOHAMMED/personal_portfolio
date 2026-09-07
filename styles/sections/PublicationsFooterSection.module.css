@@ -237,8 +237,8 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
-  background: rgba(247, 147, 30, 0.08);
-  border: 1px solid rgba(247, 147, 30, 0.22);
+  background: rgba(194, 164, 255, 0.08);
+  border: 1px solid rgba(194, 164, 255, 0.22);
   padding: 0.13rem 0.42rem;
   border-radius: 3px;
   white-space: nowrap;
@@ -284,7 +284,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  border: 1px solid rgba(247, 147, 30, 0.38);
+  border: 1px solid rgba(194, 164, 255, 0.38);
   border-radius: 999px;
   padding: 0.22rem 0.6rem;
   white-space: nowrap;
@@ -1009,4 +1009,64 @@
   .list         { padding: 0 clamp(2rem, 5vw, 5rem) 1.5rem; }
   .item         { grid-template-columns: 3rem minmax(0, 1fr) auto; }
   .title        { font-size: clamp(0.78rem, 1.4vw, 1rem); }
+}
+
+/* ── Contact block (Req 9) ───────────────────────────── */
+.contactBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.contactHeadline {
+  font-family: var(--font-display);
+  font-size: var(--display-section);
+  color: var(--text-primary, #f5f5f7);
+  margin: 0;
+  line-height: 1.05;
+}
+
+.contactEmail {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  color: var(--accent, #c2a4ff);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent, #c2a4ff);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.contactEmail:hover {
+  color: var(--accent-cyan, #8a6cc7);
+  border-bottom-color: var(--accent-cyan, #8a6cc7);
+}
+
+.contactSocials {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contactSocialLink {
+  color: var(--text-muted, #8e8e93);
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contactSocialLink:hover {
+  color: var(--accent-cyan, #8a6cc7);
+}
+
+.contactSocialLink:focus-visible {
+  outline: 2px solid var(--accent, #c2a4ff);
+  outline-offset: 4px;
+  border-radius: 2px;
 }

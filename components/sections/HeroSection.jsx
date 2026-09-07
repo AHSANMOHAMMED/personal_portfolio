@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
 import { FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { gsap } from '@/lib/gsap'
 import ErrorBoundary from '@/components/ui/ErrorBoundary'
+import MarqueeStrip from '@/components/ui/MarqueeStrip'
 
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/HeroSection.module.css'
@@ -15,12 +16,19 @@ const HeroDigitalCore = dynamic(() => import('@/components/three/HeroDigitalCore
 const SOCIAL_ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, WhatsApp: FaWhatsapp }
 
 export default function HeroSection() {
-  const sectionRef   = useRef(null)
-  const titleRef     = useRef(null)
-  const subTitleRef  = useRef(null)
-  const statementRef = useRef(null)
-  const ctaGroupRef  = useRef(null)
-  const core3dRef    = useRef(null)
+  const sectionRef    = useRef(null)
+  const greetingRef   = useRef(null)
+  const nameFirstRef  = useRef(null)
+  const nameLastRef   = useRef(null)
+  const roleARef      = useRef(null)
+  const roleBRef      = useRef(null)
+  const taglineRef    = useRef(null)
+  const ctaGroupRef   = useRef(null)
+  const core3dRef     = useRef(null)
+  const cycleRef      = useRef(null)
+  const timelineRef   = useRef(null)
+  const activeRef     = useRef(false)
+  const currentRoleIdx = useRef(0)
 
   function handleScrollToWork() {
     const main = document.querySelector('main')
@@ -40,18 +48,44 @@ export default function HeroSection() {
     const section = sectionRef.current
     if (!section) return
 
-    gsap.set(titleRef.current, { opacity: 0, y: 40 })
-    gsap.set(subTitleRef.current, { opacity: 0, y: 30 })
-    gsap.set(statementRef.current, { opacity: 0, y: 20 })
-    gsap.set(ctaGroupRef.current, { opacity: 0, y: 20 })
-    if (core3dRef.current) gsap.set(core3dRef.current, { opacity: 0, scale: 0.8 })
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const roles = profile.roleCycle && profile.roleCycle.length > 0
+      ? profile.roleCycle
+      : [profile.roles?.short || '']
 
-    const tl = gsap.timeline({ paused: true })
-    tl.to(titleRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.1)
-      .to(subTitleRef.current, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.25)
-      .to(statementRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.4)
-      .to(ctaGroupRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.2)' }, 0.55)
-      .to(core3dRef.current, { opacity: 1, scale: 1, duration: 1.0, ease: 'expo.out' }, 0.2)
+    if (reduced) {
+      gsap.set([greetingRef.current, nameFirstRef.current, nameLastRef.current, taglineRef.current, ctaGroupRef.current].filter(Boolean),
+        { opacity: 1, y: 0 })
+      if (core3dRef.current) gsap.set(core3dRef.current, { opacity: 1, scale: 1 })
+      if (roleARef.current) {
+        roleARef.current.textContent = roles[0]
+        gsap.set(roleARef.current, { clipPath: 'inset(0 0 0% 0)' })
+      }
+      if (roleBRef.current) gsap.set(roleBRef.current, { clipPath: 'inset(0 0 100% 0)' })
+      return
+    }
+
+    gsap.set(greetingRef.current, { opacity: 0, y: 20 })
+    gsap.set([nameFirstRef.current, nameLastRef.current], { opacity: 0, y: 60 })
+    gsap.set(taglineRef.current, { opacity: 0, y: 20 })
+    gsap.set(ctaGroupRef.current, { opacity: 0, y: 20 })
+    if (core3dRef.current) gsap.set(core3dRef.current, { opacity: 0, scale: 0.9 })
+
+    if (roleARef.current) {
+      roleARef.current.textContent = roles[0]
+      gsap.set(roleARef.current, { clipPath: 'inset(0 0 0% 0)' })
+    }
+    if (roleBRef.current) gsap.set(roleBRef.current, { clipPath: 'inset(0 0 100% 0)' })
+
+    const tl = gsap.timeline({ paused: true, onComplete: () => startCycle() })
+    timelineRef.current = tl
+
+    tl.to(greetingRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0)
+      .to([nameFirstRef.current, nameLastRef.current],
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, 0.1)
+      .to(taglineRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.5)
+      .to(ctaGroupRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.7)
+      .to(core3dRef.current, { opacity: 1, scale: 1, duration: 1.0, ease: 'expo.out' }, 0.3)
 
     const observer = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) {
@@ -61,30 +95,58 @@ export default function HeroSection() {
     }, { threshold: 0.15 })
 
     observer.observe(section)
-    return () => { observer.disconnect(); tl.kill() }
+    activeRef.current = true
+
+    function startCycle() {
+      if (cycleRef.current) clearTimeout(cycleRef.current)
+      if (!activeRef.current || roles.length <= 1) return
+      const cycleNext = () => {
+        const outgoing = currentRoleIdx.current % 2 === 0 ? roleARef.current : roleBRef.current
+        const incoming = currentRoleIdx.current % 2 === 0 ? roleBRef.current : roleARef.current
+        if (!outgoing || !incoming) return
+        const nextIdx = (currentRoleIdx.current + 1) % roles.length
+        incoming.textContent = roles[nextIdx]
+        gsap.set(incoming, { clipPath: 'inset(0 0 100% 0)' })
+        gsap.to(outgoing, { clipPath: 'inset(0 0 100% 0)', duration: 0.4, ease: 'power2.in' })
+        gsap.to(incoming, { clipPath: 'inset(0 0 0% 0)', duration: 0.4, ease: 'power2.out', delay: 0.1 })
+        currentRoleIdx.current = nextIdx
+        cycleRef.current = setTimeout(cycleNext, 2500)
+      }
+      cycleRef.current = setTimeout(cycleNext, 2500)
+    }
+
+    return () => {
+      observer.disconnect()
+      tl.kill()
+      activeRef.current = false
+      if (cycleRef.current) clearTimeout(cycleRef.current)
+    }
   }, [])
 
   return (
     <section ref={sectionRef} className={styles.section} id="hero">
       <div className={styles.container}>
-        
+
         {/* Left Editorial Content */}
         <div className={styles.leftCol}>
           <div className={styles.badge} data-cursor="hover">
             <span className={styles.dot} /> Available for projects & engineering roles
           </div>
 
-          <h1 ref={titleRef} className={styles.nameHeader}>
-            <span className={styles.firstName}>{profile.name.first.toUpperCase()}</span>
-            <span className={styles.lastName}>{profile.name.last.toUpperCase()}</span>
+          <p ref={greetingRef} className={styles.greeting}>{profile.greeting || "Hello! I'm"}</p>
+
+          <h1 className={styles.nameHeader}>
+            <span ref={nameFirstRef} className={styles.nameFirst}>{profile.name.first.toUpperCase()}</span>
+            <span ref={nameLastRef}  className={styles.nameLast}>{profile.name.last.toUpperCase()}</span>
           </h1>
 
-          <h2 ref={subTitleRef} className={styles.roleSubHeader}>
-            FULL-STACK SOFTWARE ENGINEER
-          </h2>
+          <div className={styles.roleSwitcher} aria-live="polite">
+            <span ref={roleARef} className={styles.roleText}>{profile.roleCycle?.[0] || profile.roles?.short || ''}</span>
+            <span ref={roleBRef} className={styles.roleText} aria-hidden="true" />
+          </div>
 
-          <p ref={statementRef} className={styles.brandStatement}>
-            {"\"I build digital systems that solve real problems.\""}
+          <p ref={taglineRef} className={styles.brandStatement}>
+            {profile.tagline || profile.roles?.detailed || ''}
           </p>
 
           <div ref={ctaGroupRef} className={styles.ctaGroup}>
@@ -148,6 +210,11 @@ export default function HeroSection() {
           </ErrorBoundary>
         </div>
 
+      </div>
+
+      {/* Bottom marquee (single lavender strip) */}
+      <div className={styles.marqueeRow} aria-hidden="true">
+        <MarqueeStrip text={profile.tagline || profile.roles?.detailed || ''} direction="ltr" speed={60} accent="orange" />
       </div>
     </section>
   )

@@ -58,7 +58,7 @@ export default function HeroBackground() {
     const tex = makeSprite()
 
     // ── Layer 1: tiny fast drifters ───────────────────────
-    const N1   = 65
+    const N1   = 98
     const p1   = new Float32Array(N1 * 3)
     const c1   = new Float32Array(N1 * 3)
     const spd1 = new Float32Array(N1)
@@ -87,7 +87,7 @@ export default function HeroBackground() {
     scene.add(pts1)
 
     // ── Layer 2: large soft bokeh blobs ───────────────────
-    const N2   = 22
+    const N2   = 33
     const p2   = new Float32Array(N2 * 3)
     const c2   = new Float32Array(N2 * 3)
     const spd2 = new Float32Array(N2)
@@ -153,6 +153,7 @@ export default function HeroBackground() {
       cam.y += (mouse.y * 0.32 - cam.y) * 0.05
       camera.position.x = cam.x
       camera.position.y = cam.y
+      camera.rotation.y += 0.03 * dt
 
       // Drift layer 1 (faster, smaller)
       for (let i = 0; i < N1; i++) {

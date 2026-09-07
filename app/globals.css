@@ -2,19 +2,19 @@
 
 /* ─── Brand tokens ─────────────────────────────────────── */
 :root {
-  /* Cinematic Dark V2 Tokens */
-  --bg-dark: #050507;
-  --bg-card: rgba(18, 18, 24, 0.75);
+  /* Cinematic Dark V2 Tokens — tuned toward reference (redoyanulhaque.me: #0b080c) */
+  --bg-dark: #0b080c;
+  --bg-card: rgba(18, 16, 22, 0.75);
   --hero-start: #f8d5b0;
   --hero-mid:   #f5954a;
   --hero-end:   #e85500;
 
-  /* Accent & Glow */
-  --accent:       #f7931e;
-  --accent-cyan:  #00f0ff;
-  --accent-hover: #e07b10;
-  --accent-glow:  rgba(247, 147, 30, 0.25);
-  --cyan-glow:    rgba(0, 240, 255, 0.2);
+  /* Accent & Glow — tuned toward reference (lavender on near-black) */
+  --accent:       #c2a4ff;
+  --accent-cyan:  #8a6cc7;
+  --accent-hover: #a87cff;
+  --accent-glow:  rgba(194, 164, 255, 0.25);
+  --cyan-glow:    rgba(138, 108, 199, 0.2);
 
   /* Text */
   --text-primary: #f5f5f7;
@@ -42,6 +42,15 @@
   --text-small: 0.72rem;
   --hero-role-size: clamp(0.75rem, 1.2vw, 0.875rem);
 
+  /* Display font */
+  --font-display: var(--font-playfair);
+
+  /* Display type scale */
+  --display-hero:    clamp(4rem, 14vw, 13rem);
+  --display-section: clamp(2.5rem, 6vw, 5.5rem);
+  --display-number:  clamp(3rem, 8vw, 7rem);
+  --text-label:      0.72rem;
+
   /* ─── shadcn var bridge (maps to brand tokens) ── */
   --background:   var(--surface-black);
   --foreground:   var(--text-on-dark);
@@ -65,7 +74,7 @@ html, body {
 }
 
 body {
-  background: #0a0a0a;
+  background: #0b080c;
   color:      rgba(255, 255, 255, 0.85);
   font-family: var(--font-geist-sans), Arial, sans-serif;
 }
@@ -97,9 +106,18 @@ main {
   transform: translateY(0);
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent, #f7931e);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 @media (max-width: 767px) {
   :root {
     --hero-name-size: clamp(3rem, 10vw, 5rem);
+    --display-hero:    clamp(3rem, 12vw, 6rem);
+    --display-section: clamp(2rem, 8vw, 3.5rem);
   }
 
   /* Override inline 100vh - Chrome mobile toolbar hides bottom content */

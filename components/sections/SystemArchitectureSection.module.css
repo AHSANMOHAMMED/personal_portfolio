@@ -28,7 +28,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: var(--accent-cyan, #00f0ff);
+  color: var(--accent-cyan, #8a6cc7);
   text-transform: uppercase;
 }
 
@@ -66,8 +66,8 @@
 }
 
 .nodeCard:hover, .activeNode {
-  background: rgba(247, 147, 30, 0.08);
-  border-color: var(--accent, #f7931e);
+  background: rgba(194, 164, 255, 0.08);
+  border-color: var(--accent, #c2a4ff);
   transform: translateY(-3px);
 }
 
@@ -80,14 +80,14 @@
 .nodeStep {
   font-size: 0.75rem;
   font-weight: 800;
-  color: var(--accent, #f7931e);
+  color: var(--accent, #c2a4ff);
 }
 
 .nodeDot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-cyan, #00f0ff);
+  background: var(--accent-cyan, #8a6cc7);
 }
 
 .nodeTitle {
@@ -141,7 +141,7 @@
 .specTitle {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--accent, #f7931e);
+  color: var(--accent, #c2a4ff);
 }
 
 .specDesc {
@@ -161,6 +161,6 @@
 .metricItem {
   font-family: var(--font-mono, monospace);
   font-size: 0.75rem;
-  color: var(--accent-cyan, #00f0ff);
+  color: var(--accent-cyan, #8a6cc7);
 }
 

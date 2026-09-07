@@ -6,6 +6,7 @@ import { gsap, ScrollTrigger } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/ProjectsSection.module.css'
 import ProjectModal from '@/components/ui/ProjectModal'
+import MarqueeStrip from '@/components/ui/MarqueeStrip'
 
 const PROJECTS = profile.projects
 
@@ -16,6 +17,8 @@ export default function ProjectsSection() {
   const bgRefs      = useRef([])
   const counterRef  = useRef(null)
   const progressRef = useRef(null)
+  const slideRefs   = useRef([])
+  const tiltCleanupsRef = useRef([])
   const [slideIdx, setSlideIdx] = useState(0)
   const [selectedProject, setSelectedProject] = useState(null)
 
@@ -103,10 +106,51 @@ export default function ProjectsSection() {
         }
 
         if (counterRef.current) counterRef.current.textContent = `0${activeIdx + 1}`
+
+        // Animate the number label of the newly-active slide
+        const slideEl = slideRefs.current[activeIdx]
+        if (slideEl) {
+          const labelEl = slideEl.querySelector(`.${styles.slideNumberLabel}`)
+          if (labelEl) {
+            gsap.fromTo(labelEl,
+              { y: 30, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.7, ease: 'expo.out', overwrite: 'auto' })
+          }
+        }
       },
     })
 
-    return () => st.kill()
+    // Mouse-tilt per slide (pointer: fine only)
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const finePointer = window.matchMedia('(pointer: fine)').matches
+    if (finePointer && !reduced) {
+      slideRefs.current.forEach((slideEl, i) => {
+        if (!slideEl) return
+        const onMove = (e) => {
+          const r = slideEl.getBoundingClientRect()
+          const cx = ((e.clientX - r.left) / r.width  - 0.5) * 2
+          const cy = ((e.clientY - r.top)  / r.height - 0.5) * 2
+          const rotateY = Math.max(-8, Math.min(8, cx * 8))
+          const rotateX = Math.max(-8, Math.min(8, -cy * 8))
+          gsap.to(slideEl, { rotateX, rotateY, duration: 0.3, ease: 'power2.out', overwrite: 'auto' })
+        }
+        const onLeave = () => {
+          gsap.to(slideEl, { rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power3.out' })
+        }
+        slideEl.addEventListener('mousemove', onMove)
+        slideEl.addEventListener('mouseleave', onLeave)
+        tiltCleanupsRef.current.push(() => {
+          slideEl.removeEventListener('mousemove', onMove)
+          slideEl.removeEventListener('mouseleave', onLeave)
+        })
+      })
+    }
+
+    return () => {
+      tiltCleanupsRef.current.forEach((fn) => fn())
+      tiltCleanupsRef.current = []
+      st.kill()
+    }
   }, [])
 
   return (
@@ -130,7 +174,11 @@ export default function ProjectsSection() {
           style={{ width: `${PROJECTS.length * 100}vw` }}
         >
           {PROJECTS.map((proj, i) => (
-            <div key={proj.id} className={styles.slide}>
+            <div
+              key={proj.id}
+              ref={el => { slideRefs.current[i] = el }}
+              className={styles.slide}
+            >
 
               <div
                 ref={el => { bgRefs.current[i] = el }}
@@ -152,6 +200,7 @@ export default function ProjectsSection() {
               </div>
 
               <span className={styles.slideNum} aria-hidden>0{i + 1}</span>
+              <span className={styles.slideNumberLabel} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
 
               <div
                 ref={el => { contentRefs.current[i] = el }}
@@ -209,6 +258,11 @@ export default function ProjectsSection() {
           <div className={styles.progressTrack}>
             <div ref={progressRef} className={styles.progressBar} />
           </div>
+        </div>
+
+        {/* Bottom marquee (single) */}
+        <div className={styles.marqueeRow} aria-hidden="true">
+          <MarqueeStrip text={profile.roles?.detailed || ''} direction="ltr" speed={55} accent="orange" />
         </div>
 
       </section>

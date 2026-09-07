@@ -56,6 +56,8 @@
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  perspective: 800px;
+  transform-style: preserve-3d;
 }
 
 /* ── Slide background ────────────────────────── */
@@ -116,6 +118,23 @@
   user-select: none;
 }
 
+/* ── Editorial numbered label (animated by GSAP) ── */
+.slideNumberLabel {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  font-family: var(--font-display);
+  font-size: var(--display-number);
+  color: rgba(255, 255, 255, 0.08);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 3;
+  opacity: 1;
+  transform: translateY(0);
+  will-change: transform, opacity;
+}
+
 /* ── Slide content ───────────────────────────── */
 .slideContent {
   position: absolute;
@@ -154,8 +173,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  background: rgba(247, 147, 30, 0.1);
-  border: 1px solid rgba(247, 147, 30, 0.25);
+  background: rgba(194, 164, 255, 0.1);
+  border: 1px solid rgba(194, 164, 255, 0.25);
   padding: 0.18rem 0.52rem;
   border-radius: 4px;
 }
@@ -210,7 +229,7 @@
 
 .liveBtn:hover,
 .detailsBtn:hover {
-  background: var(--accent-hover, #e07b10);
+  background: var(--accent-hover, #a87cff);
   transform: translateY(-1px);
 }
 
@@ -256,9 +275,9 @@
   font-weight: 600;
   padding: 0.2rem 0.52rem;
   border-radius: 4px;
-  background: rgba(247, 147, 30, 0.08);
+  background: rgba(194, 164, 255, 0.08);
   color: var(--accent);
-  border: 1px solid rgba(247, 147, 30, 0.18);
+  border: 1px solid rgba(194, 164, 255, 0.18);
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
@@ -282,10 +301,22 @@
 .progressBar {
   height: 100%;
   width: 100%;
-  background: linear-gradient(to right, var(--accent), #ffb347);
+  background: linear-gradient(to right, var(--accent), #c2a4ff);
   transform: scaleX(0);
   transform-origin: left center;
   will-change: transform;
+}
+
+.marqueeRow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
 }
 
 /* ── Mobile ──────────────────────────────────── */

@@ -2,11 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import TechOrbit from '@/components/ui/TechOrbit'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
+
+const AboutThreeScene = dynamic(() => import('@/components/three/AboutThreeScene'), { ssr: false })
 
 const BIO = profile.bio
 const DIMENSIONS = [
@@ -106,9 +110,13 @@ export default function AboutSection() {
 
   return (
     <section ref={sectionRef} className={styles.section} id="about">
+      <ErrorBoundary>
+        <AboutThreeScene />
+      </ErrorBoundary>
+
       <div className={styles.container}>
         <div ref={introRef} className={styles.editorialBanner}>
-          <p className={styles.kicker}>PHILOSOPHY & ARCHITECTURE</p>
+          <p className={styles.kicker}>PHILOSOPHY &amp; ARCHITECTURE</p>
           <h2 className={styles.statementText}>
             {"I DON'T JUST WRITE CODE."}<br />
             <span className={styles.highlightText}>{"I BUILD SYSTEMS."}</span>

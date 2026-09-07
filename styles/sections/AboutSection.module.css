@@ -18,6 +18,8 @@
   grid-template-columns: 35% 65%;
   gap: 4rem;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .editorialBanner {
@@ -26,7 +28,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  border-left: 3px solid var(--accent, #f7931e);
+  border-left: 3px solid var(--accent, #c2a4ff);
   padding-left: 1.5rem;
 }
 
@@ -34,12 +36,13 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: var(--accent-cyan, #00f0ff);
+  color: var(--accent-cyan, #8a6cc7);
   text-transform: uppercase;
 }
 
 .statementText {
-  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-family: var(--font-display);
+  font-size: var(--display-section);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -47,8 +50,8 @@
 }
 
 .highlightText {
-  color: var(--accent, #f7931e);
-  background: linear-gradient(135deg, #f7931e 0%, #ff5500 100%);
+  color: var(--accent, #c2a4ff);
+  background: linear-gradient(135deg, #c2a4ff 0%, #a87cff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -186,13 +189,13 @@
 
 .dimCard:hover {
   transform: translateY(-4px);
-  border-color: var(--accent, #f7931e);
+  border-color: var(--accent, #c2a4ff);
 }
 
 .dimNum {
   font-size: 1.2rem;
   font-weight: 900;
-  color: var(--accent, #f7931e);
+  color: var(--accent, #c2a4ff);
   letter-spacing: 0.1em;
 }
 

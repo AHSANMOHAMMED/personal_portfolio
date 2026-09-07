@@ -164,7 +164,7 @@ export default function ProjectModal({ isOpen, onClose, project }) {
         {/* Scrollable Content */}
         <div className={styles.scrollContent}>
           <div className={styles.header}>
-            <span className={styles.typeTag} style={{ color: project.color || 'var(--accent)', borderColor: `${project.color || '#f7931e'}40`, backgroundColor: `${project.color || '#f7931e'}1A` }}>
+            <span className={styles.typeTag} style={{ color: project.color || 'var(--accent)', borderColor: `${project.color || '#c2a4ff'}40`, backgroundColor: `${project.color || '#c2a4ff'}1A` }}>
               {project.type}
             </span>
             <h2 id="project-dialog-title" className={styles.title}>{project.title}</h2>

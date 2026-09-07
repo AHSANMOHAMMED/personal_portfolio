@@ -55,81 +55,85 @@ export default function VideoIntro() {
     return () => mediaQuery.removeEventListener('change', updateMotionState)
   }, [])
 
-  // ── Cinematic entrance timeline ──
+  // ── Cinematic entrance timeline — triggered by loader-animation-done ──
   useEffect(() => {
     if (isReducedMotion) return undefined
-    const tl = gsap.timeline({ delay: 0.5 })
 
-    // 1. Video zooms in from slightly scaled down + fades
-    if (mainVideoWrapRef.current) {
-      tl.fromTo(mainVideoWrapRef.current,
-        { scale: 1.15, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' },
-        0
-      )
-    }
+    function onAnimationDone() {
+      const tl = gsap.timeline()
 
-    // 2. Eyebrow typewriter reveal via clip-path
-    if (eyebrowRef.current) {
-      tl.fromTo(eyebrowRef.current,
-        { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
-        { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.8, ease: 'power2.out' },
-        0.8
-      )
-    }
-
-    // 3. First name — staggered character reveal
-    if (firstNameRef.current) {
-      const spans = firstNameRef.current.querySelectorAll(`.${styles.char}`)
-      if (spans.length) {
-        tl.fromTo(spans,
-          { opacity: 0, y: 40, rotateX: -40 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 },
-          1.0
+      // 1. Video wrap: fade + scale (compressed)
+      if (mainVideoWrapRef.current) {
+        tl.fromTo(mainVideoWrapRef.current,
+          { opacity: 0, scale: 1.05 },
+          { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out' },
+          0
         )
       }
-    }
 
-    // 4. Divider line sweeps across
-    if (dividerRef.current) {
-      tl.fromTo(dividerRef.current,
-        { scaleX: 0 },
-        { scaleX: 1, duration: 0.5, ease: 'power2.out' },
-        1.3
-      )
-    }
+      // 2. Eyebrow clip-path reveal (compressed, starts at 0.3s)
+      if (eyebrowRef.current) {
+        tl.fromTo(eyebrowRef.current,
+          { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+          { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.55, ease: 'power2.out' },
+          0.3
+        )
+      }
 
-    // 5. Last name — staggered character reveal (slightly delayed)
-    if (lastNameRef.current) {
-      const spans = lastNameRef.current.querySelectorAll(`.${styles.char}`)
-      if (spans.length) {
-        tl.fromTo(spans,
-          { opacity: 0, y: 40, rotateX: -40 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.6, ease: 'power3.out', stagger: 0.04 },
+      // 3. First name — staggered character reveal (starts at 0.3s)
+      if (firstNameRef.current) {
+        const spans = firstNameRef.current.querySelectorAll(`.${styles.char}`)
+        if (spans.length) {
+          tl.fromTo(spans,
+            { opacity: 0, y: 30, rotateX: -40 },
+            { opacity: 1, y: 0, rotateX: 0, duration: 0.45, ease: 'power3.out', stagger: 0.025 },
+            0.4
+          )
+        }
+      }
+
+      // 4. Divider line sweeps across
+      if (dividerRef.current) {
+        tl.fromTo(dividerRef.current,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.4, ease: 'power2.out' },
+          0.9
+        )
+      }
+
+      // 5. Last name — staggered character reveal
+      if (lastNameRef.current) {
+        const spans = lastNameRef.current.querySelectorAll(`.${styles.char}`)
+        if (spans.length) {
+          tl.fromTo(spans,
+            { opacity: 0, y: 30, rotateX: -40 },
+            { opacity: 1, y: 0, rotateX: 0, duration: 0.45, ease: 'power3.out', stagger: 0.025 },
+            1.0
+          )
+        }
+      }
+
+      // 6. Role slides up
+      if (roleRef.current) {
+        tl.fromTo(roleRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
           1.4
         )
       }
+
+      // 7. Scroll cue fades in
+      if (scrollRef.current) {
+        tl.fromTo(scrollRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 },
+          1.8
+        )
+      }
     }
 
-    // 6. Role slides up
-    if (roleRef.current) {
-      tl.fromTo(roleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-        1.8
-      )
-    }
-
-    // 7. Scroll cue fades in
-    if (scrollRef.current) {
-      tl.fromTo(scrollRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5 },
-        2.2
-      )
-    }
-
-    return () => tl.kill()
+    window.addEventListener('loader-animation-done', onAnimationDone)
+    return () => window.removeEventListener('loader-animation-done', onAnimationDone)
   }, [isReducedMotion])
 
   // Video fade-in

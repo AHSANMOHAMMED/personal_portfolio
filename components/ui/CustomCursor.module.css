@@ -15,7 +15,7 @@
   left: -4px;
   width: 8px;
   height: 8px;
-  background-color: var(--accent, #f7931e);
+  background-color: var(--accent, #c2a4ff);
   border-radius: 50%;
   transition: transform 0.15s ease, background-color 0.2s ease;
 }
@@ -26,7 +26,7 @@
   left: -20px;
   width: 40px;
   height: 40px;
-  border: 1px solid rgba(247, 147, 30, 0.4);
+  border: 1px solid rgba(194, 164, 255, 0.4);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -56,8 +56,8 @@
   left: -28px;
   width: 56px;
   height: 56px;
-  border-color: var(--accent, #f7931e);
-  background: rgba(247, 147, 30, 0.08);
+  border-color: var(--accent, #c2a4ff);
+  background: rgba(194, 164, 255, 0.08);
 }
 
 .project .ring {
@@ -65,8 +65,8 @@
   left: -40px;
   width: 80px;
   height: 80px;
-  background: var(--accent, #f7931e);
-  border-color: var(--accent, #f7931e);
+  background: var(--accent, #c2a4ff);
+  border-color: var(--accent, #c2a4ff);
 }
 
 .project .dot {
@@ -83,7 +83,7 @@
   width: 60px;
   height: 60px;
   border-style: dashed;
-  border-color: var(--accent-cyan, #00f0ff);
+  border-color: var(--accent-cyan, #8a6cc7);
   animation: spin 6s linear infinite;
 }
 

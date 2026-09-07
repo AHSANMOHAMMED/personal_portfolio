@@ -546,5 +546,29 @@
       "text": "I use each project to strengthen my engineering judgment, especially around architecture, performance, accessibility, and delivery."
     }
   ],
-  "resume": "/personal_portfolio/assets/ahsan_mohammed_resume.docx"
+  "resume": "/personal_portfolio/assets/ahsan_mohammed_resume.docx",
+  "whatIDo": [
+    {
+      "title": "Full-Stack",
+      "description": "Building scalable web apps end-to-end with React, Next.js, Node.js, TypeScript, and PostgreSQL.",
+      "skills": ["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL"]
+    },
+    {
+      "title": "Mobile",
+      "description": "Cross-platform mobile applications with Flutter and React Native for iOS and Android.",
+      "skills": ["Flutter", "Dart", "React Native", "Firebase"]
+    },
+    {
+      "title": "Cloud & DevOps",
+      "description": "Containerised deployments, CI/CD pipelines, and cloud infrastructure on AWS, GCP, and Oracle Cloud.",
+      "skills": ["Docker", "GitHub Actions", "AWS", "GCP", "Nginx"]
+    }
+  ],
+  "contactHeadline": "Let's build something real.",
+  "roleCycle": ["FULL-STACK ENGINEER", "MOBILE DEVELOPER", "CLOUD & DEVOPS"],
+  "greeting": "Hello! I'm",
+  "sections": {
+    "whatIDo": { "heading": "WHAT I DO" },
+    "techStack": { "heading": "TECH STACK" }
+  }
 }

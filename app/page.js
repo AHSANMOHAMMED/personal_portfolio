@@ -13,7 +13,8 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection'
 import ScreenLoader from '@/components/sections/ScreenLoader'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SystemArchitectureSection from '@/components/sections/SystemArchitectureSection'
-import SkillsMatrixSection from '@/components/sections/SkillsMatrixSection'
+import WhatIDoSection from '@/components/sections/WhatIDoSection'
+import TechStackSection from '@/components/sections/TechStackSection'
 import GitHubSection from '@/components/sections/GitHubSection'
 import { TOTAL_STEPS } from '@/lib/navigation'
 
@@ -37,6 +38,12 @@ export default function Home() {
     const useCinematicNavigation = !isReducedMotion && !isSmallScreen
     if (!useCinematicNavigation) el.style.overflowY = 'auto'
 
+    function dispatchNavStep(step) {
+      try {
+        window.dispatchEvent(new CustomEvent('nav-step-change', { detail: { step } }))
+      } catch (_) { /* SSR or restricted env */ }
+    }
+
     function fadeLoop(targetScrollTop, targetIdx) {
       busyRef.current = true
       tweenRef.current?.kill()
@@ -47,6 +54,7 @@ export default function Home() {
         onComplete: () => {
           el.scrollTop    = targetScrollTop
           idxRef.current  = targetIdx
+          dispatchNavStep(targetIdx)
           gsap.to(loopOverlayRef.current, {
             opacity: 0,
             duration: 0.7,
@@ -79,6 +87,7 @@ export default function Home() {
       idxRef.current = idx
       busyRef.current = true
       tweenRef.current?.kill()
+      dispatchNavStep(idx)
       tweenRef.current = gsap.to(el, {
         scrollTop: idx * window.innerHeight,
         duration: 1.0,
@@ -109,7 +118,11 @@ export default function Home() {
     }
 
     function onScroll() {
-      idxRef.current = Math.round(el.scrollTop / window.innerHeight)
+      const next = Math.round(el.scrollTop / window.innerHeight)
+      if (next !== idxRef.current) {
+        idxRef.current = next
+        dispatchNavStep(next)
+      }
     }
 
     function onKeyDown(e) {
@@ -187,7 +200,8 @@ export default function Home() {
           <AboutSection />
           <ProjectsSection />
           <SystemArchitectureSection />
-          <SkillsMatrixSection />
+          <WhatIDoSection />
+          <TechStackSection />
           <WorkExperienceSection />
           <TestimonialsSection />
           <GitHubSection />
