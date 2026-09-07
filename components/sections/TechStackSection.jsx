@@ -1,110 +1,104 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/TechStackSection.module.css'
 
 export default function TechStackSection() {
-  const sectionRef  = useRef(null)
-  const tileRefs    = useRef([])
-  const animatedRef = useRef(false)
-  const hoverCleanupsRef = useRef([])
-
-  const HEADING = profile.sections?.techStack?.heading || 'TECH STACK'
-
-  const seen = new Set()
-  const skills = (profile.skillCategories || []).flatMap((c) => c.skills || [])
-  const deduped = skills.filter((s) => {
-    if (!s) return false
-    if (seen.has(s)) return false
-    seen.add(s)
-    return true
-  })
-
-  function attachHover(tiles) {
-    if (window.matchMedia('(pointer: coarse)').matches) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    hoverCleanupsRef.current.forEach((fn) => fn())
-    hoverCleanupsRef.current = []
-
-    tiles.forEach((el) => {
-      const enter = () => {
-        gsap.to(el, { scale: 1.15, borderColor: 'var(--accent-cyan)', duration: 0.2, ease: 'power2.out' })
-      }
-      const leave = () => {
-        gsap.to(el, { scale: 1, borderColor: 'var(--border-dim)', duration: 0.2, ease: 'power2.out' })
-      }
-      el.addEventListener('mouseenter', enter)
-      el.addEventListener('mouseleave', leave)
-      hoverCleanupsRef.current.push(() => {
-        el.removeEventListener('mouseenter', enter)
-        el.removeEventListener('mouseleave', leave)
-      })
-    })
-  }
+  const sectionRef = useRef(null)
 
   useEffect(() => {
     const section = sectionRef.current
     if (!section) return
 
-    const tiles = tileRefs.current.filter(Boolean)
-    if (tiles.length === 0) return
+    const items = section.querySelectorAll(`.${styles.techstackItem}`)
+    items.forEach((item, i) => {
+      item.style.opacity = '0'
+      item.style.transform = 'translateY(20px)'
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      gsap.set(tiles, { opacity: 1, y: 0 })
-      attachHover(tiles)
-      return
-    }
-
-    gsap.set(tiles, { opacity: 0, y: 20 })
-
-    const scroller = document.querySelector('main')
-    if (!scroller) return
-
-    function onScroll() {
-      if (animatedRef.current) return
-      const inRange = Math.abs(scroller.scrollTop - section.offsetTop) < window.innerHeight * 0.5
-      if (!inRange) return
-      animatedRef.current = true
-      gsap.to(tiles, {
-        opacity: 1,
-        y: 0,
-        duration: 0.35,
-        ease: 'power2.out',
-        stagger: 0.025,
-        onComplete: () => attachHover(tiles),
-      })
-    }
-
-    scroller.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => {
-      scroller.removeEventListener('scroll', onScroll)
-      hoverCleanupsRef.current.forEach((fn) => fn())
-      hoverCleanupsRef.current = []
-    }
+      setTimeout(() => {
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
+        item.style.opacity = '1'
+        item.style.transform = 'translateY(0)'
+      }, i * 50)
+    })
   }, [])
 
-  return (
-    <section ref={sectionRef} className={styles.section} aria-label={HEADING}>
-      <div className={styles.inner}>
-        <h2 className={styles.heading}>{HEADING}</h2>
+  // Reference tech stack data
+  const techRows = [
+    [
+      { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', url: 'https://react.dev' },
+      { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', url: 'https://nextjs.org' },
+      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', url: 'https://typescriptlang.org' },
+      { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+      { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', url: 'https://nodejs.org' },
+    ],
+    [
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', url: 'https://python.org' },
+      { name: 'Flutter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg', url: 'https://flutter.dev' },
+      { name: 'Dart', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg', url: 'https://dart.dev' },
+      { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', url: 'https://postgresql.org' },
+      { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', url: 'https://docker.com' },
+    ],
+    [
+      { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', url: 'https://aws.amazon.com' },
+      { name: 'GCP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', url: 'https://cloud.google.com' },
+      { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', url: 'https://linux.org' },
+      { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', url: 'https://git-scm.com' },
+      { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', url: 'https://github.com' },
+    ],
+    [
+      { name: 'TailwindCSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg', url: 'https://tailwindcss.com' },
+      { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', url: 'https://mongodb.com' },
+      { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', url: 'https://redis.io' },
+      { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg', url: 'https://firebase.google.com' },
+      { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg', url: 'https://code.visualstudio.com' },
+    ],
+    [
+      { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', url: 'https://figma.com' },
+      { name: 'Nginx', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg', url: 'https://nginx.org' },
+      { name: 'CI/CD', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg', url: 'https://gitlab.com' },
+    ],
+  ]
 
-        <div className={styles.grid}>
-          {deduped.map((skill, i) => (
-            <span
-              key={skill}
-              ref={(el) => { tileRefs.current[i] = el }}
-              className={styles.tile}
-              style={{ cursor: 'default' }}
-            >
-              <span className={styles.tileLabel}>{skill}</span>
-            </span>
+  return (
+    <div ref={sectionRef} className={styles.techstackNew} id="techstack">
+      <div className={styles.techstackVideoContainer}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={styles.techstackVideo}
+        >
+          <source src="/video/video.webm" type="video/webm" />
+        </video>
+        <div className={styles.techstackOverlay} />
+      </div>
+
+      <div className={styles.techstackContent}>
+        <h2>Tech Stack</h2>
+        <div className={styles.techstackPyramid}>
+          {techRows.map((row, i) => (
+            <div key={i} className={styles.techstackRow}>
+              {row.map((tech, j) => (
+                <a
+                  key={j}
+                  href={tech.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.techstackItem}
+                  title={tech.name}
+                  data-cursor="disable"
+                >
+                  <img src={tech.icon} alt={tech.name} loading="lazy" decoding="async" />
+                  <span>{tech.name}</span>
+                </a>
+              ))}
+            </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }

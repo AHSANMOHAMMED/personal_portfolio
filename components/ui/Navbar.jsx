@@ -1,62 +1,91 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { gsap } from '@/lib/gsap'
+import { splitText } from '@/lib/splitText'
 import profile from '@/data/profile.json'
 import styles from '@/styles/ui/Navbar.module.css'
-import { NAV_ITEMS } from '@/lib/navigation'
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeStep,  setActiveStep]  = useState(0)
-  const headerRef = useRef(null)
-
-  function navigateTo(index) {
-    const scroller = document.querySelector('main')
-    if (!scroller) return
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const smallScreen   = window.matchMedia('(max-width: 767px)').matches
-    scroller.scrollTo({
-      top: index * window.innerHeight,
-      behavior: reducedMotion || smallScreen ? 'auto' : 'smooth',
-    })
-  }
+  const [isLoaded, setIsLoaded] = useState(false)
+  const navRef = useRef(null)
+  const linksRef = useRef([])
 
   useEffect(() => {
-    function onNavStep(e) {
-      const step = (e && e.detail && typeof e.detail.step === 'number') ? e.detail.step : 0
-      setActiveStep(step)
-      setIsScrolled(step > 0)
-    }
-    window.addEventListener('nav-step-change', onNavStep)
-    return () => window.removeEventListener('nav-step-change', onNavStep)
+    const timer = setTimeout(() => setIsLoaded(true), 100)
+    return () => clearTimeout(timer)
   }, [])
 
-  return (
-    <header
-      ref={headerRef}
-      className={`${styles.nav} ${isScrolled ? styles.navScrolled : ''}`}
-    >
-      <nav className={styles.linkList} aria-label="Primary">
-        {NAV_ITEMS.map((item) => (
-          <button
-            key={item.label}
-            type="button"
-            className={`${styles.link} ${activeStep === item.index ? styles.linkActive : ''}`}
-            onClick={() => navigateTo(item.index)}
-            aria-current={activeStep === item.index ? 'page' : undefined}
-          >
-            {item.label}
-          </button>
-        ))}
-      </nav>
+  useEffect(() => {
+    if (!isLoaded) return
 
-      <a
-        href={profile.resume}
-        download
-        className={styles.resumeLink}
-      >
-        RESUME
+    // Animate nav links with split text hover effect
+    linksRef.current.forEach((link) => {
+      if (!link) return
+      const text = link.textContent
+      link.innerHTML = ''
+
+      const outer = document.createElement('span')
+      outer.className = styles.hoverLink
+      outer.setAttribute('data-cursor', 'disable')
+
+      const inner = document.createElement('span')
+      inner.className = styles.hoverIn
+      inner.setAttribute('data-text', text)
+
+      const original = document.createElement('span')
+      original.textContent = text
+
+      const hover = document.createElement('span')
+      hover.textContent = text
+      hover.style.position = 'absolute'
+      hover.style.top = '100%'
+      hover.style.left = '0'
+
+      inner.appendChild(original)
+      inner.appendChild(hover)
+      outer.appendChild(inner)
+      link.appendChild(outer)
+    })
+  }, [isLoaded])
+
+  return (
+    <header ref={navRef} className={styles.header}>
+      <a href="#/" className={styles.navbarTitle} data-cursor="disable">
+        {profile.developer?.fullName?.split(' ').map(n => n[0]).join('') || 'AM'}
       </a>
+
+      <a href={`mailto:${profile.social?.email}`} className={styles.navbarConnect} data-cursor="disable">
+        {profile.social?.email}
+      </a>
+
+      <ul>
+        <li>
+          <a href="#about" ref={(el) => { linksRef.current[0] = el }}>
+            About
+          </a>
+        </li>
+        <li>
+          <a href="#whatIDO" ref={(el) => { linksRef.current[1] = el }}>
+            What I Do
+          </a>
+        </li>
+        <li>
+          <a href="#career" ref={(el) => { linksRef.current[2] = el }}>
+            Career
+          </a>
+        </li>
+        <li>
+          <a href="#work" ref={(el) => { linksRef.current[3] = el }}>
+            Work
+          </a>
+        </li>
+        <li>
+          <a href="#contact" ref={(el) => { linksRef.current[4] = el }}>
+            Contact
+          </a>
+        </li>
+      </ul>
     </header>
   )
 }

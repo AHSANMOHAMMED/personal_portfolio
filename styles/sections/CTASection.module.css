@@ -1,0 +1,64 @@
+.ctaSection {
+  width: 100%;
+  max-width: var(--cMaxWidth);
+  margin: auto;
+  padding: 6rem clamp(1.5rem, 5vw, 6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 7;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border: 1px solid var(--accentColor);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+.ctaBtn:hover {
+  background: var(--accentColor);
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.ctaBtnPlay {
+  background: transparent;
+}
+
+.ctaBtnHire {
+  background: var(--accentColor);
+  color: #000;
+}
+
+.ctaBtnHire:hover {
+  background: #fff;
+  border-color: #fff;
+}
+
+@media (max-width: 767px) {
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .ctaBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

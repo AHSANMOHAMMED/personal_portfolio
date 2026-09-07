@@ -1,0 +1,131 @@
+.careerSection {
+  width: 100%;
+  max-width: var(--cMaxWidth);
+  margin: auto;
+  padding: 8rem clamp(1.5rem, 5vw, 6rem);
+  position: relative;
+  z-index: 7;
+}
+
+.careerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.careerSection h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.careerSection h2 span {
+  color: var(--accentColor);
+}
+
+.careerInfo {
+  display: flex;
+  gap: 2rem;
+}
+
+.careerTimeline {
+  width: 2px;
+  min-height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: background 0.3s;
+}
+
+.careerTimeline.visible {
+  background: var(--accentColor);
+}
+
+.careerDot {
+  width: 10px;
+  height: 10px;
+  background: var(--accentColor);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: -4px;
+  opacity: 0;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+@keyframes timeline {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 10px);
+    opacity: 1;
+  }
+}
+
+.careerInfoBox {
+  flex: 1;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.careerInfoBox.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.careerInfoIn {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.careerRole h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0;
+}
+
+.careerRole h5 {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0.25rem 0 0;
+}
+
+.careerInfoBox h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--accentColor);
+  margin: 0;
+  background: linear-gradient(0deg, #7f40ff, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.careerInfoBox p {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .careerInfo {
+    flex-direction: column;
+  }
+  .careerTimeline {
+    width: 100%;
+    min-height: 2px;
+  }
+}

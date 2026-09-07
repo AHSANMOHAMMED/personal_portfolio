@@ -1,0 +1,149 @@
+.landingSection {
+  width: 100%;
+  max-width: var(--cMaxWidth);
+  margin: auto;
+  position: relative;
+  height: var(--vh);
+  overflow: hidden;
+  background: var(--backgroundColor);
+}
+
+.landingContainer {
+  width: var(--cWidth);
+  margin: auto;
+  height: 100%;
+  position: relative;
+  max-width: var(--cMaxWidth);
+}
+
+.landingIntro {
+  position: absolute;
+  z-index: 9;
+  top: 5%;
+  left: 0;
+}
+
+.landingIntro h2 {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--accentColor);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.landingIntro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.landingIntro h1 span {
+  color: var(--accentColor);
+}
+
+.landingInfo {
+  position: absolute;
+  z-index: 9;
+  bottom: 15%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.landingInfo h3 {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.landingInfoH2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 4rem);
+  color: var(--accentColor);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.landingH21 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 4rem);
+  color: var(--accentColor);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.landingH2Info {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: rgba(255,255,255,0.7);
+  line-height: 1.4;
+}
+
+.characterContainer {
+  position: absolute;
+  right: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 50vw;
+  height: 80vh;
+}
+
+.mobilePhoto {
+  display: none;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 80vw;
+  max-width: 400px;
+}
+
+.mobilePhoto img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+@media (max-width: 767px) {
+  .landingIntro {
+    top: 15%;
+    left: 1.25rem;
+  }
+  .landingInfo {
+    bottom: 25%;
+    left: 1.25rem;
+  }
+  .characterContainer {
+    display: none;
+  }
+  .mobilePhoto {
+    display: block;
+  }
+}
+
+.split-char {
+  display: inline-block;
+}
+
+.split-word {
+  display: inline-block;
+}
+
+.split-line {
+  display: block;
+}
+
+.split-h2 {
+  display: block;
+}

@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Baloo_2, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Cursor from "@/components/ui/Cursor";
+import CustomCursor from "@/components/ui/CustomCursor";
 import { SITE_URL } from '@/lib/siteConfig';
 import { Analytics } from "@vercel/analytics/next";
 
@@ -145,7 +145,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <Cursor />
+        <CustomCursor />
         {children}
         <Analytics />
       </body>

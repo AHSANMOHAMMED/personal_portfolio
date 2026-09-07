@@ -1,0 +1,93 @@
+.contactSection {
+  width: 100%;
+  max-width: var(--cMaxWidth);
+  margin: auto;
+  padding: 8rem clamp(1.5rem, 5vw, 6rem);
+  position: relative;
+  z-index: 7;
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.contactSection h3 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.contactFlex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.contactBox h4 {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0 0 0.75rem;
+}
+
+.contactBox p {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.contactBox a {
+  color: var(--accentColor);
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.contactBox a:hover {
+  opacity: 0.8;
+}
+
+.contactSocial {
+  display: block;
+  padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.contactSocial:hover {
+  color: var(--accentColor);
+}
+
+.contactBox h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: #fff;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.contactBox h2 span {
+  color: var(--accentColor);
+}
+
+.contactBox h5 {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .contactFlex {
+    grid-template-columns: 1fr;
+  }
+}
