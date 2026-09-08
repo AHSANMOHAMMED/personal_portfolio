@@ -54,3 +54,8 @@ docs/superpowers
 behance_reference*.jpg
 repos.json
 repos_summary.json
+
+# playwright
+/playwright/screenshots/
+/playwright-report/
+/test-results/
