@@ -1,31 +1,37 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
-import styles from '@/styles/sections/ScreenLoader.module.css'
+import styles from '@/styles/sections/LoadingScreen.module.css'
 
 export default function LoadingScreen({ onComplete }) {
   const [percent, setPercent] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
   const containerRef = useRef(null)
-  const ballRef = useRef(null)
-  const percentRef = useRef(null)
+  const wrapRef = useRef(null)
+  const onCompleteRef = useRef(onComplete)
 
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
-    // Simulate loading
+  useEffect(() => {
     let current = 0
-    const interval = setInterval(() => {
-      if (current < 50) {
-        current += Math.floor(Math.random() * 5) + 1
-      } else if (current < 91) {
-        current += Math.floor(Math.random() * 2) + 1
-      } else if (current >= 91 && current < 100) {
-        current += 1
+    let interval = null
+
+    interval = setInterval(() => {
+      if (current <= 50) {
+        const increment = Math.round(5 * Math.random())
+        current += increment
+      } else {
+        clearInterval(interval)
+        interval = setInterval(() => {
+          current += Math.round(Math.random())
+          if (current > 91) {
+            clearInterval(interval)
+          }
+        }, 20)
       }
 
       if (current >= 100) {
@@ -33,43 +39,58 @@ export default function LoadingScreen({ onComplete }) {
         clearInterval(interval)
         setTimeout(() => {
           setIsComplete(true)
+          wrapRef.current?.classList.add(styles.loadingComplete)
           setTimeout(() => {
+            wrapRef.current?.classList.add(styles.loadingClicked)
             setIsClicked(true)
             setTimeout(() => {
-              if (onComplete) onComplete()
-            }, 900)
-          }, 600)
+              if (onCompleteRef.current) onCompleteRef.current()
+            }, 1200)
+          }, 1000)
         }, 600)
       }
       setPercent(current)
-      if (percentRef.current) {
-        percentRef.current.textContent = current
-      }
-    }, 80)
+    }, 100)
 
     return () => clearInterval(interval)
-  }, [onComplete])
+  }, [])
 
   const handleMouseMove = (e) => {
-    if (!containerRef.current || isComplete) return
-    const rect = containerRef.current.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    const y = ((e.clientY - rect.top) / rect.height) * 100
-    containerRef.current.style.setProperty('--mouse-x', `${x}%`)
-    containerRef.current.style.setProperty('--mouse-y', `${y}%`)
+    if (!wrapRef.current || isComplete) return
+    const rect = wrapRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    wrapRef.current.style.setProperty('--mouse-x', `${x}px`)
+    wrapRef.current.style.setProperty('--mouse-y', `${y}px`)
+  }
+
+  const handleClick = () => {
+    if (!isComplete || isClicked) return
+    wrapRef.current?.classList.add(styles.loadingClicked)
+    setIsClicked(true)
+    setTimeout(() => {
+      if (onCompleteRef.current) onCompleteRef.current()
+    }, 1200)
   }
 
   return (
     <div
       ref={containerRef}
       className={`${styles.loaderGame} ${isClicked ? styles.loaderOut : ''}`}
-      onMouseMove={handleMouseMove}
     >
       {/* Header */}
       <div className={styles.loadingHeader}>
         <a href="#/" className={styles.loaderTitle} data-cursor="disable">
           {profile.developer?.fullName?.split(' ').map(n => n[0]).join('') || 'AM'}
         </a>
+        <div className={styles.loaderGameContainer}>
+          <div className={styles.loaderGameIn}>
+            {Array(27).fill(0).map((_, i) => (
+              <div key={i} className={styles.loaderGameLine} />
+            ))}
+          </div>
+          <div className={styles.loaderGameBall} />
+        </div>
       </div>
 
       {/* Main loading screen */}
@@ -89,16 +110,20 @@ export default function LoadingScreen({ onComplete }) {
           </div>
         </div>
 
-        {/* Loading button with hover effect */}
+        {/* Loading pill button */}
         <div
-          className={`${styles.loadingWrap} ${isComplete ? styles.loadingClicked : ''}`}
+          ref={wrapRef}
+          className={styles.loadingWrap}
+          onMouseMove={handleMouseMove}
+          onClick={handleClick}
         >
           <div className={styles.loadingHover} />
           <div className={`${styles.loadingButton} ${isComplete ? styles.loadingComplete : ''}`}>
             <div className={styles.loadingContainer}>
               <div className={styles.loadingContent}>
                 <div className={styles.loadingContentIn}>
-                  <span ref={percentRef}>{percent}</span>
+                  Loading <span>{percent}%</span>
+                  <div className={styles.loadingBox} />
                 </div>
               </div>
               <div className={styles.loadingContent2}>
@@ -108,18 +133,6 @@ export default function LoadingScreen({ onComplete }) {
           </div>
         </div>
       </div>
-
-      {/* Ball animation overlay */}
-      {!isComplete && (
-        <div className={styles.loaderGameContainer}>
-          <div className={styles.loaderGameIn}>
-            {Array(27).fill(0).map((_, i) => (
-              <div key={i} className={styles.loaderGameLine} />
-            ))}
-          </div>
-          <div ref={ballRef} className={styles.loaderGameBall} />
-        </div>
-      )}
     </div>
   )
 }

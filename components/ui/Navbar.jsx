@@ -36,11 +36,8 @@ export default function Navbar() {
       const original = document.createElement('span')
       original.textContent = text
 
-      const hover = document.createElement('span')
+      const hover = document.createElement('div')
       hover.textContent = text
-      hover.style.position = 'absolute'
-      hover.style.top = '100%'
-      hover.style.left = '0'
 
       inner.appendChild(original)
       inner.appendChild(hover)

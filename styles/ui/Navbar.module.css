@@ -1,14 +1,15 @@
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
   display: flex;
-  align-items: center;
+  max-width: var(--cMaxWidth);
+  width: var(--cWidth);
   justify-content: space-between;
-  padding: 20px 50px;
-  mix-blend-mode: difference;
+  padding: 15px 0;
+  box-sizing: border-box;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
+  top: 0;
+  z-index: 9999;
   opacity: 0;
   transition: opacity 1.2s ease;
 }
@@ -18,24 +19,43 @@
 }
 
 .navbarTitle {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.2px;
   color: #fff;
   text-decoration: none;
-  letter-spacing: 0.1em;
 }
 
 .navbarConnect {
+  position: absolute;
+  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  font-weight: 500;
   color: rgba(255,255,255,0.6);
   text-decoration: none;
-  font-size: 0.8rem;
 }
 
 .header ul {
   list-style: none;
   display: flex;
-  gap: 2rem;
-  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  column-gap: 20px;
+  row-gap: 6px;
+  align-items: end;
+}
+
+.header ul li {
+  margin-left: 0;
+  letter-spacing: 0.8px;
+  color: #ccc;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .header ul a {
@@ -45,23 +65,25 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   position: relative;
-  display: inline-block;
+  display: flex;
+  text-wrap: nowrap;
   overflow: hidden;
 }
 
 .hoverLink {
-  display: inline-block;
   position: relative;
+  display: flex;
+  text-wrap: nowrap;
   overflow: hidden;
 }
 
 .hoverIn {
-  display: block;
   position: relative;
   transition: transform 0.3s;
 }
 
-.hoverIn span:last-child {
+.hoverIn div {
+  display: flex;
   position: absolute;
   top: 100%;
   left: 0;
@@ -69,12 +91,49 @@
 
 .hoverLink:hover .hoverIn {
   transform: translateY(-100%);
+  color: var(--accentColor);
+}
+
+@media only screen and (min-width: 500px) {
+  .header {
+    padding: 20px 0;
+  }
+  .header ul {
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+  }
+  .header ul li {
+    color: #eae5ec;
+  }
+  .navbarTitle {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .navbarConnect {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .header {
+    padding: 35px 0;
+  }
+  .header ul {
+    column-gap: 80px;
+    font-size: 16px;
+  }
+  .navbarConnect {
+    font-size: 16px;
+  }
+  .navbarTitle {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 767px) {
-  .header {
-    padding: 1rem 1.5rem;
-  }
   .header ul {
     display: none;
   }
