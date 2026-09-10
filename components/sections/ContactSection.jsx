@@ -1,56 +1,53 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import { MdArrowOutward, MdCopyright } from 'react-icons/md'
 import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
-import styles from '@/styles/sections/ContactSection.module.css'
 
 export default function ContactSection() {
-  const sectionRef = useRef(null)
-
   useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const tl = gsap.timeline({
+    const contactTimeline = gsap.timeline({
       scrollTrigger: {
-        trigger: section,
+        trigger: '.contact-section',
         start: 'top 80%',
         end: 'bottom center',
         toggleActions: 'play none none none',
       },
     })
 
-    tl.fromTo(
-      `.${styles.contactSection} h3`,
+    contactTimeline.fromTo(
+      '.contact-section h3',
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
     )
-    tl.fromTo(
-      `.${styles.contactBox}`,
+
+    contactTimeline.fromTo(
+      '.contact-box',
       { opacity: 0, y: 50 },
       { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out' },
-      '-=0.4'
+      '-=0.4',
     )
 
-    return () => tl.kill()
+    return () => {
+      contactTimeline.kill()
+    }
   }, [])
 
-  const socialLinks = [
-    { name: 'Github', href: profile.social?.github, icon: 'github' },
-    { name: 'Linkedin', href: profile.social?.linkedin, icon: 'linkedin' },
-    { name: 'Twitter', href: profile.social?.twitter, icon: 'twitter' },
-    { name: 'Instagram', href: profile.social?.instagram, icon: 'instagram' },
-    { name: 'Facebook', href: profile.social?.facebook, icon: 'facebook' },
+  const social = [
+    { name: 'Github', href: profile.contact?.github || profile.social?.github },
+    { name: 'Linkedin', href: profile.contact?.linkedin || profile.social?.linkedin },
+    { name: 'Twitter', href: profile.contact?.twitter || profile.social?.twitter },
+    { name: 'Facebook', href: profile.contact?.facebook || profile.social?.facebook },
+    { name: 'Instagram', href: profile.contact?.instagram || profile.social?.instagram },
   ]
 
   return (
-    <div ref={sectionRef} className={styles.contactSection} id="contact">
-      <div className={styles.contactContainer}>
+    <div className="contact-section section-container" id="contact">
+      <div className="contact-container">
         <h3>{profile.developer?.fullName || 'Ahsan Mohammed'}</h3>
-
-        <div className={styles.contactFlex}>
-          <div className={styles.contactBox}>
+        <div className="contact-flex">
+          <div className="contact-box">
             <h4>Email</h4>
             <p>
               <a href={`mailto:${profile.social?.email}`} data-cursor="disable">
@@ -62,32 +59,40 @@ export default function ContactSection() {
               <span>{profile.social?.location}</span>
             </p>
           </div>
-
-          <div className={styles.contactBox}>
+          <div className="contact-box">
             <h4>Social</h4>
-            {socialLinks.map((social) => (
+            {social.filter((s) => s.href).map((item) => (
               <a
-                key={social.name}
-                href={social.href}
+                key={item.name}
+                href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.contactSocial}
                 data-cursor="disable"
+                className="contact-social"
               >
-                {social.name}
+                {item.name} <MdArrowOutward />
               </a>
             ))}
           </div>
-
-          <div className={styles.contactBox}>
+          <div className="contact-box">
             <h2>
-              Designed and Developed
-              <br />
-              by <span>{profile.developer?.fullName || 'Ahsan Mohammed'}</span>
+              Designed and Developed <br /> by{' '}
+              <span>{profile.developer?.fullName || 'Ahsan Mohammed'}</span>
             </h2>
             <h5>
-              © {new Date().getFullYear()}
+              <MdCopyright /> {new Date().getFullYear()}
             </h5>
+            <p style={{ marginTop: '0.75rem', opacity: 0.55, fontSize: '0.75rem' }}>
+              Experience inspired by an{' '}
+              <a
+                href="https://github.com/red1-for-hek/portfolio-website"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="disable"
+              >
+                MIT open-source template
+              </a>
+            </p>
           </div>
         </div>
       </div>

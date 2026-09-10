@@ -5,70 +5,75 @@ import { gsap } from '@/lib/gsap'
 
 export default function CustomCursor() {
   const cursorRef = useRef(null)
-  const isHoveringRef = useRef(false)
 
   useEffect(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return
+
+    let hover = false
     const cursor = cursorRef.current
-    if (!cursor || window.innerWidth <= 768) return
+    if (!cursor) return
 
-    let mouseX = 0
-    let mouseY = 0
-    let cursorX = 0
-    let cursorY = 0
-    const speed = 0.15
+    const mousePos = { x: 0, y: 0 }
+    const cursorPos = { x: 0, y: 0 }
 
-    const onMouseMove = (e) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
+    const onMove = (e) => {
+      mousePos.x = e.clientX
+      mousePos.y = e.clientY
     }
+    document.addEventListener('mousemove', onMove)
 
-    const tick = () => {
-      cursorX += (mouseX - cursorX) * speed
-      cursorY += (mouseY - cursorY) * speed
-      gsap.set(cursor, { x: cursorX, y: cursorY })
-      requestAnimationFrame(tick)
+    let rafId = 0
+    const loop = () => {
+      if (!hover) {
+        const delay = 6
+        cursorPos.x += (mousePos.x - cursorPos.x) / delay
+        cursorPos.y += (mousePos.y - cursorPos.y) / delay
+        gsap.to(cursor, { x: cursorPos.x, y: cursorPos.y, duration: 0.1 })
+      }
+      rafId = requestAnimationFrame(loop)
     }
+    rafId = requestAnimationFrame(loop)
 
-    const onMouseOver = (e) => {
-      const target = e.target.closest('[data-cursor]')
-      if (!target) return
-      const type = target.dataset.cursor
-      if (type === 'icons') {
+    const onOver = (e) => {
+      const target = e.currentTarget
+      const rect = target.getBoundingClientRect()
+      if (target.dataset.cursor === 'icons') {
         cursor.classList.add('cursor-icons')
-        isHoveringRef.current = true
-      } else if (type === 'disable') {
+        gsap.to(cursor, { x: rect.left, y: rect.top, duration: 0.1 })
+        cursor.style.setProperty('--cursorH', `${rect.height}px`)
+        hover = true
+      }
+      if (target.dataset.cursor === 'disable') {
         cursor.classList.add('cursor-disable')
-        isHoveringRef.current = false
       }
     }
 
-    const onMouseOut = (e) => {
-      const target = e.target.closest('[data-cursor]')
-      if (!target) return
-      cursor.classList.remove('cursor-icons', 'cursor-disable')
-      isHoveringRef.current = false
+    const onOut = () => {
+      cursor.classList.remove('cursor-disable', 'cursor-icons')
+      hover = false
     }
 
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('mouseover', onMouseOver)
-    document.addEventListener('mouseout', onMouseOut)
+    const bind = () => {
+      document.querySelectorAll('[data-cursor]').forEach((item) => {
+        item.addEventListener('mouseover', onOver)
+        item.addEventListener('mouseout', onOut)
+      })
+    }
+    bind()
 
-    // Initialize cursor position
-    gsap.set(cursor, { x: -100, y: -100 })
-    requestAnimationFrame(tick)
+    const observer = new MutationObserver(bind)
+    observer.observe(document.body, { childList: true, subtree: true })
 
     return () => {
-      document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('mouseover', onMouseOver)
-      document.removeEventListener('mouseout', onMouseOut)
+      document.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(rafId)
+      observer.disconnect()
+      document.querySelectorAll('[data-cursor]').forEach((item) => {
+        item.removeEventListener('mouseover', onOver)
+        item.removeEventListener('mouseout', onOut)
+      })
     }
   }, [])
 
-  return (
-    <div
-      ref={cursorRef}
-      className="cursor-main"
-      aria-hidden="true"
-    />
-  )
+  return <div className="cursor-main" ref={cursorRef} />
 }

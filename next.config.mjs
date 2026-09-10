@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
-  output: 'export',
-  basePath: '/personal_portfolio',
   turbopack: {
     root: process.cwd(),
   },

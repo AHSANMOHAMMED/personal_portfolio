@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import Lenis from 'lenis'
-import { gsap, ScrollTrigger } from '@/lib/gsap'
-import LoadingScreen from '@/components/sections/LoadingScreen'
+import { Suspense, useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Navbar from '@/components/ui/Navbar'
 import CustomCursor from '@/components/ui/CustomCursor'
 import LandingSection from '@/components/sections/LandingSection'
@@ -15,68 +13,57 @@ import TechStackSection from '@/components/sections/TechStackSection'
 import CTASection from '@/components/sections/CTASection'
 import ContactSection from '@/components/sections/ContactSection'
 import IconsSection from '@/components/sections/IconsSection'
+import { LoadingProvider } from '@/context/LoadingProvider'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 
-export default function Home() {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const mainRef = useRef(null)
-  const lenisRef = useRef(null)
+const CharacterModel = dynamic(() => import('@/components/three/Character'), {
+  ssr: false,
+})
+
+function HomeContent() {
+  const [showCharacter, setShowCharacter] = useState(false)
 
   useEffect(() => {
-    if (!isLoaded) return
-
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      smoothTouch: false,
-    })
-
-    lenisRef.current = lenis
-
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-    requestAnimationFrame(raf)
-
-    // GSAP ScrollTrigger integration with Lenis
-    lenis.on('scroll', ScrollTrigger.update)
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-    gsap.ticker.lagSmoothing(0)
-
-    return () => {
-      lenis.destroy()
-      lenisRef.current = null
-    }
-  }, [isLoaded])
+    // Desktop-only 3D character (matches reference >1024)
+    const sync = () => setShowCharacter(window.innerWidth > 1024)
+    sync()
+    window.addEventListener('resize', sync)
+    return () => window.removeEventListener('resize', sync)
+  }, [])
 
   return (
-    <>
+    <div className="container-main">
       <CustomCursor />
+      <Navbar />
+      <IconsSection />
+      {showCharacter ? (
+        <ErrorBoundary
+          fallback={null}
+          onError={(err) => console.error('Character crashed:', err)}
+        >
+          <Suspense fallback={null}>
+            <CharacterModel />
+          </Suspense>
+        </ErrorBoundary>
+      ) : null}
+      <div className="container-main">
+        <LandingSection />
+        <AboutSection />
+        <WhatIDoSection />
+        <CareerSection />
+        <WorkSection />
+        <TechStackSection />
+        <CTASection />
+        <ContactSection />
+      </div>
+    </div>
+  )
+}
 
-      {!isLoaded && (
-        <LoadingScreen onComplete={() => setIsLoaded(true)} />
-      )}
-
-      {isLoaded && (
-        <>
-          <Navbar />
-
-          <main ref={mainRef} id="main-content">
-            <LandingSection />
-            <AboutSection />
-            <WhatIDoSection />
-            <CareerSection />
-            <WorkSection />
-            <TechStackSection />
-            <CTASection />
-            <ContactSection />
-            <IconsSection />
-          </main>
-        </>
-      )}
-    </>
+export default function Home() {
+  return (
+    <LoadingProvider>
+      <HomeContent />
+    </LoadingProvider>
   )
 }

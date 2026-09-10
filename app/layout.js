@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Baloo_2, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/ui/CustomCursor";
+import "@/styles/reference/portfolio-home.css";
 import { SITE_URL, BASE_PATH } from '@/lib/siteConfig';
 
 const geistSans = Geist({
@@ -100,7 +100,7 @@ export const metadata = {
       { rel: 'icon', url: '/favicons/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
   },
-  manifest: '/personal_portfolio/favicons/manifest.webmanifest',
+  manifest: `${BASE_PATH || ''}/favicons/manifest.webmanifest`,
 };
 
 export const viewport = {
@@ -147,7 +147,6 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        <CustomCursor />
         {children}
       </body>
     </html>

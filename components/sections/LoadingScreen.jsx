@@ -1,138 +1,113 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useLoading } from '@/context/LoadingProvider'
 import profile from '@/data/profile.json'
-import styles from '@/styles/sections/LoadingScreen.module.css'
 
-export default function LoadingScreen({ onComplete }) {
-  const [percent, setPercent] = useState(0)
-  const [isComplete, setIsComplete] = useState(false)
-  const [isClicked, setIsClicked] = useState(false)
-  const containerRef = useRef(null)
-  const wrapRef = useRef(null)
-  const onCompleteRef = useRef(onComplete)
+export default function LoadingScreen({ percent }) {
+  const { setIsLoading } = useLoading()
+  const [loaded, setLoaded] = useState(false)
+  const [clicked, setClicked] = useState(false)
+
+  const title =
+    profile.developer?.fullName ||
+    profile.developer?.name ||
+    'Ahsan Mohammed'
+  const role =
+    profile.developer?.title || 'Full-Stack Software Engineer'
 
   useEffect(() => {
-    onCompleteRef.current = onComplete
-  }, [onComplete])
+    if (percent < 100 || loaded) return
+    const t1 = setTimeout(() => setLoaded(true), 400)
+    return () => clearTimeout(t1)
+  }, [percent, loaded])
 
+  const enterSite = () => {
+    if (percent < 100 && !loaded) return
+    if (clicked) return
+    setClicked(true)
+    window.scrollTo(0, 0)
+    import('@/lib/initialFX').then((module) => {
+      setTimeout(() => {
+        window.scrollTo(0, 0)
+        if (module.initialFX) module.initialFX()
+        setIsLoading(false)
+      }, 700)
+    })
+  }
+
+  // Auto-enter shortly after Welcome is ready (still clickable)
   useEffect(() => {
-    let current = 0
-    let interval = null
+    if (!loaded && percent < 100) return
+    if (!loaded && percent >= 100) setLoaded(true)
+    if (!(loaded || percent >= 100)) return
+    const t = setTimeout(enterSite, 1200)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded, percent])
 
-    interval = setInterval(() => {
-      if (current <= 50) {
-        const increment = Math.round(5 * Math.random())
-        current += increment
-      } else {
-        clearInterval(interval)
-        interval = setInterval(() => {
-          current += Math.round(Math.random())
-          if (current > 91) {
-            clearInterval(interval)
-          }
-        }, 20)
-      }
-
-      if (current >= 100) {
-        current = 100
-        clearInterval(interval)
-        setTimeout(() => {
-          setIsComplete(true)
-          wrapRef.current?.classList.add(styles.loadingComplete)
-          setTimeout(() => {
-            wrapRef.current?.classList.add(styles.loadingClicked)
-            setIsClicked(true)
-            setTimeout(() => {
-              if (onCompleteRef.current) onCompleteRef.current()
-            }, 1200)
-          }, 1000)
-        }, 600)
-      }
-      setPercent(current)
-    }, 100)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  const handleMouseMove = (e) => {
-    if (!wrapRef.current || isComplete) return
-    const rect = wrapRef.current.getBoundingClientRect()
+  function handleMouseMove(e) {
+    const { currentTarget: target } = e
+    const rect = target.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
-    wrapRef.current.style.setProperty('--mouse-x', `${x}px`)
-    wrapRef.current.style.setProperty('--mouse-y', `${y}px`)
+    target.style.setProperty('--mouse-x', `${x}px`)
+    target.style.setProperty('--mouse-y', `${y}px`)
   }
 
-  const handleClick = () => {
-    if (!isComplete || isClicked) return
-    wrapRef.current?.classList.add(styles.loadingClicked)
-    setIsClicked(true)
-    setTimeout(() => {
-      if (onCompleteRef.current) onCompleteRef.current()
-    }, 1200)
-  }
+  const marqueeItems = [role, 'Full Stack Developer', role, 'Full Stack Developer']
 
   return (
-    <div
-      ref={containerRef}
-      className={`${styles.loaderGame} ${isClicked ? styles.loaderOut : ''}`}
-    >
-      {/* Header */}
-      <div className={styles.loadingHeader}>
-        <a href="#/" className={styles.loaderTitle} data-cursor="disable">
-          {profile.developer?.fullName?.split(' ').map(n => n[0]).join('') || 'AM'}
+    <>
+      <div className="loading-header">
+        <a href="/#" className="loader-title" data-cursor="disable">
+          {title.replace(/\s+/g, '')}
         </a>
-        <div className={styles.loaderGameContainer}>
-          <div className={styles.loaderGameIn}>
-            {Array(27).fill(0).map((_, i) => (
-              <div key={i} className={styles.loaderGameLine} />
-            ))}
+        <div className={`loaderGame ${clicked ? 'loader-out' : ''}`}>
+          <div className="loaderGame-container">
+            <div className="loaderGame-in">
+              {[...Array(27)].map((_, index) => (
+                <div className="loaderGame-line" key={index} />
+              ))}
+            </div>
+            <div className="loaderGame-ball" />
           </div>
-          <div className={styles.loaderGameBall} />
         </div>
       </div>
-
-      {/* Main loading screen */}
-      <div className={styles.loadingScreen}>
-        {/* Marquee */}
-        <div className={styles.loadingMarquee}>
-          <div className={styles.marqueeTrack}>
-            {Array(10).fill(0).map((_, i) => (
-              <span key={i}>
-                AI Engineer&nbsp;&nbsp;
-                <span style={{ opacity: 0.5 }}>·</span>
-                &nbsp;&nbsp;Full Stack Developer&nbsp;&nbsp;
-                <span style={{ opacity: 0.5 }}>·</span>
-                &nbsp;&nbsp;
-              </span>
+      <div className="loading-screen">
+        <div className="loading-marquee">
+          <div className="loading-marquee-track">
+            {[...marqueeItems, ...marqueeItems].map((text, i) => (
+              <span key={`${text}-${i}`}>&nbsp; {text} &nbsp;</span>
             ))}
           </div>
         </div>
-
-        {/* Loading pill button */}
         <div
-          ref={wrapRef}
-          className={styles.loadingWrap}
+          className={`loading-wrap ${clicked ? 'loading-clicked' : ''}`}
           onMouseMove={handleMouseMove}
-          onClick={handleClick}
+          onClick={enterSite}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') enterSite()
+          }}
         >
-          <div className={styles.loadingHover} />
-          <div className={`${styles.loadingButton} ${isComplete ? styles.loadingComplete : ''}`}>
-            <div className={styles.loadingContainer}>
-              <div className={styles.loadingContent}>
-                <div className={styles.loadingContentIn}>
-                  Loading <span>{percent}%</span>
-                  <div className={styles.loadingBox} />
+          <div className="loading-hover" />
+          <div className={`loading-button ${loaded ? 'loading-complete' : ''}`}>
+            <div className="loading-container">
+              <div className="loading-content">
+                <div className="loading-content-in">
+                  Loading <span>{Math.min(100, Math.round(percent))}%</span>
                 </div>
               </div>
-              <div className={styles.loadingContent2}>
-                <span>Welcome</span>
-              </div>
+              <div className="loading-box" />
+            </div>
+            <div className="loading-content2">
+              <span>Welcome</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

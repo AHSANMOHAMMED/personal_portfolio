@@ -8,11 +8,12 @@ Heed deprecation notices.
 
 ## Key project constraints
 
-- **No CSS scroll-snap.** Scroll is controlled entirely by `goTo(idx)` in `app/page.js` via GSAP. Do not add `scroll-snap-type` or native scroll behavior.
-- **CSS Modules only** for all component styles. No inline style objects except for GSAP-driven dynamic values.
+- **Lenis + ScrollTrigger** drive smooth scrolling (initialized in `components/ui/Navbar.jsx`). Do not add CSS `scroll-snap-type`. Home scroll starts after the loading intro (`lib/initialFX.js` calls `lenis.start()`).
 - **GSAP from `@/lib/gsap`** — not imported directly from `gsap`. This ensures ScrollTrigger is registered.
-- **All portfolio content in `data/profile.json`** — do not hardcode names, roles, or social links in components.
-- **`app/globals.css`** is the single source of truth for design tokens. CSS custom properties defined there are used across all modules.
-- **`lib/siteConfig.js`** exports `SITE_URL`. Use it in metadata and JSON-LD — not hardcoded strings.
-- **Three.js components** (`components/three/`) must be loaded with `dynamic(..., { ssr: false })` — they use browser APIs.
-- **`PublicationsFooterSection`** is a 300 vh sticky section covering 3 scroll steps. Do not split it into separate sections without updating `TOTAL` in `page.js`.
+- **All portfolio content in `data/profile.json`** — do not hardcode names, roles, or social links in components. The `/play` chat system prompt is also built from this file.
+- **Design tokens** live in `app/globals.css` and `styles/reference/portfolio-home.css` (`--accentColor`, `--backgroundColor`). Prefer those variables.
+- Section / Character scroll scrubbing uses **stable global class hooks** (e.g. `landing-section`, `about-section`, `whatIDO`, `character-model`) required by `lib/GsapScroll.js`.
+- **`lib/siteConfig.js`** exports `SITE_URL` / `BASE_PATH`. Use `assetUrl()` for public asset paths.
+- **Three.js Character** (`components/three/Character/`) must be loaded with `dynamic(..., { ssr: false })` and only on desktop (`>1024`). It is an imperative Three.js scene (not R3F).
+- **Hosting is Vercel** (not static GitHub Pages). `/api/chat` requires `GROQ_API_KEY`. Do not re-enable `output: 'export'` without removing the chat API.
+- Visual experience is adapted from the MIT-licensed [red1-for-hek/portfolio-website](https://github.com/red1-for-hek/portfolio-website) template; keep attribution in the README/contact footer.

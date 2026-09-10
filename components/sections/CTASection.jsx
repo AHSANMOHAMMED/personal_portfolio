@@ -1,20 +1,20 @@
 'use client'
 
+import Link from 'next/link'
 import profile from '@/data/profile.json'
-import styles from '@/styles/sections/CTASection.module.css'
 
 export default function CTASection() {
   return (
-    <div className={styles.ctaSection} id="cta">
-      <div className={styles.ctaButtons}>
-        <a href="#play" className={`${styles.ctaBtn} ${styles.ctaBtnPlay}`} data-cursor="disable">
+    <div className="cta-section">
+      <div className="cta-buttons">
+        <Link href="/play" className="cta-btn cta-btn-play" data-cursor="disable">
           Play With Me →
-        </a>
+        </Link>
         <a
-          href={profile.social?.linkedin}
+          href={profile.social?.linkedin || profile.contact?.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${styles.ctaBtn} ${styles.ctaBtnHire}`}
+          className="cta-btn cta-btn-hire"
           data-cursor="disable"
         >
           Hire Me →

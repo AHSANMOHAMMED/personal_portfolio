@@ -1,88 +1,119 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { gsap } from '@/lib/gsap'
-import { splitText } from '@/lib/splitText'
+import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import Lenis from 'lenis'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
+import HoverLinks from '@/components/ui/HoverLinks'
 import profile from '@/data/profile.json'
-import styles from '@/styles/ui/Navbar.module.css'
+
+export let lenis = null
 
 export default function Navbar() {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const navRef = useRef(null)
-  const linksRef = useRef([])
+  const pathname = usePathname()
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    if (!isLoaded) return
-
-    // Animate nav links with split text hover effect
-    linksRef.current.forEach((link) => {
-      if (!link) return
-      const text = link.textContent
-      link.innerHTML = ''
-
-      const outer = document.createElement('span')
-      outer.className = styles.hoverLink
-      outer.setAttribute('data-cursor', 'disable')
-
-      const inner = document.createElement('span')
-      inner.className = styles.hoverIn
-      inner.setAttribute('data-text', text)
-
-      const original = document.createElement('span')
-      original.textContent = text
-
-      const hover = document.createElement('div')
-      hover.textContent = text
-
-      inner.appendChild(original)
-      inner.appendChild(hover)
-      outer.appendChild(inner)
-      link.appendChild(outer)
+    lenis = new Lenis({
+      duration: 1.7,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.7,
+      touchMultiplier: 2,
+      infinite: false,
     })
-  }, [isLoaded])
+
+    // Home waits for the loader/Character intro; other routes scroll immediately
+    if (pathname === '/') {
+      lenis.stop()
+    } else {
+      lenis.start()
+      document.body.style.overflowY = 'auto'
+    }
+
+    function raf(time) {
+      lenis?.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    lenis.on('scroll', ScrollTrigger.update)
+    gsap.ticker.add((time) => {
+      lenis?.raf(time * 1000)
+    })
+    gsap.ticker.lagSmoothing(0)
+
+    const links = document.querySelectorAll('.header ul a')
+    const onClick = (e) => {
+      if (window.innerWidth > 1024) {
+        e.preventDefault()
+        const section = e.currentTarget.getAttribute('data-href')
+        if (section && lenis) {
+          const target = document.querySelector(section)
+          if (target) {
+            lenis.scrollTo(target, {
+              offset: 0,
+              duration: 1.5,
+            })
+          }
+        }
+      }
+    }
+    links.forEach((elem) => elem.addEventListener('click', onClick))
+
+    const onResize = () => lenis?.resize()
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      links.forEach((elem) => elem.removeEventListener('click', onClick))
+      window.removeEventListener('resize', onResize)
+      lenis?.destroy()
+      lenis = null
+    }
+  }, [pathname])
+
+  const initials =
+    profile.developer?.fullName
+      ?.split(' ')
+      .map((n) => n[0])
+      .join('') || 'AM'
 
   return (
-    <header ref={navRef} className={styles.header}>
-      <a href="#/" className={styles.navbarTitle} data-cursor="disable">
-        {profile.developer?.fullName?.split(' ').map(n => n[0]).join('') || 'AM'}
-      </a>
+    <>
+      <div className="header">
+        <a href="/#" className="navbar-title" data-cursor="disable">
+          {initials}
+        </a>
+        <a
+          href={`mailto:${profile.social?.email}`}
+          className="navbar-connect"
+          data-cursor="disable"
+        >
+          {profile.social?.email}
+        </a>
+        <ul>
+          <li>
+            <a data-href="#about" href="#about">
+              <HoverLinks text="ABOUT" />
+            </a>
+          </li>
+          <li>
+            <a data-href="#work" href="#work">
+              <HoverLinks text="WORK" />
+            </a>
+          </li>
+          <li>
+            <a data-href="#contact" href="#contact">
+              <HoverLinks text="CONTACT" />
+            </a>
+          </li>
+        </ul>
+      </div>
 
-      <a href={`mailto:${profile.social?.email}`} className={styles.navbarConnect} data-cursor="disable">
-        {profile.social?.email}
-      </a>
-
-      <ul>
-        <li>
-          <a href="#about" ref={(el) => { linksRef.current[0] = el }}>
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#whatIDO" ref={(el) => { linksRef.current[1] = el }}>
-            What I Do
-          </a>
-        </li>
-        <li>
-          <a href="#career" ref={(el) => { linksRef.current[2] = el }}>
-            Career
-          </a>
-        </li>
-        <li>
-          <a href="#work" ref={(el) => { linksRef.current[3] = el }}>
-            Work
-          </a>
-        </li>
-        <li>
-          <a href="#contact" ref={(el) => { linksRef.current[4] = el }}>
-            Contact
-          </a>
-        </li>
-      </ul>
-    </header>
+      <div className="landing-circle1" />
+      <div className="landing-circle2" />
+      <div className="nav-fade" />
+    </>
   )
 }

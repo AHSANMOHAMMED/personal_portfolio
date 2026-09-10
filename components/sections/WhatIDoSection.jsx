@@ -1,89 +1,92 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { ScrollTrigger } from '@/lib/gsap'
 import profile from '@/data/profile.json'
-import styles from '@/styles/sections/WhatIDoSection.module.css'
 
-export default function WhatIDoSection() {
-  const [activeIndex, setActiveIndex] = useState(null)
-  const refs = useRef([])
-
-  const skills = profile.skills || {}
-
-  useEffect(() => {
-    // Touch devices: add click handlers
-    if (window.innerWidth > 768) return
-    refs.current.forEach((el, i) => {
-      if (!el) return
-      el.addEventListener('click', () => {
-        setActiveIndex(activeIndex === i ? null : i)
-      })
-    })
-  }, [])
-
-  const toggleBox = (index) => {
-    if (window.innerWidth <= 768) return
-    setActiveIndex(activeIndex === index ? null : index)
-
-    // Toggle sibling classes
-    const parent = refs.current[index]?.parentElement
-    if (!parent) return
-
-    Array.from(parent.children).forEach((child, i) => {
-      if (i === index) {
-        child.classList.toggle(styles.whatContentActive)
-        child.classList.remove(styles.whatSibling)
-      } else {
-        child.classList.remove(styles.whatContentActive)
-        child.classList.toggle(styles.whatSibling)
+function handleClick(container) {
+  container.classList.toggle('what-content-active')
+  container.classList.remove('what-sibling')
+  if (container.parentElement) {
+    const siblings = Array.from(container.parentElement.children)
+    siblings.forEach((sibling) => {
+      if (sibling !== container) {
+        sibling.classList.remove('what-content-active')
+        sibling.classList.toggle('what-sibling')
       }
     })
   }
+}
+
+export default function WhatIDoSection() {
+  const containerRef = useRef([])
+  const skills = profile.skills || {}
+  const entries = Object.entries(skills)
+
+  useEffect(() => {
+    if (!ScrollTrigger.isTouch) return
+    const nodes = containerRef.current.filter(Boolean)
+    nodes.forEach((container) => {
+      container.classList.remove('what-noTouch')
+      container.addEventListener('click', () => handleClick(container))
+    })
+    return () => {
+      nodes.forEach((container) => {
+        container.removeEventListener('click', () => handleClick(container))
+      })
+    }
+  }, [])
 
   return (
-    <div className={styles.whatIDO} id="whatIDO">
-      <div className={styles.whatBox}>
-        <h2 className={styles.title}>
-          W<span className={styles.hatH2}>HAT</span>&nbsp;I<span className={styles.doH2}> DO</span>
+    <div className="whatIDO" id="whatIDO">
+      <div className="what-box">
+        <h2 className="title">
+          W<span className="hat-h2">HAT</span>
+          <div>
+            &nbsp;I<span className="do-h2"> DO</span>
+          </div>
         </h2>
       </div>
-
-      <div className={styles.whatBox}>
-        <div className={styles.whatBoxIn}>
-          {/* Border decorations */}
-          <div className={styles.whatBorder2}>
+      <div className="what-box">
+        <div className="what-box-in">
+          <div className="what-border2">
             <svg width="100%">
               <line x1="0" y1="0" x2="0" y2="100%" stroke="white" strokeWidth="2" strokeDasharray="7,7" />
               <line x1="100%" y1="0" x2="100%" y2="100%" stroke="white" strokeWidth="2" strokeDasharray="7,7" />
             </svg>
           </div>
-
-          {Object.entries(skills).map(([key, skill], index) => (
+          {entries.map(([key, skill], index) => (
             <div
               key={key}
-              ref={(el) => { refs.current[index] = el }}
-              className={`${styles.whatContent} ${styles.whatNoTouch}`}
-              onMouseEnter={() => toggleBox(index)}
+              className="what-content what-noTouch"
+              ref={(el) => {
+                containerRef.current[index] = el
+              }}
+              onMouseEnter={(e) => {
+                if (window.innerWidth <= 768) return
+                handleClick(e.currentTarget)
+              }}
             >
-              <div className={styles.whatBorder1}>
+              <div className="what-border1">
                 <svg height="100%">
                   <line x1="0" y1="0" x2="100%" y2="0" stroke="white" strokeWidth="2" strokeDasharray="6,6" />
                   <line x1="0" y1="100%" x2="100%" y2="100%" stroke="white" strokeWidth="2" strokeDasharray="6,6" />
                 </svg>
               </div>
-              <div className={styles.whatCorner} />
-
-              <div className={styles.whatContentIn}>
+              <div className="what-corner" />
+              <div className="what-content-in">
                 <h3>{skill.title}</h3>
                 <h4>{skill.description}</h4>
                 <p>{skill.details}</p>
-                <h5>Skillset & tools</h5>
-                <div className={styles.whatContentFlex}>
-                  {skill.tools?.map((tool, i) => (
-                    <div key={i} className={styles.whatTags}>{tool}</div>
+                <h5>Skillset &amp; tools</h5>
+                <div className="what-content-flex">
+                  {(skill.tools || []).map((tool) => (
+                    <div key={tool} className="what-tags">
+                      {tool}
+                    </div>
                   ))}
                 </div>
-                <div className={styles.whatArrow} />
+                <div className="what-arrow" />
               </div>
             </div>
           ))}

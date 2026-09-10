@@ -1,4 +1,5 @@
-import { SITE_URL } from '@/lib/siteConfig'
+import { readFile } from 'fs/promises'
+import { join } from 'path'
 import { ImageResponse } from 'next/og'
 export const dynamic = 'force-static'
 
@@ -11,10 +12,11 @@ export const size = {
 
 export const contentType = 'image/png'
 
-const ACCENT = '#f7931e'
-const photoUrl = `${SITE_URL}/images/my_portrait_1778399171468.png`
+const ACCENT = '#c2a4ff'
 
-export default function Image() {
+export default async function Image() {
+  const photoBytes = await readFile(join(process.cwd(), 'public/images/ahsan_ai_portrait.jpg'))
+  const photoUrl = `data:image/jpeg;base64,${photoBytes.toString('base64')}`
   return new ImageResponse(
     (
       <div
@@ -38,7 +40,7 @@ export default function Image() {
             width: 500,
             height: 500,
             borderRadius: 999,
-            background: 'rgba(247,147,30,0.12)',
+            background: 'rgba(194,164,255,0.12)',
           }}
         />
 
