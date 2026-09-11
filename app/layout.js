@@ -86,19 +86,21 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: assetUrl('/favicons/favicon-16x16.png'), sizes: '16x16', type: 'image/png' },
-      { url: assetUrl('/favicons/favicon-32x32.png'), sizes: '32x32', type: 'image/png' },
-      { url: assetUrl('/favicons/favicon-48x48.png'), sizes: '48x48', type: 'image/png' },
-      { url: assetUrl('/favicons/favicon.ico'), sizes: 'any' },
-      { url: assetUrl('/favicon.ico'), sizes: 'any' },
+      { url: `${assetUrl('/favicons/favicon-16x16.png')}?v=3`, sizes: '16x16', type: 'image/png' },
+      { url: `${assetUrl('/favicons/favicon-32x32.png')}?v=3`, sizes: '32x32', type: 'image/png' },
+      { url: `${assetUrl('/favicons/favicon-48x48.png')}?v=3`, sizes: '48x48', type: 'image/png' },
+      { url: `${assetUrl('/favicons/favicon.ico')}?v=3`, sizes: 'any' },
+      { url: `${assetUrl('/favicon.ico')}?v=3`, sizes: 'any' },
+      { url: `${assetUrl('/favicon.png')}?v=3`, type: 'image/png' },
     ],
+    shortcut: `${assetUrl('/favicons/favicon-32x32.png')}?v=3`,
     apple: [
-      { url: assetUrl('/favicons/apple-touch-icon.png') },
-      { url: assetUrl('/favicons/apple-touch-icon-180x180.png'), sizes: '180x180', type: 'image/png' },
+      { url: `${assetUrl('/favicons/apple-touch-icon.png')}?v=3` },
+      { url: `${assetUrl('/favicons/apple-touch-icon-180x180.png')}?v=3`, sizes: '180x180', type: 'image/png' },
     ],
     other: [
-      { rel: 'icon', url: assetUrl('/favicons/android-chrome-192x192.png'), sizes: '192x192', type: 'image/png' },
-      { rel: 'icon', url: assetUrl('/favicons/android-chrome-512x512.png'), sizes: '512x512', type: 'image/png' },
+      { rel: 'icon', url: `${assetUrl('/favicons/android-chrome-192x192.png')}?v=3`, sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: `${assetUrl('/favicons/android-chrome-512x512.png')}?v=3`, sizes: '512x512', type: 'image/png' },
     ],
   },
   manifest: assetUrl('/favicons/manifest.webmanifest'),
@@ -116,6 +118,9 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${playfair.variable} h-full antialiased`}
     >
       <head>
+        <link rel="icon" href={`${assetUrl('/favicons/favicon-32x32.png')}?v=3`} type="image/png" sizes="32x32" />
+        <link rel="shortcut icon" href={`${assetUrl('/favicons/favicon.ico')}?v=3`} />
+        <link rel="apple-touch-icon" href={`${assetUrl('/favicons/apple-touch-icon.png')}?v=3`} />
         <link rel="manifest" href={assetUrl('/favicons/manifest.webmanifest')} />
       </head>
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}>
