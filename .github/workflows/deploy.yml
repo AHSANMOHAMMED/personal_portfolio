@@ -31,7 +31,7 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Exclude API route for static export
         run: mv app/api /tmp/portfolio-api
