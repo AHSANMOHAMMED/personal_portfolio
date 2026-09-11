@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono, Baloo_2, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import "@/styles/reference/portfolio-home.css";
-import { SITE_URL, BASE_PATH } from '@/lib/siteConfig';
+import { SITE_URL, assetUrl } from '@/lib/siteConfig';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,21 +86,21 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicons/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
-      { url: '/favicons/favicon.ico', sizes: 'any' },
+      { url: assetUrl('/favicons/favicon-16x16.png'), sizes: '16x16', type: 'image/png' },
+      { url: assetUrl('/favicons/favicon-32x32.png'), sizes: '32x32', type: 'image/png' },
+      { url: assetUrl('/favicons/favicon-48x48.png'), sizes: '48x48', type: 'image/png' },
+      { url: assetUrl('/favicons/favicon.ico'), sizes: 'any' },
     ],
     apple: [
-      { url: '/favicons/apple-touch-icon.png' },
-      { url: '/favicons/apple-touch-icon-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: assetUrl('/favicons/apple-touch-icon.png') },
+      { url: assetUrl('/favicons/apple-touch-icon-180x180.png'), sizes: '180x180', type: 'image/png' },
     ],
     other: [
-      { rel: 'icon', url: '/favicons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { rel: 'icon', url: '/favicons/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+      { rel: 'icon', url: assetUrl('/favicons/android-chrome-192x192.png'), sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: assetUrl('/favicons/android-chrome-512x512.png'), sizes: '512x512', type: 'image/png' },
     ],
   },
-  manifest: `${BASE_PATH || ''}/favicons/manifest.webmanifest`,
+  manifest: assetUrl('/favicons/manifest.webmanifest'),
 };
 
 export const viewport = {
@@ -115,7 +115,7 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${playfair.variable} h-full antialiased`}
     >
       <head>
-        <link rel="manifest" href={`${BASE_PATH}/favicons/manifest.webmanifest`} />
+        <link rel="manifest" href={assetUrl('/favicons/manifest.webmanifest')} />
       </head>
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}>
         <script

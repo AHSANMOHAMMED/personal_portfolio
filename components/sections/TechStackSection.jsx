@@ -1,5 +1,7 @@
 'use client'
 
+import { assetUrl } from '@/lib/siteConfig'
+
 const techStack = [
   [
     { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', url: 'https://python.org' },
@@ -62,7 +64,7 @@ export default function TechStackSection() {
     <div className="techstack-new">
       <div className="techstack-video-container">
         <video autoPlay loop muted playsInline className="techstack-video">
-          <source src="/video/video.webm" type="video/webm" />
+          <source src={assetUrl('/video/video.webm')} type="video/webm" />
         </video>
         <div className="techstack-overlay" />
       </div>

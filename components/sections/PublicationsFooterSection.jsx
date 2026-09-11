@@ -11,6 +11,7 @@ import {
 import { FiArrowUpRight, FiChevronDown, FiDownload } from 'react-icons/fi'
 import profile from '@/data/profile.json'
 import content from '@/data/content.json'
+import { assetUrl } from '@/lib/siteConfig'
 import styles from '@/styles/sections/PublicationsFooterSection.module.css'
 
 const PUBS = profile.publications
@@ -142,7 +143,7 @@ export default function PublicationsFooterSection() {
       const camera = new THREE.OrthographicCamera(-W / 2, W / 2, H / 2, -H / 2, 0.1, 100)
       camera.position.z = 10
 
-      videoEl.src       = '/personal_portfolio/assets/footer_bg_video.mp4'
+      videoEl.src       = assetUrl('/assets/footer_bg_video.mp4')
       videoEl.muted     = true
       videoEl.playsInline = true
       videoEl.loop      = true

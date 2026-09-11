@@ -1,6 +1,7 @@
 'use client'
 
 import profile from '@/data/profile.json'
+import { assetUrl } from '@/lib/siteConfig'
 
 export default function LandingSection() {
   const nameParts = (profile.developer?.fullName || 'Ahsan Mohammed').split(' ')
@@ -33,7 +34,7 @@ export default function LandingSection() {
         </div>
         <div className="mobile-photo">
           <img
-            src="/images/ahsan_ai_portrait.png"
+            src={assetUrl('/images/ahsan_ai_portrait.png')}
             alt={profile.developer?.fullName || 'Ahsan Mohammed'}
             loading="eager"
             fetchPriority="high"

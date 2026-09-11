@@ -1,20 +1,19 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import { MdArrowOutward } from 'react-icons/md'
+import { assetUrl } from '@/lib/siteConfig'
 
 export default function WorkImage({ image, alt, link }) {
-  const [isVideo, setIsVideo] = useState(false)
   const isExternalLink = Boolean(link && !link.startsWith('/'))
+  const src = assetUrl(image)
 
   const content = (
     <>
       <div className="work-link">
         <MdArrowOutward />
       </div>
-      <img src={image?.startsWith('/') ? image : `/${image}`} alt={alt} loading="lazy" decoding="async" />
-      {isVideo ? null : null}
+      <img src={src} alt={alt} loading="lazy" decoding="async" />
     </>
   )
 
@@ -46,7 +45,7 @@ export default function WorkImage({ image, alt, link }) {
   return (
     <div className="work-image">
       <div className="work-image-in" data-cursor="disable">
-        <img src={image?.startsWith('/') ? image : `/${image}`} alt={alt} loading="lazy" decoding="async" />
+        <img src={src} alt={alt} loading="lazy" decoding="async" />
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import profile from '@/data/profile.json'
 import Navbar from '@/components/ui/Navbar'
 import CustomCursor from '@/components/ui/CustomCursor'
+import { assetUrl } from '@/lib/siteConfig'
 import '@/styles/reference/MyWorks.css'
 
 export default function MyWorks() {
@@ -27,9 +28,7 @@ export default function MyWorks() {
         <div className="myworks-grid">
           {projects.map((project, index) => {
             const href = project.link
-            const img = project.image?.startsWith('/')
-              ? project.image
-              : `/${project.image}`
+            const img = assetUrl(project.image)
             const cardContent = (
               <>
                 <div className="myworks-card-number">0{index + 1}</div>

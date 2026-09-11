@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Chess } from 'chess.js'
 import RedoxChessEngine from '@/lib/redoxchessEngine'
 import profile from '@/data/profile.json'
+import { assetUrl } from '@/lib/siteConfig'
 import '@/styles/reference/Play.css'
 
 const PIECES = {
@@ -400,7 +401,7 @@ export default function Play() {
             <div className="player-info">
               <div className="player-avatar">
                 <img
-                  src="/images/ahsan_ai_portrait.png"
+                  src={assetUrl('/images/ahsan_ai_portrait.png')}
                   alt={DISPLAY_NAME}
                   loading="lazy"
                   decoding="async"

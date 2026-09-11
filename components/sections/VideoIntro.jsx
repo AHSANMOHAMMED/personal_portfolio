@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import content from '@/data/content.json'
+import { assetUrl } from '@/lib/siteConfig'
 import styles from '@/styles/sections/VideoIntro.module.css'
 import ErrorBoundary from '@/components/ui/ErrorBoundary'
 
@@ -215,8 +216,8 @@ export default function VideoIntro() {
       {/* Main video with cinematic zoom wrapper */}
       <div ref={mainVideoWrapRef} className={styles.mainVideoWrap}>
         <video
-          src="/personal_portfolio/assets/hero_bg_video.mp4"
-          poster="/personal_portfolio/assets/hero1.png"
+          src={assetUrl('/assets/hero_bg_video.mp4')}
+          poster={assetUrl('/assets/hero1.png')}
           preload="metadata"
           autoPlay={!isReducedMotion}
           muted playsInline
