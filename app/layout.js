@@ -90,6 +90,7 @@ export const metadata = {
       { url: assetUrl('/favicons/favicon-32x32.png'), sizes: '32x32', type: 'image/png' },
       { url: assetUrl('/favicons/favicon-48x48.png'), sizes: '48x48', type: 'image/png' },
       { url: assetUrl('/favicons/favicon.ico'), sizes: 'any' },
+      { url: assetUrl('/favicon.ico'), sizes: 'any' },
     ],
     apple: [
       { url: assetUrl('/favicons/apple-touch-icon.png') },
