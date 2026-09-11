@@ -27,9 +27,19 @@ Edit verified portfolio content in:
 - `data/profile.json` — identity, about, experience, projects, skills, social links
 - `data/content.json` — optional presentation labels
 
-## Deploy (Vercel)
+## Deploy
 
-This app is intended for **Vercel** (serverless `/api/chat`). Set `GROQ_API_KEY` in the project environment. Optionally set `NEXT_PUBLIC_SITE_ORIGIN` to your production URL.
+### GitHub Pages (public site)
+
+Pushes to `main` deploy a **static** build to:
+
+https://ahsanmohammed.github.io/personal_portfolio/
+
+`/api/chat` is not available on GitHub Pages (static hosting). The `/play` UI still loads; chat needs Vercel.
+
+### Vercel (full app + chat API)
+
+For serverless `/api/chat`, deploy on **Vercel** and set `GROQ_API_KEY`. Optionally set `NEXT_PUBLIC_SITE_ORIGIN` to your production URL.
 
 ```bash
 npm run build

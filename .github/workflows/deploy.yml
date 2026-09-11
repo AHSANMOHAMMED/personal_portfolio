@@ -1,19 +1,67 @@
-# Deprecated: GitHub Pages static export
-#
-# This portfolio now targets Vercel so `/api/chat` can run as a serverless
-# function. Deploy via the Vercel Git integration (or `vercel`) instead of
-# uploading `./out` to GitHub Pages.
-#
-# Kept disabled to avoid broken Pages deploys after removing `output: 'export'`.
+# Static GitHub Pages deploy for https://ahsanmohammed.github.io/personal_portfolio/
+# /api/chat is excluded from the export (requires Vercel + GROQ_API_KEY for full chat).
 
-name: Deploy (disabled — use Vercel)
+name: Deploy GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  notice:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Reminder
-        run: echo "Deploy this app on Vercel with GROQ_API_KEY set. GitHub Pages static export is no longer supported."
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Exclude API route for static export
+        run: mv app/api /tmp/portfolio-api
+
+      - name: Build static export
+        env:
+          GITHUB_PAGES: '1'
+          NEXT_PUBLIC_SITE_ORIGIN: https://ahsanmohammed.github.io
+          NEXT_PUBLIC_BASE_PATH: /personal_portfolio
+        run: npm run build
+
+      - name: Restore API route
+        if: always()
+        run: |
+          if [ -d /tmp/portfolio-api ]; then
+            mv /tmp/portfolio-api app/api
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
