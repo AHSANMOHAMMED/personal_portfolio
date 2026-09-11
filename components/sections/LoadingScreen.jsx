@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useLoading } from '@/context/LoadingProvider'
 import profile from '@/data/profile.json'
 
@@ -60,9 +61,9 @@ export default function LoadingScreen({ percent }) {
   return (
     <>
       <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
+        <Link href="/" className="loader-title" data-cursor="disable">
           {title.replace(/\s+/g, '')}
-        </a>
+        </Link>
         <div className={`loaderGame ${clicked ? 'loader-out' : ''}`}>
           <div className="loaderGame-container">
             <div className="loaderGame-in">

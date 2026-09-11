@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
@@ -13,6 +14,30 @@ export default function Navbar() {
   const pathname = usePathname()
 
   useEffect(() => {
+    const isTouchMobile =
+      typeof window !== 'undefined' &&
+      (window.matchMedia('(max-width: 1024px)').matches ||
+        window.matchMedia('(hover: none) and (pointer: coarse)').matches)
+
+    // Phones/tablets: use native scroll so the live page isn't trapped by Lenis.
+    if (isTouchMobile) {
+      document.body.style.overflowY = 'auto'
+      document.documentElement.style.overflowY = 'auto'
+      const links = document.querySelectorAll('.header ul a')
+      const onClick = (e) => {
+        const section = e.currentTarget.getAttribute('data-href')
+        if (!section) return
+        const target = document.querySelector(section)
+        if (!target) return
+        e.preventDefault()
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+      links.forEach((elem) => elem.addEventListener('click', onClick))
+      return () => {
+        links.forEach((elem) => elem.removeEventListener('click', onClick))
+      }
+    }
+
     lenis = new Lenis({
       duration: 1.7,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -46,17 +71,15 @@ export default function Navbar() {
 
     const links = document.querySelectorAll('.header ul a')
     const onClick = (e) => {
-      if (window.innerWidth > 1024) {
-        e.preventDefault()
-        const section = e.currentTarget.getAttribute('data-href')
-        if (section && lenis) {
-          const target = document.querySelector(section)
-          if (target) {
-            lenis.scrollTo(target, {
-              offset: 0,
-              duration: 1.5,
-            })
-          }
+      e.preventDefault()
+      const section = e.currentTarget.getAttribute('data-href')
+      if (section && lenis) {
+        const target = document.querySelector(section)
+        if (target) {
+          lenis.scrollTo(target, {
+            offset: 0,
+            duration: 1.5,
+          })
         }
       }
     }
@@ -82,9 +105,9 @@ export default function Navbar() {
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
+        <Link href="/" className="navbar-title" data-cursor="disable">
           {initials}
-        </a>
+        </Link>
         <a
           href={`mailto:${profile.social?.email}`}
           className="navbar-connect"

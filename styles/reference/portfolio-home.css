@@ -361,6 +361,17 @@ body {
     filter: drop-shadow(0 0 40px rgba(194, 164, 255, 0.4));
   }
 
+  .landing-role-line {
+    display: block !important;
+    line-height: 1.15;
+  }
+
+  .landing-container {
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
   /* Vertical RESUME sits on the right edge — keep it clear of the portrait */
   .resume-button {
     bottom: 24px;
@@ -370,6 +381,35 @@ body {
     font-size: 13px;
     line-height: 13px;
     color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+/* Keep stacked mobile hero after later absolute desktop rules */
+@media only screen and (max-width: 1024px) {
+  .landing-section {
+    height: auto !important;
+    min-height: 100vh;
+  }
+
+  .landing-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 15px 40px;
+    box-sizing: border-box;
+  }
+
+  .landing-intro,
+  .landing-info {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
   }
 }
 
@@ -2553,6 +2593,7 @@ a.contact-social {
   max-width: var(--cMaxWidth);
   width: var(--cWidth);
   justify-content: space-between;
+  align-items: center;
   padding: 15px 0px;
   margin-bottom: -80px;
   box-sizing: border-box;
@@ -2563,20 +2604,20 @@ a.contact-social {
   z-index: 9999;
 }
 .header ul {
-  font-size: 13px;
+  font-size: 12px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 0;
   padding: 0;
   list-style: none;
-  column-gap: 20px;
-  row-gap: 6px;
-  align-items: end;
+  column-gap: 14px;
+  row-gap: 0;
+  align-items: center;
 }
 .header ul li {
   margin-left: 0px;
   letter-spacing: 1px;
-  color: #ccc;
+  color: #eae5ec;
   font-weight: 600;
   cursor: pointer;
 }
@@ -2600,12 +2641,8 @@ a.contact-social {
     padding: 20px 0px;
   }
   .header ul {
-    flex-direction: row;
-    align-items: center;
+    column-gap: 20px;
     font-size: 15px;
-  }
-  .header ul li {
-    color: #eae5ec;
   }
   .navbar-title {
     font-size: 18px;

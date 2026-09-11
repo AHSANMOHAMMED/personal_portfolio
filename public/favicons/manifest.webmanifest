@@ -2,6 +2,9 @@
   "name": "Ahsan Mohammed",
   "short_name": "Ahsan M",
   "description": "Software Engineer Portfolio",
+  "start_url": "/personal_portfolio/",
+  "scope": "/personal_portfolio/",
+  "id": "/personal_portfolio/",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
