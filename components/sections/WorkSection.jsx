@@ -10,6 +10,14 @@ export default function WorkSection() {
   const projects = (profile.projects || []).slice(0, 5)
 
   useEffect(() => {
+    // Horizontal pin/scrub locks vertical scroll on phones — keep a normal list there.
+    if (
+      window.matchMedia('(max-width: 1024px)').matches ||
+      window.matchMedia('(hover: none) and (pointer: coarse)').matches
+    ) {
+      return
+    }
+
     let translateX = 0
     let timeline
 

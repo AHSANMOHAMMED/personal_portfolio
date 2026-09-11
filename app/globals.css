@@ -41,10 +41,26 @@ body {
   -webkit-user-select: none;
 }
 
+@media (max-width: 1024px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 body {
   overscroll-behavior: none;
   margin: 0;
   background-color: #000;
+}
+
+@media (max-width: 1024px) {
+  body {
+    overscroll-behavior-y: auto;
+  }
 }
 
 .main-body {

@@ -161,7 +161,9 @@ const Scene = () => {
 
     document.addEventListener('mousemove', onMouseMove)
     const landingDiv = document.getElementById('landingDiv')
-    if (landingDiv) {
+    // Touch head-tracking steals pan gestures and blocks phone scrolling.
+    const enableTouchLook = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    if (landingDiv && enableTouchLook) {
       landingDiv.addEventListener('touchstart', onTouchStart)
       landingDiv.addEventListener('touchend', onTouchEnd)
     }
@@ -192,7 +194,7 @@ const Scene = () => {
       clearTimeout(debounce)
       if (resizeHandler) window.removeEventListener('resize', resizeHandler)
       document.removeEventListener('mousemove', onMouseMove)
-      if (landingDiv) {
+      if (landingDiv && enableTouchLook) {
         landingDiv.removeEventListener('touchstart', onTouchStart)
         landingDiv.removeEventListener('touchend', onTouchEnd)
       }

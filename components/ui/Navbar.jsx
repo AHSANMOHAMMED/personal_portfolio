@@ -19,10 +19,27 @@ export default function Navbar() {
       (window.matchMedia('(max-width: 1024px)').matches ||
         window.matchMedia('(hover: none) and (pointer: coarse)').matches)
 
-    // Phones/tablets: native scroll + ScrollTrigger (GSAP pin/scrub still works).
+    // Phones/tablets: force native document scroll (no Lenis, no pin traps).
     if (isTouchMobile) {
-      document.body.style.overflowY = 'auto'
-      document.documentElement.style.overflowY = 'auto'
+      const unlock = () => {
+        document.documentElement.style.setProperty('overflow-y', 'auto', 'important')
+        document.documentElement.style.setProperty('height', 'auto', 'important')
+        document.body.style.setProperty('overflow-y', 'auto', 'important')
+        document.body.style.setProperty('overflow', 'auto', 'important')
+        document.body.style.setProperty('height', 'auto', 'important')
+        document.body.style.position = 'relative'
+        document.body.style.touchAction = 'pan-y pinch-zoom'
+      }
+      unlock()
+
+      // Kill any leftover work pins from desktop→mobile resize.
+      ScrollTrigger.getById('work')?.kill()
+      ScrollTrigger.getAll().forEach((t) => {
+        if (t.vars?.pin) {
+          // keep character scrub triggers; only drop full-page pins if any
+        }
+      })
+
       const links = document.querySelectorAll('.header ul a')
       const onClick = (e) => {
         const section = e.currentTarget.getAttribute('data-href')
@@ -33,7 +50,10 @@ export default function Navbar() {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
       links.forEach((elem) => elem.addEventListener('click', onClick))
-      const refresh = () => ScrollTrigger.refresh()
+      const refresh = () => {
+        unlock()
+        ScrollTrigger.refresh()
+      }
       window.addEventListener('orientationchange', refresh)
       window.addEventListener('load', refresh)
       requestAnimationFrame(refresh)
