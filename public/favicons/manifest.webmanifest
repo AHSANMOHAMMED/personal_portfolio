@@ -1,6 +1,6 @@
 {
   "name": "Ahsan Mohammed",
-  "short_name": "Ahsan",
+  "short_name": "Ahsan M",
   "description": "Software Engineer Portfolio",
   "icons": [
     {
@@ -16,7 +16,7 @@
       "purpose": "any maskable"
     }
   ],
-  "theme_color": "#050505",
-  "background_color": "#050505",
+  "theme_color": "#0b080c",
+  "background_color": "#0b080c",
   "display": "standalone"
 }

@@ -25,10 +25,11 @@ function HomeContent() {
 
   useEffect(() => {
     // Desktop-only 3D character (matches reference >1024)
-    const sync = () => setShowCharacter(window.innerWidth > 1024)
+    const mq = window.matchMedia('(min-width: 1025px)')
+    const sync = () => setShowCharacter(mq.matches)
     sync()
-    window.addEventListener('resize', sync)
-    return () => window.removeEventListener('resize', sync)
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
   }, [])
 
   return (

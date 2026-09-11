@@ -17,15 +17,15 @@
   },
   "about": {
     "title": "About Me",
-    "description": "I'm a Software Engineering undergraduate at SLIIT, Sri Lanka, focused on building complete, real-world software products. My expertise spans full-stack web development, mobile app engineering, cloud infrastructure, and DevOps automation. I build scalable SaaS platforms, multi-tenant ERP/POS systems, and cross-platform mobile applications using React, Next.js, Node.js, Flutter, TypeScript, PostgreSQL, and Docker."
+    "description": "I'm a Software Engineering undergraduate at SLIIT, Sri Lanka, focused on building complete, real-world software products. I recently completed my industry placement internship as a Full Stack Software Engineering Intern. My expertise spans full-stack web development, mobile app engineering, cloud infrastructure, and DevOps automation. I build scalable SaaS platforms, multi-tenant ERP/POS systems, and cross-platform mobile applications using React, Next.js, Node.js, Flutter, TypeScript, PostgreSQL, and Docker."
   },
   "experiences": [
     {
       "position": "Full Stack Software Engineering Intern",
       "company": "Industry Placement",
-      "period": "2025 - Present",
+      "period": "Completed",
       "location": "Sri Lanka",
-      "description": "Developed and deployed full-stack web applications using the MERN stack. Implemented RESTful APIs, authentication systems, and database optimization for production environments."
+      "description": "Completed a full-stack industry placement building and deploying web applications with the MERN stack. Implemented RESTful APIs, authentication systems, and database optimization for production environments."
     },
     {
       "position": "Computer Software Engineering (BSc)",

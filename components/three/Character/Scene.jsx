@@ -31,7 +31,10 @@ const Scene = () => {
   }, [isLoading])
 
   const loadingApi = useRef({ setLoading, finishLoading })
-  loadingApi.current = { setLoading, finishLoading }
+
+  useEffect(() => {
+    loadingApi.current = { setLoading, finishLoading }
+  }, [setLoading, finishLoading])
 
   useEffect(() => {
     const container = canvasDiv.current
@@ -42,8 +45,8 @@ const Scene = () => {
 
     const scene = new THREE.Scene()
     const rect = container.getBoundingClientRect()
-    const width = Math.max(rect.width || 0, window.innerWidth)
-    const height = Math.max(rect.height || 0, window.innerHeight)
+    const width = Math.max(1, Math.round(rect.width || window.innerWidth * 0.64))
+    const height = Math.max(1, Math.round(rect.height || window.innerHeight))
     const aspect = width / height || 16 / 9
 
     const renderer = new THREE.WebGLRenderer({
@@ -52,10 +55,11 @@ const Scene = () => {
       powerPreference: 'high-performance',
       preserveDrawingBuffer: true,
     })
+    renderer.setClearColor(0x000000, 0)
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1
+    renderer.toneMappingExposure = 1.05
     renderer.domElement.style.position = 'absolute'
     renderer.domElement.style.inset = '0'
     renderer.domElement.style.width = '100%'
@@ -65,8 +69,9 @@ const Scene = () => {
     container.insertBefore(renderer.domElement, container.firstChild)
 
     const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000)
-    camera.position.set(0, 13.1, 24.7)
-    camera.zoom = 1.1
+    // Reference framing for full-width centered canvas (mesh stays mid-frame)
+    camera.position.set(0, 13.2, 26.5)
+    camera.zoom = 1.0
     camera.updateProjectionMatrix()
 
     scene.add(new THREE.AmbientLight(0xc2a4ff, 0.5))

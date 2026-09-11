@@ -4,7 +4,8 @@ import profile from '@/data/profile.json'
 
 function getDisplayYear(period) {
   if (!period) return ''
-  if (period.includes('Present')) return 'NOW'
+  if (/present/i.test(period)) return 'NOW'
+  if (/completed/i.test(period)) return 'Completed'
   if (period.includes(' - ')) return period.split(' - ')[0]
   return period
 }

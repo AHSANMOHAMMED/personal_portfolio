@@ -13,13 +13,9 @@ export default function LandingSection() {
         <div className="landing-intro">
           <h2>Hello! I&apos;m</h2>
           <h1>
-            {firstName.toUpperCase()}
+            <span className="landing-name-line">{firstName.toUpperCase()}</span>
             {lastName ? (
-              <>
-                {' '}
-                <br />
-                <span>{lastName.toUpperCase()}</span>
-              </>
+              <span className="landing-name-line">{lastName.toUpperCase()}</span>
             ) : null}
           </h1>
         </div>
@@ -27,11 +23,12 @@ export default function LandingSection() {
           <h3>An</h3>
           <h2 className="landing-info-h2">
             <div className="landing-h2-1">Full-Stack</div>
-            <div className="landing-h2-2">Software</div>
           </h2>
-          <h2>
-            <div className="landing-h2-info">Software Engineer</div>
-            <div className="landing-h2-info-1">Product Builder</div>
+          <h2 className="landing-info-sub">
+            <div className="landing-h2-info">
+              <span className="landing-role-line">Software</span>
+              <span className="landing-role-line">Engineer</span>
+            </div>
           </h2>
         </div>
         <div className="mobile-photo">
