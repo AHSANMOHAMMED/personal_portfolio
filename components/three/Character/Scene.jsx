@@ -69,9 +69,9 @@ const Scene = () => {
     renderer.domElement.style.zIndex = '2'
     container.insertBefore(renderer.domElement, container.firstChild)
 
-    const camera = new THREE.PerspectiveCamera(isCompact ? 16 : 14.5, aspect, 0.1, 1000)
-    // Reference framing for full-width centered canvas (mesh stays mid-frame)
-    camera.position.set(0, isCompact ? 12.4 : 13.2, isCompact ? 28 : 26.5)
+    const camera = new THREE.PerspectiveCamera(isCompact ? 18 : 14.5, aspect, 0.1, 1000)
+    // Mobile: frame character lower so hero name stays readable above the head
+    camera.position.set(0, isCompact ? 14.8 : 13.2, isCompact ? 30 : 26.5)
     camera.zoom = 1.0
     camera.updateProjectionMatrix()
 
