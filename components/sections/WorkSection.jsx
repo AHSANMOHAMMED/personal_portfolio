@@ -10,9 +10,8 @@ export default function WorkSection() {
   const projects = (profile.projects || []).slice(0, 5)
 
   useEffect(() => {
-    if (window.innerWidth <= 768) return
-
     let translateX = 0
+    let timeline
 
     function setTranslateX() {
       const box = document.getElementsByClassName('work-box')
@@ -23,34 +22,50 @@ export default function WorkSection() {
       const rect = box[0].getBoundingClientRect()
       const parentWidth = box[0].parentElement.getBoundingClientRect().width
       const padding = parseInt(window.getComputedStyle(box[0]).padding, 10) / 2 || 0
-      translateX = rect.width * box.length - (rectLeft + parentWidth) + padding
+      translateX = Math.max(
+        0,
+        rect.width * box.length - (rectLeft + parentWidth) + padding,
+      )
     }
 
-    setTranslateX()
+    function build() {
+      timeline?.kill()
+      ScrollTrigger.getById('work')?.kill()
+      setTranslateX()
+      if (translateX <= 0) return
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.work-section',
-        start: 'top top',
-        end: `+=${translateX}`,
-        scrub: 1,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        id: 'work',
-        invalidateOnRefresh: true,
-      },
-    })
+      timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.work-section',
+          start: 'top top',
+          end: `+=${translateX}`,
+          scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          id: 'work',
+          invalidateOnRefresh: true,
+        },
+      })
 
-    timeline.to('.work-flex', {
-      x: -translateX,
-      ease: 'none',
-    })
+      timeline.to('.work-flex', {
+        x: -translateX,
+        ease: 'none',
+      })
+    }
 
+    build()
     ScrollTrigger.refresh()
 
+    const onResize = () => {
+      build()
+      ScrollTrigger.refresh()
+    }
+    window.addEventListener('resize', onResize)
+
     return () => {
-      timeline.kill()
+      window.removeEventListener('resize', onResize)
+      timeline?.kill()
       ScrollTrigger.getById('work')?.kill()
     }
   }, [])

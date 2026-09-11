@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 
 function getDisplayYear(period) {
@@ -12,6 +14,29 @@ function getDisplayYear(period) {
 
 export default function CareerSection() {
   const experiences = profile.experiences || []
+
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.career-section',
+        start: 'top 75%',
+        toggleActions: 'play none none reverse',
+      },
+    })
+
+    tl.fromTo(
+      '.career-container > h2',
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+    ).fromTo(
+      '.career-info-box',
+      { opacity: 0, y: 36 },
+      { opacity: 1, y: 0, duration: 0.55, stagger: 0.12, ease: 'power3.out' },
+      '-=0.3',
+    )
+
+    return () => tl.kill()
+  }, [])
 
   return (
     <div className="career-section section-container">

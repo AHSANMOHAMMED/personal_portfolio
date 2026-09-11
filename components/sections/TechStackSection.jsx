@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { gsap } from '@/lib/gsap'
 import { assetUrl } from '@/lib/siteConfig'
 
 const techStack = [
@@ -60,6 +62,29 @@ const techStack = [
 ]
 
 export default function TechStackSection() {
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.techstack-new',
+        start: 'top 70%',
+        toggleActions: 'play none none reverse',
+      },
+    })
+
+    tl.fromTo(
+      '.techstack-content > h2',
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+    ).fromTo(
+      '.techstack-row',
+      { opacity: 0, y: 28 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' },
+      '-=0.3',
+    )
+
+    return () => tl.kill()
+  }, [])
+
   return (
     <div className="techstack-new">
       <div className="techstack-video-container">

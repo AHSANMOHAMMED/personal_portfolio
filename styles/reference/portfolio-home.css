@@ -2052,37 +2052,37 @@ h2.landing-info-sub {
   box-shadow: 0 10px 30px rgba(194, 164, 255, 0.4);
 }
 
-/* Mobile: Stack work items vertically when GSAP pinning is disabled */
+/* Mobile: keep horizontal work track so GSAP pin/scrub still works on phones */
 @media only screen and (max-width: 768px) {
   .work-section {
-    height: auto;
-    min-height: auto;
+    height: 100vh;
+    min-height: 100vh;
   }
 
   .work-flex {
-    flex-direction: column;
-    margin-left: 0;
-    padding-right: 0;
+    flex-direction: row;
+    margin-left: -20px;
+    padding-right: 40px;
     gap: 0;
   }
 
   .work-box {
-    width: 100%;
-    max-width: 100%;
-    padding: 30px 15px;
-    border-right: none;
-    border-bottom: 1px solid #363636;
-    gap: 20px;
+    width: min(82vw, 340px);
+    max-width: min(82vw, 340px);
+    padding: 28px 18px;
+    border-right: 1px solid #363636;
+    border-bottom: none;
+    gap: 18px;
   }
 
   .work-flex .work-box:nth-child(even) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .work-section h2 {
     font-size: 36px;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    margin-top: 70px;
+    margin-bottom: 12px;
   }
 
   .work-title h3 {
@@ -2095,7 +2095,7 @@ h2.landing-info-sub {
   }
 
   .work-image img {
-    max-height: 200px;
+    max-height: 180px;
   }
 
   .work-box-cta {
@@ -2110,7 +2110,8 @@ h2.landing-info-sub {
   .see-all-works p {
     font-size: 14px;
   }
-}.techstack-new {
+}
+.techstack-new {
   position: relative;
   width: 100%;
   min-height: 100vh;

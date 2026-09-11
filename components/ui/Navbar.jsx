@@ -19,7 +19,7 @@ export default function Navbar() {
       (window.matchMedia('(max-width: 1024px)').matches ||
         window.matchMedia('(hover: none) and (pointer: coarse)').matches)
 
-    // Phones/tablets: use native scroll so the live page isn't trapped by Lenis.
+    // Phones/tablets: native scroll + ScrollTrigger (GSAP pin/scrub still works).
     if (isTouchMobile) {
       document.body.style.overflowY = 'auto'
       document.documentElement.style.overflowY = 'auto'
@@ -33,8 +33,14 @@ export default function Navbar() {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
       links.forEach((elem) => elem.addEventListener('click', onClick))
+      const refresh = () => ScrollTrigger.refresh()
+      window.addEventListener('orientationchange', refresh)
+      window.addEventListener('load', refresh)
+      requestAnimationFrame(refresh)
       return () => {
         links.forEach((elem) => elem.removeEventListener('click', onClick))
+        window.removeEventListener('orientationchange', refresh)
+        window.removeEventListener('load', refresh)
       }
     }
 
