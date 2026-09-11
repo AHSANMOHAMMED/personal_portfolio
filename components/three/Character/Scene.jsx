@@ -57,7 +57,8 @@ const Scene = () => {
     })
     renderer.setClearColor(0x000000, 0)
     renderer.setSize(width, height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    const isCompact = window.innerWidth <= 1024
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCompact ? 1.25 : 2))
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.05
     renderer.domElement.style.position = 'absolute'
@@ -68,9 +69,9 @@ const Scene = () => {
     renderer.domElement.style.zIndex = '2'
     container.insertBefore(renderer.domElement, container.firstChild)
 
-    const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000)
+    const camera = new THREE.PerspectiveCamera(isCompact ? 16 : 14.5, aspect, 0.1, 1000)
     // Reference framing for full-width centered canvas (mesh stays mid-frame)
-    camera.position.set(0, 13.2, 26.5)
+    camera.position.set(0, isCompact ? 12.4 : 13.2, isCompact ? 28 : 26.5)
     camera.zoom = 1.0
     camera.updateProjectionMatrix()
 

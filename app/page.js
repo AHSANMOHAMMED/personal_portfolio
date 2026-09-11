@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Navbar from '@/components/ui/Navbar'
 import CustomCursor from '@/components/ui/CustomCursor'
@@ -21,32 +21,20 @@ const CharacterModel = dynamic(() => import('@/components/three/Character'), {
 })
 
 function HomeContent() {
-  const [showCharacter, setShowCharacter] = useState(false)
-
-  useEffect(() => {
-    // Desktop-only 3D character (matches reference >1024)
-    const mq = window.matchMedia('(min-width: 1025px)')
-    const sync = () => setShowCharacter(mq.matches)
-    sync()
-    mq.addEventListener('change', sync)
-    return () => mq.removeEventListener('change', sync)
-  }, [])
-
+  // 3D character + GSAP scrub on all viewports (lighter settings on phones)
   return (
     <div className="container-main">
       <CustomCursor />
       <Navbar />
       <IconsSection />
-      {showCharacter ? (
-        <ErrorBoundary
-          fallback={null}
-          onError={(err) => console.error('Character crashed:', err)}
-        >
-          <Suspense fallback={null}>
-            <CharacterModel />
-          </Suspense>
-        </ErrorBoundary>
-      ) : null}
+      <ErrorBoundary
+        fallback={null}
+        onError={(err) => console.error('Character crashed:', err)}
+      >
+        <Suspense fallback={null}>
+          <CharacterModel />
+        </Suspense>
+      </ErrorBoundary>
       <div className="container-main">
         <LandingSection />
         <AboutSection />
